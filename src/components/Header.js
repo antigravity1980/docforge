@@ -56,14 +56,14 @@ export default function Header({ dict }) {
                     <Logo />
                 </Link>
 
-                <nav style={styles.nav}>
+                <nav className="nav-desktop" style={styles.nav}>
                     <Link href={`/${currentLocale}/#features`} style={styles.navLink}>{t.features}</Link>
                     <Link href={`/${currentLocale}/#how-it-works`} style={styles.navLink}>{t.howItWorks}</Link>
                     <Link href={`/${currentLocale}/pricing`} style={styles.navLink}>{t.pricing}</Link>
                     <Link href={`/${currentLocale}/#faq`} style={styles.navLink}>{t.faq}</Link>
                 </nav>
 
-                <div style={styles.actions}>
+                <div className="actions-desktop" style={styles.actions}>
                     <select
                         value={currentLocale}
                         onChange={(e) => {
@@ -103,6 +103,7 @@ export default function Header({ dict }) {
                 </div>
 
                 <button
+                    className="menu-toggle"
                     style={styles.menuBtn}
                     onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                     aria-label="Toggle menu"
@@ -252,16 +253,3 @@ const styles = {
     },
 };
 
-// CSS media query override for mobile
-if (typeof document !== 'undefined') {
-    const style = document.createElement('style');
-    style.textContent = `
-    @media (max-width: 768px) {
-      header nav { display: none !important; }
-      header > div > div:last-of-type { display: none !important; }
-      header button[aria-label="Toggle menu"] { display: flex !important; }
-    }
-    header a[style]:hover { color: #f0f0f5 !important; }
-  `;
-    document.head.appendChild(style);
-}

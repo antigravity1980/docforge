@@ -18,7 +18,7 @@ export default function Footer({ dict }) {
     return (
         <footer style={styles.footer}>
             <div style={styles.inner}>
-                <div style={styles.grid}>
+                <div className="grid-4" style={styles.grid}>
                     {/* Brand */}
                     <div style={styles.brand}>
                         <div style={styles.logoWrapper}>
@@ -83,9 +83,6 @@ const styles = {
         padding: '0 24px',
     },
     grid: {
-        display: 'grid',
-        gridTemplateColumns: '1.5fr 1fr 1fr 1fr',
-        gap: '48px',
         marginBottom: '48px',
     },
     brand: {

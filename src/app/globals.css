@@ -603,3 +603,42 @@ select {
   color: var(--text-secondary);
   font-style: italic;
 }
+
+/* ===== RESPONSIVE UTILITIES ===== */
+.grid-2, .grid-3, .grid-4, .grid-6 {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.grid-2 { grid-template-columns: repeat(2, 1fr); }
+.grid-3 { grid-template-columns: repeat(3, 1fr); }
+.grid-4 { grid-template-columns: repeat(4, 1fr); }
+.grid-6 { grid-template-columns: repeat(6, 1fr); }
+
+@media (max-width: 1024px) {
+  .grid-6 { grid-template-columns: repeat(3, 1fr); }
+  .grid-4 { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .grid-3, .grid-6 { grid-template-columns: 1fr; }
+  .grid-4 { grid-template-columns: 1fr; }
+  
+  .mobile-hide { display: none !important; }
+  .mobile-stack { flex-direction: column !important; }
+  
+  .section, .section-alt {
+    padding: var(--space-12) 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .grid-2 { grid-template-columns: 1fr; }
+}
+
+/* Header Overrides */
+@media (max-width: 768px) {
+  .nav-desktop { display: none !important; }
+  .actions-desktop { display: none !important; }
+  .menu-toggle { display: flex !important; }
+}

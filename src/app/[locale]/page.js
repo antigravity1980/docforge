@@ -93,7 +93,7 @@ export default async function Home({ params }) {
       {/* ===== STATS BAR ===== */}
       <section style={s.statsBar}>
         <div className="container">
-          <div style={s.statsGrid}>
+          <div className="grid-4" style={s.statsGrid}>
             {STATS.map((stat, i) => (
               <div key={i} style={s.statItem}>
                 <span style={s.statValue}>{stat.value}</span>
@@ -104,28 +104,32 @@ export default async function Home({ params }) {
         </div>
       </section>
 
-      {/* ===== FEATURES ===== */}
-      <section className="section" id="features">
+      {/* ===== FEATURES / TOOLS ===== */}
+      <section id="features" className="section">
         <div className="container">
           <div style={s.sectionHeader}>
-            <span className="badge" style={{ marginBottom: '12px' }}>{p.features.badge}</span>
             <h2 style={s.sectionTitle}>{p.features.title}<br /><span className="gradient-text">{p.features.titleAccent}</span></h2>
             <p style={s.sectionSubtitle}>{p.features.subtitle}</p>
           </div>
 
-          <div style={s.featuresGrid}>
-            {DOCUMENT_TYPES.map((cat, ci) => (
-              <div key={ci} className="card" style={{ ...s.featureCard, borderTop: `2px solid ${cat.color}` }}>
+          <div className="grid-3">
+            {DOCUMENT_TYPES.map((cat, i) => (
+              <div key={i} className="card" style={s.featureCard}>
                 <div style={s.featureCardHeader}>
                   <span style={{ fontSize: '32px' }}>{cat.icon}</span>
                   <h3 style={s.featureCardTitle}>{cat.category}</h3>
                 </div>
                 <div style={s.featureItems}>
-                  {cat.items.map((item, ii) => (
-                    <Link href={`/${locale}/generate/${item.slug}`} key={ii} style={s.featureItem}>
+                  {cat.items.map((item, j) => (
+                    <Link
+                      key={j}
+                      href={`/${locale}/tools/${item.slug}`}
+                      style={s.featureItem}
+                      className="feature-hover-item"
+                    >
                       <span style={s.featureItemName}>{item.name}</span>
                       <span style={s.featureItemDesc}>{item.desc}</span>
-                      <span style={s.featureArrow}>→</span>
+                      <span style={s.featureArrow} className="item-arrow">→</span>
                     </Link>
                   ))}
                 </div>
@@ -136,76 +140,65 @@ export default async function Home({ params }) {
       </section>
 
       {/* ===== HOW IT WORKS ===== */}
-      <section className="section-alt" id="how-it-works">
+      <section id="how-it-works" className="section-alt">
         <div className="container">
           <div style={s.sectionHeader}>
-            <span className="badge" style={{ marginBottom: '12px' }}>{p.howItWorks.badge}</span>
             <h2 style={s.sectionTitle}>{p.howItWorks.title}</h2>
             <p style={s.sectionSubtitle}>{p.howItWorks.subtitle}</p>
           </div>
 
-          <div style={s.stepsGrid}>
+          <div className="grid-3">
             {STEPS.map((step, i) => (
-              <div key={i} style={s.stepCard}>
+              <div key={i} className="card" style={s.stepCard}>
                 <div style={s.stepNum}>{step.num}</div>
-                <span style={{ fontSize: '40px', marginBottom: '16px', display: 'block' }}>{step.icon}</span>
+                <div style={{ fontSize: '40px', marginBottom: '24px' }}>{step.icon}</div>
                 <h3 style={s.stepTitle}>{step.title}</h3>
-                <p style={s.stepDesc}>{step.desc}</p>
+                <p style={s.stepDesc}>{step.description}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ===== PRICING PREVIEW ===== */}
-      <section className="section" id="pricing-preview">
+      {/* ===== PRICING ===== */}
+      <section id="pricing" className="section">
         <div className="container">
           <div style={s.sectionHeader}>
-            <span className="badge" style={{ marginBottom: '12px' }}>{p.pricing.badge}</span>
-            <h2 style={s.sectionTitle}>{p.pricing.title} <span className="gradient-text">{p.pricing.titleAccent}</span></h2>
-            <p style={s.sectionSubtitle}>{p.pricing.subtitle}</p>
+            <h2 style={s.sectionTitle}>{dict.nav.pricing}</h2>
+            <p style={s.sectionSubtitle}>{p.pricingSub}</p>
           </div>
 
-          <div style={s.pricingGrid}>
-            {/* Free */}
-            <div className="card" style={s.pricingCard}>
-              <h3 style={s.planName}>{p.pricing.plans.free}</h3>
-              <div style={s.planPrice}>$0<span style={s.planPeriod}>{p.pricing.periods.month}</span></div>
-              <ul style={s.planFeatures}>
-                <li style={s.planFeature}>✓ {p.pricing.features.docs3}</li>
-                <li style={s.planFeature}>✓ {p.pricing.features.allTypes}</li>
-                <li style={s.planFeature}>✓ {p.pricing.features.pdf}</li>
-                <li style={s.planFeatureDisabled}>✗ {p.pricing.features.watermark}</li>
-              </ul>
-              <Link href={`/${locale}/auth/signup`} className="btn btn-secondary" style={{ width: '100%' }}>{p.pricing.plans.getStarted}</Link>
-            </div>
-
-            {/* Starter */}
-            <div className="card" style={{ ...s.pricingCard, ...s.pricingPopular }}>
-              <div style={s.popularBadge}>{p.pricing.plans.popular}</div>
-              <h3 style={s.planName}>{p.pricing.plans.starter}</h3>
-              <div style={s.planPrice}>$9<span style={s.planPriceSmall}>.99</span><span style={s.planPeriod}>{p.pricing.periods.month}</span></div>
-              <ul style={s.planFeatures}>
-                <li style={s.planFeature}>✓ {p.pricing.features.docs30}</li>
-                <li style={s.planFeature}>✓ {p.pricing.features.allTypes}</li>
-                <li style={s.planFeature}>✓ {p.pricing.features.noWatermark}</li>
-                <li style={s.planFeature}>✓ {p.pricing.features.history}</li>
-              </ul>
-              <Link href={`/${locale}/auth/signup`} className="btn btn-primary" style={{ width: '100%' }}>{p.pricing.plans.freeTrial}</Link>
-            </div>
-
-            {/* Professional */}
-            <div className="card" style={s.pricingCard}>
-              <h3 style={s.planName}>{p.pricing.plans.pro}</h3>
-              <div style={s.planPrice}>$19<span style={s.planPriceSmall}>.99</span><span style={s.planPeriod}>{p.pricing.periods.month}</span></div>
-              <ul style={s.planFeatures}>
-                <li style={s.planFeature}>✓ {p.pricing.features.docsUnlimited}</li>
-                <li style={s.planFeature}>✓ {p.pricing.features.priority}</li>
-                <li style={s.planFeature}>✓ {p.pricing.features.allTypes}</li>
-                <li style={s.planFeature}>✓ {p.pricing.features.branding}</li>
-              </ul>
-              <Link href={`/${locale}/auth/signup`} className="btn btn-secondary" style={{ width: '100%' }}>{p.pricing.plans.getPro}</Link>
-            </div>
+          <div className="grid-3" style={{ maxWidth: '1000px', margin: '0 auto' }}>
+            {p.pricing.plans.map((plan, i) => (
+              <div
+                key={i}
+                className="card"
+                style={{
+                  ...s.pricingCard,
+                  ...(plan.popular ? s.pricingPopular : {})
+                }}
+              >
+                {plan.popular && <div style={s.popularBadge}>{p.pricing.popular}</div>}
+                <div style={s.planName}>{plan.name}</div>
+                <div style={s.planPrice}>
+                  <span style={s.planPriceSmall}>$</span>
+                  {plan.price}
+                  <span style={s.planPeriod}>/{plan.period}</span>
+                </div>
+                <ul style={s.planFeatures}>
+                  {plan.features.map((feat, j) => (
+                    <li key={j} style={s.planFeature}>✓ {feat}</li>
+                  ))}
+                </ul>
+                <Link
+                  href={`/${locale}/auth/signup`}
+                  className={`btn ${plan.popular ? 'btn-primary' : 'btn-secondary'} btn-lg`}
+                  style={{ width: '100%' }}
+                >
+                  {plan.cta}
+                </Link>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -214,15 +207,15 @@ export default async function Home({ params }) {
       <section className="section-alt">
         <div className="container">
           <div style={s.sectionHeader}>
-            <h2 style={s.sectionTitle}>{p.testimonials.title} <span className="gradient-text">{p.testimonials.titleAccent}</span></h2>
+            <h2 style={s.sectionTitle}>{p.testimonials.title}</h2>
           </div>
-          <div style={s.testimonialsGrid}>
+          <div className="grid-3">
             {TESTIMONIALS.map((t, i) => (
               <div key={i} className="card" style={s.testimonialCard}>
                 <div style={s.testimonialStars}>{'★'.repeat(t.rating)}</div>
-                <p style={s.testimonialText}>&ldquo;{t.text}&rdquo;</p>
+                <p style={s.testimonialText}>"{t.text}"</p>
                 <div style={s.testimonialAuthor}>
-                  <div style={s.testimonialAvatar}>{t.name[0]}</div>
+                  <div style={s.testimonialAvatar}>{t.name.charAt(0)}</div>
                   <div>
                     <div style={s.testimonialName}>{t.name}</div>
                     <div style={s.testimonialRole}>{t.role}</div>
@@ -240,7 +233,7 @@ export default async function Home({ params }) {
           <div style={s.sectionHeader}>
             <h2 style={s.sectionTitle}>{p.faq.title}</h2>
           </div>
-          <div style={s.faqGrid}>
+          <div className="grid-2" style={{ maxWidth: '1000px', margin: '0 auto' }}>
             {FAQS.map((faq, i) => (
               <div key={i} style={s.faqItem}>
                 <h3 style={s.faqQuestion}>{faq.q}</h3>
@@ -290,9 +283,9 @@ const s = {
     position: 'absolute',
     inset: 0,
     backgroundImage: `
-      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)
-    `,
+            linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)
+            `,
     backgroundSize: '60px 60px',
     pointerEvents: 'none',
     maskImage: 'radial-gradient(ellipse at center, black 30%, transparent 80%)',
