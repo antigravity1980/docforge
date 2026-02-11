@@ -1,9 +1,25 @@
 import { getDictionary } from '@/lib/get-dictionary';
 import Link from 'next/link';
+import { supabaseAdmin } from '@/lib/supabase-admin';
 
 export default async function Home({ params }) {
   const { locale } = await params;
   const dict = await getDictionary(locale);
+
+  // Fetch prices from DB
+  const { data: settingsData } = await supabaseAdmin
+    .from('settings')
+    .select('key, value');
+
+  const settings = settingsData?.reduce((acc, curr) => {
+    acc[curr.key] = curr.value;
+    return acc;
+  }, {}) || {};
+
+  const prices = {
+    starter: settings.priceStarter || '29',
+    pro: settings.pricePro || '79'
+  };
   const p = dict.page;
 
   const DOCUMENT_TYPES = [
@@ -57,27 +73,27 @@ export default async function Home({ params }) {
 
   const PRICING_PLANS = [
     {
-      name: p.pricing.plans.free.name,
+      name: dict.pricing_page.plans.free.name,
       price: '0',
-      period: p.pricing.periods.month,
-      features: [p.pricing.features.docs3, p.pricing.features.allTypes, p.pricing.features.pdf],
-      cta: p.pricing.plans.free.cta,
+      period: `/${dict.pricing_page.period_month}`,
+      features: dict.pricing_page.plans.free.features,
+      cta: dict.pricing_page.plans.free.cta,
       popular: false
     },
     {
-      name: p.pricing.plans.starter.name,
-      price: '29',
-      period: p.pricing.periods.month,
-      features: [p.pricing.features.docs30, p.pricing.features.noWatermark, p.pricing.features.priority],
-      cta: p.pricing.plans.starter.cta,
+      name: dict.pricing_page.plans.starter.name,
+      price: prices.starter,
+      period: `/${dict.pricing_page.period_month}`,
+      features: dict.pricing_page.plans.starter.features,
+      cta: dict.pricing_page.plans.starter.cta,
       popular: true
     },
     {
-      name: p.pricing.plans.pro.name,
-      price: '79',
-      period: p.pricing.periods.month,
-      features: [p.pricing.features.unlimited, p.pricing.features.customBranding, p.pricing.features.support],
-      cta: p.pricing.plans.pro.cta,
+      name: dict.pricing_page.plans.pro.name,
+      price: prices.pro,
+      period: `/${dict.pricing_page.period_month}`,
+      features: dict.pricing_page.plans.pro.features,
+      cta: dict.pricing_page.plans.pro.cta,
       popular: false
     }
   ];

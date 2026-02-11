@@ -6,7 +6,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
 
 
-export default function PricingClient({ dict, locale }) {
+export default function PricingClient({ dict, locale, prices = { starter: '29', pro: '79' } }) {
     const t = dict.pricing_page;
     const searchParams = useSearchParams();
     const [isYearly, setIsYearly] = useState(searchParams.get('bill') === 'year');
@@ -37,8 +37,8 @@ export default function PricingClient({ dict, locale }) {
         {
             name: t.plans.starter.name,
             id: 'Starter',
-            monthlyPrice: 9.99,
-            yearlyPrice: 7.99,
+            monthlyPrice: parseFloat(prices.starter),
+            yearlyPrice: parseFloat(prices.starter) * 0.8, // 20% discount
             description: t.plans.starter.desc,
             lemonSqueezyMonthlyId: process.env.NEXT_PUBLIC_LS_STARTER_MONTH_ID || 'variant_1',
             lemonSqueezyYearlyId: process.env.NEXT_PUBLIC_LS_STARTER_YEAR_ID || 'variant_2',
@@ -57,8 +57,8 @@ export default function PricingClient({ dict, locale }) {
         {
             name: t.plans.pro.name,
             id: 'Professional',
-            monthlyPrice: 19.99,
-            yearlyPrice: 15.99,
+            monthlyPrice: parseFloat(prices.pro),
+            yearlyPrice: parseFloat(prices.pro) * 0.8, // 20% discount
             description: t.plans.pro.desc,
             lemonSqueezyMonthlyId: process.env.NEXT_PUBLIC_LS_PRO_MONTH_ID || 'variant_3',
             lemonSqueezyYearlyId: process.env.NEXT_PUBLIC_LS_PRO_YEAR_ID || 'variant_4',

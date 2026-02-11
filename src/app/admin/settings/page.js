@@ -1,6 +1,4 @@
-'use client';
-
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function AdminSettingsPage() {
     const [settings, setSettings] = useState({
@@ -9,20 +7,56 @@ export default function AdminSettingsPage() {
         maintenanceMode: false,
         aiModel: 'llama-3.3-70b-versatile',
         maxFreeDocs: 3,
+        priceStarter: '29',
+        pricePro: '79'
     });
 
+    const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
     const [message, setMessage] = useState('');
 
-    const handleSave = (e) => {
+    useEffect(() => {
+        fetchSettings();
+    }, []);
+
+    const fetchSettings = async () => {
+        try {
+            const res = await fetch('/api/admin/settings');
+            if (res.ok) {
+                const data = await res.json();
+                setSettings(prev => ({ ...prev, ...data }));
+            }
+        } catch (err) {
+            console.error('Failed to fetch settings:', err);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleSave = async (e) => {
         e.preventDefault();
         setSaving(true);
-        // In a real app, this would be an API call
-        setTimeout(() => {
+        setMessage('');
+
+        try {
+            const res = await fetch('/api/admin/settings', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(settings)
+            });
+
+            if (res.ok) {
+                setMessage('✅ Settings saved successfully');
+                setTimeout(() => setMessage(''), 3000);
+            } else {
+                const data = await res.json();
+                setMessage('❌ Error: ' + (data.error || 'Failed to save'));
+            }
+        } catch (err) {
+            setMessage('❌ Network error');
+        } finally {
             setSaving(false);
-            setMessage('✅ Settings saved successfully');
-            setTimeout(() => setMessage(''), 3000);
-        }, 1000);
+        }
     };
 
     return (
@@ -68,6 +102,24 @@ export default function AdminSettingsPage() {
                             className="form-input"
                             value={settings.maxFreeDocs}
                             onChange={e => setSettings({ ...settings, maxFreeDocs: e.target.value })}
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label className="form-label">Starter Plan Price ($)</label>
+                        <input
+                            type="number"
+                            className="form-input"
+                            value={settings.priceStarter}
+                            onChange={e => setSettings({ ...settings, priceStarter: e.target.value })}
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label className="form-label">Pro Plan Price ($)</label>
+                        <input
+                            type="number"
+                            className="form-input"
+                            value={settings.pricePro}
+                            onChange={e => setSettings({ ...settings, pricePro: e.target.value })}
                         />
                     </div>
                 </div>
