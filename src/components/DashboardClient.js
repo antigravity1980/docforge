@@ -2,12 +2,15 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { supabase } from '@/lib/supabase';
+import { createClient } from '@/utils/supabase/client';
+import { ADMIN_EMAILS } from '@/lib/config';
 
 export default function DashboardClient({ locale, dict }) {
+    const supabase = createClient();
     const [profile, setProfile] = useState(null);
     const [documents, setDocuments] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [isAdmin, setIsAdmin] = useState(false);
     const t = dict.dashboard;
     const auth = dict.auth;
     const p = dict.page;
@@ -28,11 +31,20 @@ export default function DashboardClient({ locale, dict }) {
 
             if (!session) return;
 
+            const userEmail = session.user.email;
+            const adminStatus = ADMIN_EMAILS.includes(userEmail);
+            setIsAdmin(adminStatus);
+
             const { data: profileData } = await supabase
                 .from('profiles')
                 .select('*')
                 .eq('id', session.user.id)
                 .single();
+
+            // Override plan for admin
+            if (adminStatus && profileData) {
+                profileData.plan = 'Professional'; // Or 'Admin'
+            }
 
             setProfile(profileData);
 
@@ -50,8 +62,9 @@ export default function DashboardClient({ locale, dict }) {
         loadDashboardData();
     }, []);
 
-    const limit = profile?.plan === 'Professional' ? 100 : profile?.plan === 'Starter' ? 10 : 3;
+    const limit = isAdmin ? 9999 : (profile?.plan === 'Professional' ? 100 : profile?.plan === 'Starter' ? 10 : 3);
     const used = profile?.docs_generated_this_month || 0;
+    const planName = isAdmin ? 'Admin Unlimited' : (profile?.plan || t.currentPlan);
 
     if (loading) {
         return <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{t.loading}</div>;
@@ -84,7 +97,7 @@ export default function DashboardClient({ locale, dict }) {
                     <div style={s.statCard}>
                         <div style={s.statIcon}>⭐</div>
                         <div>
-                            <div style={s.statValue}>{profile?.plan || t.currentPlan}</div>
+                            <div style={s.statValue}>{planName}</div>
                             <div style={s.statLabel}>{t.currentPlan}</div>
                         </div>
                         <Link href={`/${locale}/pricing`} style={s.upgradeLink}>{t.upgrade}</Link>

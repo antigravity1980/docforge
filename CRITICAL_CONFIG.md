@@ -53,5 +53,31 @@ Before every deploy, verify:
 2.  **Lint Check:** Run `npm run lint` locally. It MUST pass.
 3.  **Env Check:** Ensure Vercel has `SUPABASE_SERVICE_ROLE_KEY`.
 
+
+## 4. Authentication (Next.js 15 Migrated)
+
+We have migrated to **@supabase/ssr** for compatibility with Next.js 15 async cookies.
+
+### 📦 Dependencies
+- **REQUIRED:** `@supabase/ssr`
+- **REMOVED:** `@supabase/auth-helpers-nextjs` (Do not install!)
+
+### 🔑 Critical Files
+- `src/utils/supabase/server.js` (Server Components)
+- `src/utils/supabase/client.js` (Client Components)
+- `src/utils/supabase/middleware.js` (Session Refresh)
+
+### 👮 Admin & Plan Overrides
+- **Admin Access:** Admins defined in `src/lib/config.js` (`ADMIN_EMAILS`) automatically get:
+  - **Plan:** "Admin Unlimited" (Overrides database value)
+  - **Limit:** 9999 documents/month
+  - **Access:** Full access to `/admin` routes.
+
+### 📄 Document Views
+The document viewing system now uses Server Components for security and performance:
+- List: `src/app/[locale]/documents/page.js`
+- View: `src/app/[locale]/documents/[id]/page.js`
+- PDF Generation: Client-side logic in `DocumentViewClient.js`
+
 ---
 *Created by Antigravity Agent to prevent future site breakages.*
