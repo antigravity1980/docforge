@@ -1,20 +1,39 @@
 'use client';
 
-const ADMIN_STATS = [
-    { label: 'Total Revenue', value: '$0.00', change: '0%', icon: '💰', color: '#10b981' },
-    { label: 'New Users', value: '0', change: '0%', icon: '👤', color: '#6366f1' },
-    { label: 'Docs Generated', value: '0', change: '0%', icon: '📝', color: '#8b5cf6' },
-    { label: 'Conversion Rate', value: '0%', change: '0%', icon: '📈', color: '#f59e0b' },
-];
-
-const RECENT_ACTIVITY = [];
+import { useState, useEffect } from 'react';
 
 export default function AdminDashboard() {
+    const [stats, setStats] = useState([
+        { label: 'Total Revenue', value: '$0.00', change: '0%', icon: '💰', color: '#10b981' },
+        { label: 'Total Users', value: '0', change: '0%', icon: '👤', color: '#6366f1' },
+        { label: 'Docs Generated', value: '0', change: '0%', icon: '📝', color: '#8b5cf6' },
+        { label: 'Conversion Rate', value: '0%', change: '0%', icon: '📈', color: '#f59e0b' },
+    ]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        fetchStats();
+    }, []);
+
+    const fetchStats = async () => {
+        try {
+            const res = await fetch('/api/admin/stats');
+            const data = await res.json();
+            if (data.stats) {
+                setStats(data.stats);
+            }
+        } catch (error) {
+            console.error('Failed to fetch stats:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return (
         <div style={s.container}>
             {/* Stats Grid */}
             <div style={s.statsGrid}>
-                {ADMIN_STATS.map((stat, i) => (
+                {stats.map((stat, i) => (
                     <div key={i} className="card" style={s.statCard}>
                         <div style={s.statHeader}>
                             <div style={{ ...s.statIcon, background: `${stat.color}20`, color: stat.color }}>
@@ -22,7 +41,7 @@ export default function AdminDashboard() {
                             </div>
                             <span style={s.statChange}>{stat.change}</span>
                         </div>
-                        <div style={s.statValue}>{stat.value}</div>
+                        <div style={s.statValue}>{loading ? '...' : stat.value}</div>
                         <div style={s.statLabel}>{stat.label}</div>
                     </div>
                 ))}
@@ -33,10 +52,13 @@ export default function AdminDashboard() {
                 <div className="card" style={s.chartCard}>
                     <div style={s.cardHeader}>
                         <h3 style={s.cardTitle}>Revenue & Usage</h3>
-                        <select style={s.chartSelect}>
-                            <option>Last 7 days</option>
-                            <option>Last 30 days</option>
-                        </select>
+                        <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+                            <span style={{ fontSize: '12px', color: '#6b6b80' }}>(Charts coming soon)</span>
+                            <select style={s.chartSelect}>
+                                <option>Last 7 days</option>
+                                <option>Last 30 days</option>
+                            </select>
+                        </div>
                     </div>
                     <div style={s.chartPlaceholder}>
                         {/* Simulated Chart */}
@@ -58,21 +80,10 @@ export default function AdminDashboard() {
                 {/* Recent Activity */}
                 <div className="card" style={s.activityCard}>
                     <h3 style={s.cardTitle}>Recent Activity</h3>
-                    <div style={s.activityList}>
-                        {RECENT_ACTIVITY.map((act, i) => (
-                            <div key={i} style={s.activityItem}>
-                                <div style={s.activityInfo}>
-                                    <div style={s.activityUser}>{act.user}</div>
-                                    <div style={s.activityAction}>{act.action}</div>
-                                </div>
-                                <div style={s.activityMeta}>
-                                    {act.amount && <span style={s.activityAmount}>{act.amount}</span>}
-                                    <div style={s.activityTime}>{act.time}</div>
-                                </div>
-                            </div>
-                        ))}
+                    <div style={{ ...s.activityList, justifyContent: 'center', alignItems: 'center', color: '#6b6b80', fontSize: '13px' }}>
+                        No recent activity recorded.
                     </div>
-                    <button style={s.viewAllBtn}>View all activity →</button>
+                    {/* <button style={s.viewAllBtn}>View all activity →</button> */}
                 </div>
             </div>
         </div>

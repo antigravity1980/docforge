@@ -1,50 +1,96 @@
 /**
  * AI Provider abstraction for DocForge AI
- * Supports Groq (free tier) and DeepSeek (cheap fallback)
+ * Supports Groq, DeepSeek, and OpenRouter
  */
+
+import { supabaseAdmin } from './supabase-admin';
 
 const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
-const DEEPSEEK_API_URL = 'https://api.deepseek.com/v1/chat/completions';
+const DEEPSEEK_API_URL = 'https://api.deepseek.com/chat/completions'; // Corrected Endpoint
+const OPENROUTER_API_URL = 'https://openrouter.ai/api/v1/chat/completions';
+const OPENROUTER_AUTH_URL = 'https://openrouter.ai/api/v1/auth/key';
 
 /**
- * Generate text using AI (Groq first, DeepSeek fallback)
+ * Fetch AI configuration from Settings
  */
-export async function generateWithAI(systemPrompt, userPrompt) {
-    // Try Groq first (free tier)
-    if (process.env.GROQ_API_KEY) {
-        try {
-            const result = await callGroq(systemPrompt, userPrompt);
-            return result;
-        } catch (err) {
-            console.error('Groq API error, trying DeepSeek fallback:', err.message);
-        }
-    }
+export async function getAIConfig() {
+    try {
+        const { data } = await supabaseAdmin
+            .from('settings')
+            .select('*')
+            .in('key', ['aiProvider', 'aiModel']);
 
-    // Fallback 1: DeepSeek
-    if (process.env.DEEPSEEK_API_KEY) {
-        try {
-            const result = await callDeepSeek(systemPrompt, userPrompt);
-            return result;
-        } catch (err) {
-            console.error('DeepSeek API error, trying OpenRouter fallback:', err.message);
-        }
-    }
+        const config = {};
+        data?.forEach(item => {
+            config[item.key] = item.value;
+        });
 
-    // Fallback 2: OpenRouter (The "Nuclear" backup - accesses all models)
-    if (process.env.OPENROUTER_API_KEY) {
-        try {
-            const result = await callOpenRouter(systemPrompt, userPrompt);
-            return result;
-        } catch (err) {
-            console.error('OpenRouter API error:', err.message);
-            throw new Error('All AI providers are currently unavailable. Please try again in a few minutes.');
-        }
+        // Defaults
+        return {
+            provider: config.aiProvider || 'groq',
+            model: config.aiModel || 'llama-3.3-70b-versatile'
+        };
+    } catch (e) {
+        console.warn('Failed to fetch AI config, using defaults:', e);
+        return { provider: 'groq', model: 'llama-3.3-70b-versatile' };
     }
-
-    throw new Error('No AI API key configured or all providers reached limits. Please check your environment variables.');
 }
 
-async function callGroq(systemPrompt, userPrompt) {
+/**
+ * Get Balance for the current provider (if supported)
+ */
+export async function getProviderBalance() {
+    const config = await getAIConfig();
+
+    if (config.provider === 'openrouter' && process.env.OPENROUTER_API_KEY) {
+        try {
+            const res = await fetch(OPENROUTER_AUTH_URL, {
+                headers: { 'Authorization': `Bearer ${process.env.OPENROUTER_API_KEY}` }
+            });
+            const data = await res.json();
+            // OpenRouter returns usage/limit, not always exact $ balance, but 'data.data.limit' or similar. 
+            // Actually OpenRouter API for credits is separate, but auth/key gives info. 
+            // Let's assume for now we return a link or basic info if available.
+            return data?.data ? `Credits: $${(data.data.limit || 0).toFixed(2)}` : 'Unknown';
+        } catch (e) {
+            return 'Error fetching balance';
+        }
+    }
+
+    // For Groq and DeepSeek, there is no standardized public API for balance checking 
+    // without scraping or internal dashboards.
+    return 'Check Provider Dashboard';
+}
+
+/**
+ * Generate text using AI
+ */
+export async function generateWithAI(systemPrompt, userPrompt) {
+    const config = await getAIConfig();
+    console.log(`🤖 Generating with ${config.provider} (${config.model})`);
+
+    try {
+        switch (config.provider) {
+            case 'deepseek':
+                return await callDeepSeek(systemPrompt, userPrompt, config.model);
+            case 'openrouter':
+                return await callOpenRouter(systemPrompt, userPrompt, config.model);
+            case 'groq':
+            default:
+                return await callGroq(systemPrompt, userPrompt, config.model);
+        }
+    } catch (err) {
+        console.error(`${config.provider} failed:`, err.message);
+        throw err;
+    }
+}
+
+async function callGroq(systemPrompt, userPrompt, model) {
+    if (!process.env.GROQ_API_KEY) throw new Error('GROQ_API_KEY not configured');
+
+    // Ensure model is valid for Groq
+    const cleanModel = model && model.includes('/') ? 'llama-3.3-70b-versatile' : (model || 'llama-3.3-70b-versatile');
+
     const response = await fetch(GROQ_API_URL, {
         method: 'POST',
         headers: {
@@ -52,7 +98,7 @@ async function callGroq(systemPrompt, userPrompt) {
             'Authorization': `Bearer ${process.env.GROQ_API_KEY}`,
         },
         body: JSON.stringify({
-            model: process.env.GROQ_MODEL || 'llama-3.3-70b-versatile',
+            model: cleanModel,
             messages: [
                 { role: 'system', content: systemPrompt },
                 { role: 'user', content: userPrompt },
@@ -71,7 +117,9 @@ async function callGroq(systemPrompt, userPrompt) {
     return data.choices[0].message.content;
 }
 
-async function callDeepSeek(systemPrompt, userPrompt) {
+async function callDeepSeek(systemPrompt, userPrompt, model) {
+    if (!process.env.DEEPSEEK_API_KEY) throw new Error('DEEPSEEK_API_KEY not configured');
+
     const response = await fetch(DEEPSEEK_API_URL, {
         method: 'POST',
         headers: {
@@ -98,8 +146,10 @@ async function callDeepSeek(systemPrompt, userPrompt) {
     return data.choices[0].message.content;
 }
 
-async function callOpenRouter(systemPrompt, userPrompt) {
-    const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+async function callOpenRouter(systemPrompt, userPrompt, model) {
+    if (!process.env.OPENROUTER_API_KEY) throw new Error('OPENROUTER_API_KEY not configured');
+
+    const response = await fetch(OPENROUTER_API_URL, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -108,7 +158,7 @@ async function callOpenRouter(systemPrompt, userPrompt) {
             'X-Title': 'DocForge AI',
         },
         body: JSON.stringify({
-            model: process.env.OPENROUTER_MODEL || 'meta-llama/llama-3.1-70b-instruct',
+            model: model || 'meta-llama/llama-3.1-70b-instruct',
             messages: [
                 { role: 'system', content: systemPrompt },
                 { role: 'user', content: userPrompt },

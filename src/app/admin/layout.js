@@ -4,9 +4,11 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 import '@/app/globals.css';
+import { useState, useEffect } from 'react';
 
 export default function AdminLayout({ children }) {
     const pathname = usePathname();
+    const [balanceAlert, setBalanceAlert] = useState(null);
 
     const menuItems = [
         { name: 'Overview', href: '/admin', icon: '📊' },
@@ -16,6 +18,13 @@ export default function AdminLayout({ children }) {
         { name: 'Settings', href: '/admin/settings', icon: '⚙️' },
         { name: 'Back to Site', href: '/', icon: '👈' },
     ];
+
+    // Check balance on mount (mocked for now as we don't have a direct API to call from client easily without a route)
+    // Real implementation would fetch from an API route that uses getProviderBalance()
+    useEffect(() => {
+        // Placeholder for balance check
+    }, []);
+
     return (
         <html lang="en">
             <body>
@@ -23,7 +32,7 @@ export default function AdminLayout({ children }) {
                     {/* Sidebar */}
                     <aside style={s.sidebar}>
                         <div style={s.logo}>
-                            <Image src="/logo.png" alt="DocForge Admin" width={32} height={32} />
+                            {/* <Image src="/logo.png" alt="DocForge Admin" width={32} height={32} /> */}
                             <span style={s.logoText}>DocForge <span style={{ color: '#818cf8' }}>Admin</span></span>
                         </div>
 
@@ -38,7 +47,7 @@ export default function AdminLayout({ children }) {
                                             ...s.navItem,
                                             background: isActive ? 'rgba(99, 102, 241, 0.1)' : 'transparent',
                                             color: isActive ? '#818cf8' : '#a0a0b8',
-                                            borderColor: isActive ? '#6366f1' : 'transparent',
+                                            borderLeft: isActive ? '3px solid #6366f1' : '3px solid transparent',
                                         }}
                                     >
                                         <span style={s.navIcon}>{item.icon}</span>
@@ -66,11 +75,24 @@ export default function AdminLayout({ children }) {
                                 {menuItems.find(m => m.href === pathname)?.name || 'Admin'}
                             </h1>
                             <div style={s.topActions}>
-                                <div style={s.search}>
-                                    <span style={{ marginLeft: '12px' }}>🔍</span>
+                                {/* <div style={s.search}>
+                                    <span style={{ marginLeft: '12px', fontSize: '14px' }}>🔍</span>
                                     <input type="text" placeholder="Search..." style={s.searchInput} />
+                                </div> */}
+                                <div style={{ position: 'relative', cursor: 'pointer' }}>
+                                    <span style={{ fontSize: '20px' }} title="Notifications">🔔</span>
+                                    {balanceAlert && (
+                                        <span style={{
+                                            position: 'absolute',
+                                            top: '-2px',
+                                            right: '-2px',
+                                            width: '8px',
+                                            height: '8px',
+                                            background: '#ef4444',
+                                            borderRadius: '50%'
+                                        }} />
+                                    )}
                                 </div>
-                                <button style={s.notifBtn}>🔔</button>
                             </div>
                         </header>
                         <div style={s.content}>
@@ -89,6 +111,7 @@ const s = {
         minHeight: '100vh',
         background: '#0a0a0f',
         color: '#f0f0f5',
+        fontFamily: "'Inter', sans-serif",
     },
     sidebar: {
         width: '260px',
@@ -111,6 +134,7 @@ const s = {
     logoText: {
         fontSize: '18px',
         fontWeight: 800,
+        letterSpacing: '-0.02em',
     },
     nav: {
         flex: 1,
@@ -124,12 +148,11 @@ const s = {
         alignItems: 'center',
         gap: '12px',
         padding: '12px 16px',
-        borderRadius: '10px',
+        borderRadius: '8px',
         fontSize: '14px',
         fontWeight: 500,
         textDecoration: 'none',
         transition: 'all 0.2s ease',
-        borderLeft: '3px solid transparent',
     },
     navIcon: {
         fontSize: '18px',
@@ -153,10 +176,12 @@ const s = {
         justifyContent: 'center',
         fontWeight: 700,
         fontSize: '14px',
+        color: 'white',
     },
     adminName: {
         fontSize: '13px',
         fontWeight: 600,
+        color: '#f0f0f5',
     },
     adminRole: {
         fontSize: '11px',
@@ -184,6 +209,7 @@ const s = {
     pageTitle: {
         fontSize: '20px',
         fontWeight: 700,
+        color: '#f0f0f5',
     },
     topActions: {
         display: 'flex',
@@ -197,6 +223,7 @@ const s = {
         display: 'flex',
         alignItems: 'center',
         width: '240px',
+        padding: '0 12px',
     },
     searchInput: {
         background: 'none',
@@ -205,6 +232,7 @@ const s = {
         padding: '8px 12px',
         fontSize: '13px',
         width: '100%',
+        outline: 'none',
     },
     notifBtn: {
         background: 'none',
@@ -212,6 +240,7 @@ const s = {
         fontSize: '18px',
         cursor: 'pointer',
         opacity: 0.7,
+        padding: '8px',
     },
     content: {
         padding: '32px',
