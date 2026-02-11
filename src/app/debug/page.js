@@ -1,41 +1,38 @@
-import { cookies } from 'next/headers';
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+'use client';
 
-export default async function DebugPage() {
-    const cookieStore = await cookies();
+import { useEffect, useState } from 'react';
+import { supabase } from '@/lib/supabase';
 
-    // Manual check for supabase token
-    const allCookies = cookieStore.getAll();
-    const supabaseCookies = allCookies.filter(c => c.name.startsWith('sb-'));
+export default function DebugPage() {
+    const [cookies, setCookies] = useState('');
+    const [session, setSession] = useState(null);
+    const [loading, setLoading] = useState(true);
 
-    // Try to get session
-    let sessionUser = 'No session';
-    try {
-        const supabase = createServerComponentClient({ cookies: () => cookieStore });
-        const { data } = await supabase.auth.getSession();
-        if (data.session) {
-            sessionUser = data.session.user.email;
+    useEffect(() => {
+        // 1. Get browser cookies
+        setCookies(document.cookie);
+
+        // 2. Get Supabase session (client-side)
+        async function checkSession() {
+            const { data } = await supabase.auth.getSession();
+            setSession(data.session);
+            setLoading(false);
         }
-    } catch (e) {
-        sessionUser = 'Error getting session: ' + e.message;
-    }
+        checkSession();
+    }, []);
 
     return (
-        <div style={{ padding: '40px', fontFamily: 'monospace', background: '#fff', color: '#000' }}>
-            <h1>Debug Info</h1>
-            <p><strong>Time:</strong> {new Date().toISOString()}</p>
+        <div style={{ padding: '40px', fontFamily: 'monospace', color: '#333' }}>
+            <h1>Client-Side Debug</h1>
             <hr />
-            <h2>Session Status</h2>
-            <p>User: <strong>{sessionUser}</strong></p>
+            <h3>Session:</h3>
+            <pre>{loading ? 'Loading...' : (session ? `${session.user.email} (${session.user.id})` : 'NO SESSION')}</pre>
+
             <hr />
-            <h2>Cookies ({allCookies.length})</h2>
-            <ul>
-                {allCookies.map(c => (
-                    <li key={c.name}>
-                        <strong>{c.name}</strong>: {c.value.substring(0, 10)}... (Path: {c.path}, Secure: {c.secure ? 'Yes' : 'No'})
-                    </li>
-                ))}
-            </ul>
+            <h3>Raw Cookies:</h3>
+            <div style={{ wordBreak: 'break-all', background: '#f0f0f0', padding: '10px' }}>
+                {cookies || 'No cookies found'}
+            </div>
         </div>
     );
 }
