@@ -201,18 +201,20 @@ export default function AdminSettings() {
                             <label style={s.label}>Starter Price ($)</label>
                             <input
                                 type="number"
+                                step="0.01"
                                 style={s.input}
                                 value={settings.priceStarter}
-                                onChange={(e) => setSettings({ ...settings, priceStarter: parseInt(e.target.value) })}
+                                onChange={(e) => setSettings({ ...settings, priceStarter: e.target.value })}
                             />
                         </div>
                         <div style={s.formGroup}>
                             <label style={s.label}>Pro Price ($)</label>
                             <input
                                 type="number"
+                                step="0.01"
                                 style={s.input}
                                 value={settings.pricePro}
-                                onChange={(e) => setSettings({ ...settings, pricePro: parseInt(e.target.value) })}
+                                onChange={(e) => setSettings({ ...settings, pricePro: e.target.value })}
                             />
                         </div>
                     </div>
