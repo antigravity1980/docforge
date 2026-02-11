@@ -138,3 +138,21 @@ const styles = {
         marginTop: '24px',
     },
 };
+
+// Global styles for raw markdown
+if (typeof document !== 'undefined') {
+    const style = document.createElement('style');
+    style.textContent = `
+        .markdown-content h2 { color: #f0f0f5; font-size: 28px; font-weight: 700; margin: 40px 0 20px; }
+        .markdown-content h3 { color: #f0f0f5; font-size: 22px; font-weight: 600; margin: 32px 0 16px; }
+        .markdown-content p { margin-bottom: 24px; }
+        .markdown-content ul, .markdown-content ol { margin-bottom: 24px; padding-left: 20px; }
+        .markdown-content li { margin-bottom: 12px; }
+        .markdown-content strong { color: #fff; font-weight: 700; }
+        @media (max-width: 768px) {
+            article { padding: 32px !important; }
+            h1 { font-size: 32px !important; }
+        }
+    `;
+    document.head.appendChild(style);
+}
