@@ -4,11 +4,11 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
+import Logo from './Logo';
 
 export default function SignUpClient({ locale, dict }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [name, setName] = useState('');
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
@@ -24,9 +24,6 @@ export default function SignUpClient({ locale, dict }) {
             email,
             password,
             options: {
-                data: {
-                    full_name: name,
-                },
                 emailRedirectTo: `${window.location.origin}/api/auth/callback`,
             },
         });
@@ -79,8 +76,7 @@ export default function SignUpClient({ locale, dict }) {
             <div style={s.card}>
                 <div style={s.header}>
                     <Link href={`/${locale}`} style={s.logo}>
-                        <span style={{ fontSize: '28px' }}>⚡</span>
-                        <span style={s.logoText}>Doc<span className="gradient-text">Forge</span> AI</span>
+                        <Logo />
                     </Link>
                     <h1 style={s.title}>{t.signUpTitle}</h1>
                     <p style={s.subtitle}>{t.signUpSub}</p>
@@ -98,18 +94,6 @@ export default function SignUpClient({ locale, dict }) {
                 </div>
 
                 <form onSubmit={handleEmailSignUp} style={s.form}>
-                    <div className="form-group">
-                        <label className="form-label" htmlFor="name">{t.fullName}</label>
-                        <input
-                            id="name"
-                            type="text"
-                            className="form-input"
-                            placeholder="John Doe"
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                            required
-                        />
-                    </div>
                     <div className="form-group">
                         <label className="form-label" htmlFor="email">{t.email}</label>
                         <input

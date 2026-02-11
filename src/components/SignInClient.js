@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
+import Logo from './Logo';
 
 export default function SignInClient({ locale, dict }) {
     const [email, setEmail] = useState('');
@@ -53,8 +54,7 @@ export default function SignInClient({ locale, dict }) {
             <div style={s.card}>
                 <div style={s.header}>
                     <Link href={`/${locale}`} style={s.logo}>
-                        <span style={{ fontSize: '28px' }}>⚡</span>
-                        <span style={s.logoText}>Doc<span className="gradient-text">Forge</span> AI</span>
+                        <Logo />
                     </Link>
                     <h1 style={s.title}>{t.signInTitle}</h1>
                     <p style={s.subtitle}>{t.signInSub}</p>
