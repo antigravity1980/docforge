@@ -1,4 +1,5 @@
 import { createClient } from '@/utils/supabase/server';
+import { supabaseAdmin } from '@/lib/supabase-admin';
 import { NextResponse } from 'next/server';
 import { ADMIN_EMAILS } from '@/lib/config';
 
@@ -11,7 +12,8 @@ export async function GET() {
         return NextResponse.json({ error: 'Unauthorized' }, { status: 403 });
     }
 
-    const { data, error } = await supabase
+    // Use supabaseAdmin to bypass RLS
+    const { data, error } = await supabaseAdmin
         .from('settings')
         .select('*');
 
@@ -25,7 +27,7 @@ export async function GET() {
         return acc;
     }, {});
 
-    return NextResponse.json(settings);
+    return NextResponse.json({ settings });
 }
 
 export async function POST(req) {
@@ -40,11 +42,13 @@ export async function POST(req) {
     const updates = await req.json();
 
     for (const [key, value] of Object.entries(updates)) {
-        const { error } = await supabase
+        // Use supabaseAdmin to bypass RLS for updates
+        const { error } = await supabaseAdmin
             .from('settings')
-            .upsert({ key, value, updated_at: new Date().toISOString() }, { onConflict: 'key' });
+            .upsert({ key, value: String(value), updated_at: new Date().toISOString() }, { onConflict: 'key' });
 
         if (error) {
+            console.error('Settings update error:', error);
             return NextResponse.json({ error: error.message }, { status: 500 });
         }
     }

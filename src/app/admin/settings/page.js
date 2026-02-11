@@ -2,20 +2,20 @@
 
 import { useState, useEffect } from 'react';
 
-export default function AdminSettingsPage() {
+export default function AdminSettings() {
     const [settings, setSettings] = useState({
         siteName: 'DocForge AI',
-        supportEmail: 'support@docforge.ai',
+        supportEmail: '',
         maintenanceMode: false,
+        aiProvider: 'groq',
         aiModel: 'llama-3.3-70b-versatile',
         maxFreeDocs: 3,
-        priceStarter: '29',
-        pricePro: '79'
+        priceStarter: 29,
+        pricePro: 79,
     });
-
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
-    const [message, setMessage] = useState('');
+    const [message, setMessage] = useState(null);
 
     useEffect(() => {
         fetchSettings();
@@ -24,140 +24,215 @@ export default function AdminSettingsPage() {
     const fetchSettings = async () => {
         try {
             const res = await fetch('/api/admin/settings');
-            if (res.ok) {
-                const data = await res.json();
-                setSettings(prev => ({ ...prev, ...data }));
+            const data = await res.json();
+            if (data.settings) {
+                setSettings(prev => ({ ...prev, ...data.settings }));
             }
-        } catch (err) {
-            console.error('Failed to fetch settings:', err);
+        } catch (error) {
+            console.error('Failed to fetch settings:', error);
         } finally {
             setLoading(false);
         }
     };
 
     const handleSave = async (e) => {
-        e.preventDefault();
+        if (e) e.preventDefault();
         setSaving(true);
-        setMessage('');
-
+        setMessage(null);
         try {
             const res = await fetch('/api/admin/settings', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(settings)
+                body: JSON.stringify(settings),
             });
 
-            if (res.ok) {
-                setMessage('✅ Settings saved successfully');
-                setTimeout(() => setMessage(''), 3000);
-            } else {
-                const data = await res.json();
-                setMessage('❌ Error: ' + (data.error || 'Failed to save'));
+            if (!res.ok) {
+                const err = await res.json();
+                throw new Error(err.error || 'Failed to save');
             }
-        } catch (err) {
-            setMessage('❌ Network error');
+
+            setMessage({ type: 'success', text: 'Settings saved successfully' });
+        } catch (error) {
+            setMessage({ type: 'error', text: 'Failed to save settings: ' + error.message });
         } finally {
             setSaving(false);
         }
     };
 
+    const getModelsForProvider = (provider) => {
+        switch (provider) {
+            case 'groq':
+                return ['llama-3.3-70b-versatile', 'llama3-8b-8192', 'mixtral-8x7b-32768'];
+            case 'deepseek':
+                return ['deepseek-chat', 'deepseek-coder'];
+            case 'openrouter':
+                return ['meta-llama/llama-3.1-70b-instruct', 'anthropic/claude-3-opus', 'google/gemini-pro-1.5', 'openai/gpt-4o'];
+            default:
+                return [];
+        }
+    };
+
+    const getProviderLink = (provider) => {
+        switch (provider) {
+            case 'groq': return 'https://console.groq.com/settings/billing';
+            case 'deepseek': return 'https://platform.deepseek.com/top_up';
+            case 'openrouter': return 'https://openrouter.ai/credits';
+            default: return '#';
+        }
+    };
+
     return (
         <div style={s.container}>
-            <h2 style={s.sectionTitle}>Global System Settings</h2>
+            <div style={s.header}>
+                <h2 style={s.title}>Global Settings</h2>
+                <button
+                    style={s.saveBtn}
+                    onClick={handleSave}
+                    disabled={saving}
+                >
+                    {saving ? 'Saving...' : 'Save Changes'}
+                </button>
+            </div>
 
-            <form onSubmit={handleSave} style={s.card}>
-                <div style={s.grid}>
-                    <div className="form-group">
-                        <label className="form-label">SaaS Name</label>
+            {message && (
+                <div style={{
+                    ...s.message,
+                    background: message.type === 'success' ? 'rgba(16, 185, 129, 0.1)' : 'rgba(239, 68, 68, 0.1)',
+                    color: message.type === 'success' ? '#10b981' : '#ef4444',
+                    border: message.type === 'success' ? '1px solid rgba(16, 185, 129, 0.2)' : '1px solid rgba(239, 68, 68, 0.2)'
+                }}>
+                    {message.text}
+                </div>
+            )}
+
+            <div style={s.grid}>
+                {/* General Settings */}
+                <div className="card" style={s.card}>
+                    <h3 style={s.cardTitle}>General</h3>
+                    <div style={s.formGroup}>
+                        <label style={s.label}>Site Name</label>
                         <input
                             type="text"
-                            className="form-input"
+                            style={s.input}
                             value={settings.siteName}
-                            onChange={e => setSettings({ ...settings, siteName: e.target.value })}
+                            onChange={(e) => setSettings({ ...settings, siteName: e.target.value })}
                         />
                     </div>
-                    <div className="form-group">
-                        <label className="form-label">Support Email</label>
+                    <div style={s.formGroup}>
+                        <label style={s.label}>Support Email</label>
                         <input
-                            type="email"
-                            className="form-input"
+                            type="text"
+                            style={s.input}
                             value={settings.supportEmail}
-                            onChange={e => setSettings({ ...settings, supportEmail: e.target.value })}
+                            onChange={(e) => setSettings({ ...settings, supportEmail: e.target.value })}
                         />
                     </div>
-                    <div className="form-group">
-                        <label className="form-label">Primary AI Model</label>
+                </div>
+
+                {/* AI Configuration */}
+                <div className="card" style={s.card}>
+                    <h3 style={s.cardTitle}>AI Configuration</h3>
+                    <div style={s.formGroup}>
+                        <label style={s.label}>AI Provider</label>
+                        <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+                            <select
+                                style={s.select}
+                                value={settings.aiProvider}
+                                onChange={(e) => setSettings({
+                                    ...settings,
+                                    aiProvider: e.target.value,
+                                    aiModel: getModelsForProvider(e.target.value)[0]
+                                })}
+                            >
+                                <option value="groq">Groq (Fast & Free)</option>
+                                <option value="deepseek">DeepSeek (Low Cost)</option>
+                                <option value="openrouter">OpenRouter (All Models)</option>
+                            </select>
+                            <a
+                                href={getProviderLink(settings.aiProvider)}
+                                target="_blank"
+                                className="btn"
+                                style={{
+                                    ...s.saveBtn,
+                                    background: 'rgba(255,255,255,0.05)',
+                                    textDecoration: 'none',
+                                    whiteSpace: 'nowrap',
+                                    height: '42px',
+                                    display: 'flex',
+                                    alignItems: 'center'
+                                }}
+                            >
+                                Check Balance ↗
+                            </a>
+                        </div>
+                    </div>
+                    <div style={s.formGroup}>
+                        <label style={s.label}>Model</label>
                         <select
-                            className="form-select"
+                            style={s.select}
                             value={settings.aiModel}
-                            onChange={e => setSettings({ ...settings, aiModel: e.target.value })}
+                            onChange={(e) => setSettings({ ...settings, aiModel: e.target.value })}
                         >
-                            <option value="llama-3.3-70b-versatile">Llama 3.3 70B (Fast/Free)</option>
-                            <option value="llama-3-70b-8192">Llama 3 70B</option>
-                            <option value="deepseek-chat">DeepSeek Chat (V3)</option>
+                            {/* Always show current model even if not in list (legacy support) */}
+                            {!getModelsForProvider(settings.aiProvider).includes(settings.aiModel) && settings.aiModel && (
+                                <option value={settings.aiModel}>{settings.aiModel} (Custom/Legacy)</option>
+                            )}
+                            {getModelsForProvider(settings.aiProvider).map(model => (
+                                <option key={model} value={model}>{model}</option>
+                            ))}
                         </select>
                     </div>
-                    <div className="form-group">
-                        <label className="form-label">Free Plan Documents Limit</label>
+                </div>
+
+                {/* Pricing & Limits */}
+                <div className="card" style={s.card}>
+                    <h3 style={s.cardTitle}>Pricing & Limits</h3>
+                    <div style={s.formGroup}>
+                        <label style={s.label}>Free Generation Limit (per month)</label>
                         <input
                             type="number"
-                            className="form-input"
+                            style={s.input}
                             value={settings.maxFreeDocs}
-                            onChange={e => setSettings({ ...settings, maxFreeDocs: e.target.value })}
+                            onChange={(e) => setSettings({ ...settings, maxFreeDocs: parseInt(e.target.value) })}
                         />
                     </div>
-                    <div className="form-group">
-                        <label className="form-label">Starter Plan Price ($)</label>
-                        <input
-                            type="number"
-                            className="form-input"
-                            value={settings.priceStarter}
-                            onChange={e => setSettings({ ...settings, priceStarter: e.target.value })}
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label className="form-label">Pro Plan Price ($)</label>
-                        <input
-                            type="number"
-                            className="form-input"
-                            value={settings.pricePro}
-                            onChange={e => setSettings({ ...settings, pricePro: e.target.value })}
-                        />
+                    <div style={s.row}>
+                        <div style={s.formGroup}>
+                            <label style={s.label}>Starter Price ($)</label>
+                            <input
+                                type="number"
+                                style={s.input}
+                                value={settings.priceStarter}
+                                onChange={(e) => setSettings({ ...settings, priceStarter: parseInt(e.target.value) })}
+                            />
+                        </div>
+                        <div style={s.formGroup}>
+                            <label style={s.label}>Pro Price ($)</label>
+                            <input
+                                type="number"
+                                style={s.input}
+                                value={settings.pricePro}
+                                onChange={(e) => setSettings({ ...settings, pricePro: parseInt(e.target.value) })}
+                            />
+                        </div>
                     </div>
                 </div>
 
-                <div style={s.divider} />
-
-                <div style={s.toggleSection}>
-                    <div>
-                        <div style={s.toggleLabel}>Maintenance Mode</div>
-                        <div style={s.toggleSub}>When enabled, users will see a &quot;Site under maintenance&quot; page.</div>
+                {/* Danger Zone */}
+                <div className="card" style={{ ...s.card, border: '1px solid rgba(239, 68, 68, 0.2)' }}>
+                    <h3 style={{ ...s.cardTitle, color: '#ef4444' }}>Danger Zone</h3>
+                    <div style={s.formGroup}>
+                        <div style={s.checkboxRow}>
+                            <input
+                                type="checkbox"
+                                id="maintenance"
+                                checked={settings.maintenanceMode === 'true' || settings.maintenanceMode === true}
+                                onChange={(e) => setSettings({ ...settings, maintenanceMode: e.target.checked })}
+                            />
+                            <label htmlFor="maintenance" style={{ ...s.label, marginBottom: 0 }}>Enable Maintenance Mode</label>
+                        </div>
+                        <p style={s.hint}>This will block access for all non-admin users.</p>
                     </div>
-                    <button
-                        type="button"
-                        onClick={() => setSettings({ ...settings, maintenanceMode: !settings.maintenanceMode })}
-                        style={{
-                            ...s.toggleBtn,
-                            background: settings.maintenanceMode ? '#ef4444' : 'rgba(255,255,255,0.05)'
-                        }}
-                    >
-                        {settings.maintenanceMode ? 'ENABLED' : 'DISABLED'}
-                    </button>
-                </div>
-
-                {message && <div style={s.successMsg}>{message}</div>}
-
-                <button type="submit" className="btn btn-primary" style={{ marginTop: '24px' }} disabled={saving}>
-                    {saving ? 'Saving...' : 'Save Settings'}
-                </button>
-            </form>
-
-            <div style={{ ...s.card, marginTop: '32px', borderColor: 'rgba(239, 68, 68, 0.2)' }}>
-                <h3 style={{ ...s.sectionTitle, color: '#ef4444', marginBottom: '16px' }}>Danger Zone</h3>
-                <p style={s.toggleSub}>These actions are irreversible and affect the entire application.</p>
-                <div style={{ display: 'flex', gap: '12px', marginTop: '20px' }}>
-                    <button className="btn btn-secondary" style={{ color: '#ef4444' }}>Clear All Session Logs</button>
-                    <button className="btn btn-secondary" style={{ color: '#ef4444' }}>Reset Usage Statistics</button>
                 </div>
             </div>
         </div>
@@ -166,60 +241,97 @@ export default function AdminSettingsPage() {
 
 const s = {
     container: {
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '24px',
         maxWidth: '800px',
     },
-    sectionTitle: {
-        fontSize: '20px',
-        fontWeight: 700,
-        marginBottom: '24px',
-    },
-    card: {
-        background: 'rgba(255, 255, 255, 0.02)',
-        border: '1px solid rgba(255, 255, 255, 0.08)',
-        borderRadius: '16px',
-        padding: '32px',
-    },
-    grid: {
-        display: 'grid',
-        gridTemplateColumns: '1fr 1fr',
-        gap: '24px',
-    },
-    divider: {
-        height: '1px',
-        background: 'rgba(255, 255, 255, 0.06)',
-        margin: '32px 0',
-    },
-    toggleSection: {
+    header: {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
     },
-    toggleLabel: {
-        fontSize: '15px',
-        fontWeight: 600,
-    },
-    toggleSub: {
-        fontSize: '13px',
-        color: '#6b6b80',
-        marginTop: '4px',
-    },
-    toggleBtn: {
-        padding: '8px 20px',
-        borderRadius: '8px',
-        border: '1px solid rgba(255, 255, 255, 0.1)',
-        color: 'white',
-        fontSize: '12px',
+    title: {
+        fontSize: '24px',
         fontWeight: 700,
-        cursor: 'pointer',
-        transition: 'all 0.2s ease',
     },
-    successMsg: {
-        marginTop: '20px',
-        padding: '12px',
-        background: 'rgba(16, 185, 129, 0.1)',
-        color: '#10b981',
-        borderRadius: '10px',
+    saveBtn: {
+        background: '#6366f1',
+        color: 'white',
+        border: 'none',
+        padding: '0 24px',
+        height: '42px',
+        borderRadius: '8px',
+        fontWeight: 600,
+        cursor: 'pointer',
         fontSize: '14px',
-        textAlign: 'center',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    grid: {
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '24px',
+    },
+    card: {
+        padding: '24px',
+    },
+    cardTitle: {
+        fontSize: '16px',
+        fontWeight: 600,
+        marginBottom: '20px',
+        borderBottom: '1px solid rgba(255,255,255,0.06)',
+        paddingBottom: '12px',
+    },
+    formGroup: {
+        marginBottom: '20px',
+    },
+    label: {
+        display: 'block',
+        fontSize: '13px',
+        fontWeight: 500,
+        color: '#a0a0b8',
+        marginBottom: '8px',
+    },
+    input: {
+        width: '100%',
+        background: 'rgba(255, 255, 255, 0.03)',
+        border: '1px solid rgba(255, 255, 255, 0.08)',
+        borderRadius: '8px',
+        padding: '12px',
+        color: 'white',
+        fontSize: '14px',
+    },
+    select: {
+        width: '100%',
+        background: 'rgba(255, 255, 255, 0.03)',
+        border: '1px solid rgba(255, 255, 255, 0.08)',
+        borderRadius: '8px',
+        padding: '12px',
+        color: 'white',
+        fontSize: '14px',
+    },
+    row: {
+        display: 'grid',
+        gridTemplateColumns: '1fr 1fr',
+        gap: '20px',
+    },
+    message: {
+        padding: '12px',
+        borderRadius: '8px',
+        fontSize: '14px',
+        fontWeight: 500,
+    },
+    checkboxRow: {
+        display: 'flex',
+        alignItems: 'center',
+        gap: '10px',
+    },
+    hint: {
+        fontSize: '12px',
+        color: '#6b6b80',
+        marginTop: '6px',
+        marginLeft: '24px',
     },
 };
