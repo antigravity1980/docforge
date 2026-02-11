@@ -56,7 +56,6 @@ export default async function BlogPage({ params }) {
 const styles = {
     page: {
         padding: '80px 0',
-        minHeight: '100vh',
         background: 'var(--bg-primary)',
     },
     header: {

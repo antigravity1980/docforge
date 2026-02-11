@@ -70,7 +70,6 @@ export default async function BlogPostPage({ params }) {
 const styles = {
     page: {
         padding: '80px 0',
-        minHeight: '100vh',
         background: 'var(--bg-primary)',
     },
     backLink: {
