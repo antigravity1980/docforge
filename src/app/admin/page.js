@@ -263,12 +263,4 @@ const s = {
 };
 
 // CSS for chart hover
-if (typeof document !== 'undefined') {
-    const style = document.createElement('style');
-    style.textContent = `
-    div[style*="height"] > div[style*="opacity: 0"] { display: block; }
-    div[style*="height"]:hover { filter: brightness(1.2); }
-    div[style*="height"]:hover > div { opacity: 1 !important; }
-  `;
-    document.head.appendChild(style);
-}
+// Removed unsafe document.head.appendChild
