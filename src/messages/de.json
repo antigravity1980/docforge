@@ -928,5 +928,9 @@
     "privacy": {
         "title": "Datenschutzerklärung",
         "content": "## 1. Einleitung\nWillkommen bei DocForge AI. Der Schutz Ihrer Daten ist uns wichtig.\n\n## 2. Datenerhebung\nWir erheben E-Mail-Adressen (via Google OAuth), Zahlungsdaten (via Lemon Squeezy) und Nutzungsstatistiken.\n\n## 3. Nutzung\nIhre Daten dienen der Dokumentenerstellung und Abonnementverwaltung.\n\n## 4. Ihre Rechte (DSGVO)\nSie können Ihre Daten jederzeit einsehen oder löschen.\n\n## 5. Kontakt\nsupport@docforge.site"
+    },
+    "terms": {
+        "title": "Nutzungsbedingungen",
+        "content": "## 1. Annahme der Bedingungen\nDurch die Nutzung von DocForge AI stimmen Sie diesen Bedingungen zu.\n\n## 2. Dienstleistung\nDocForge AI bietet KI-gestützte Dokumentenerstellung.\n\n## 3. Keine Rechtsberatung\n**WICHTIG:** DocForge AI ist keine Anwaltskanzlei. Dokumente dienen nur Informationszwecken.\n\n## 4. Zahlungen\nAbwicklungen erfolgen über Lemon Squeezy.\n\n## 5. Kontakt\nDocForge AI Support: [@docforgebot](https://t.me/docforgebot)"
     }
 }

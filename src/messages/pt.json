@@ -928,5 +928,9 @@
     "privacy": {
         "title": "Política de Privacidade",
         "content": "## 1. Introdução\nBem-vindo ao DocForge AI. A sua privacidade é a nossa prioridade.\n\n## 2. Informações que recolhemos\nColetamos email (OAuth), dados de pagamento (Lemon Squeezy) e uso do sistema.\n\n## 3. Uso das informações\nPara gerar documentos profissionais e gerir a sua conta.\n\n## 4. Seus direitos (GDPR)\nPode aceder ou eliminar os seus dados no painel de controlo.\n\n## 5. Contact\nDocForge AI: [@docforgebot](https://t.me/docforgebot)"
+    },
+    "terms": {
+        "title": "Termos de Serviço",
+        "content": "## 1. Aceitação\nAo usar o DocForge AI, você concorda com estes termos.\n\n## 2. Serviço\nPlataforma de geração de documentos por IA.\n\n## 3. Sem aconselhamento jurídico\n**IMPORTANTE:** O DocForge AI não é um escritório de advogados.\n\n## 4. Pagamentos\nProcessados pelo Lemon Squeezy.\n\n## 5. Contacto\nDocForge AI Support: [@docforgebot](https://t.me/docforgebot)"
     }
 }
