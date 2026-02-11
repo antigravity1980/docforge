@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { supabase } from '@/lib/supabase';
+import Logo from './Logo';
 import { useRouter, usePathname } from 'next/navigation';
 import { locales } from '@/lib/config';
 
@@ -52,9 +52,8 @@ export default function Header({ dict }) {
     return (
         <header style={styles.header}>
             <div style={styles.inner}>
-                <Link href={`/${currentLocale}`} style={styles.logo}>
-                    <Image src="/logo.png" alt="DocForge AI" width={32} height={32} />
-                    <span style={styles.logoText}>Doc<span style={styles.logoAccent}>Forge</span> AI</span>
+                <Link href={`/${currentLocale}`} style={styles.logoLink}>
+                    <Logo />
                 </Link>
 
                 <nav style={styles.nav}>
@@ -170,20 +169,10 @@ const styles = {
         justifyContent: 'space-between',
         height: '100%',
     },
-    logo: {
+    logoLink: {
+        textDecoration: 'none',
         display: 'flex',
         alignItems: 'center',
-        gap: '8px',
-        textDecoration: 'none',
-    },
-    logoIcon: {
-        fontSize: '24px',
-    },
-    logoText: {
-        fontSize: '20px',
-        fontWeight: 800,
-        color: '#f0f0f5',
-        letterSpacing: '-0.5px',
     },
     logoAccent: {
         background: 'linear-gradient(135deg, #6366f1, #a78bfa)',

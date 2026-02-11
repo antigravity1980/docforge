@@ -49,3 +49,4 @@ exhaustive_localize.js
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+\n# Temp files\nenv.txt\nenv_setup.txt\nВажный момент

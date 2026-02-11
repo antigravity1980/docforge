@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { locales } from '@/lib/config';
 
-import Image from 'next/image';
+import Logo from './Logo';
 
 export default function Footer({ dict }) {
     const pathname = usePathname();
@@ -21,9 +21,8 @@ export default function Footer({ dict }) {
                 <div style={styles.grid}>
                     {/* Brand */}
                     <div style={styles.brand}>
-                        <div style={styles.logo}>
-                            <Image src="/logo.png" alt="DocForge AI" width={32} height={32} />
-                            <span style={styles.logoText}>Doc<span style={styles.logoAccent}>Forge</span> AI</span>
+                        <div style={styles.logoWrapper}>
+                            <Logo />
                         </div>
                         <p style={styles.description}>
                             {t.description || "Generate professional documents in seconds with AI."}
@@ -94,15 +93,9 @@ const styles = {
         flexDirection: 'column',
         gap: '16px',
     },
-    logo: {
+    logoWrapper: {
         display: 'flex',
         alignItems: 'center',
-        gap: '8px',
-    },
-    logoText: {
-        fontSize: '20px',
-        fontWeight: 800,
-        color: '#f0f0f5',
     },
     logoAccent: {
         background: 'linear-gradient(135deg, #6366f1, #a78bfa)',
