@@ -68,9 +68,9 @@ export default async function Home({ params }) {
             {p.hero.badge}
           </div>
           <h1 style={s.heroTitle} className="animate-fade-in-up delay-1">
-            {dict.hero.title.split('30 Seconds')[0]}
+            {dict.hero.title.split(p.hero.titleAccent)[0]}
             <span className="gradient-text">{p.hero.titleAccent}</span>
-            {dict.hero.title.split('30 Seconds')[1]}
+            {dict.hero.title.split(p.hero.titleAccent)[1]}
           </h1>
           <p style={s.heroSubtitle} className="animate-fade-in-up delay-2">
             {dict.hero.subtitle}
