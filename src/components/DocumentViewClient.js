@@ -5,6 +5,8 @@ import { useRouter } from 'next/navigation';
 import ReactMarkdown from 'react-markdown';
 import Link from 'next/link';
 import { createClient } from '@/utils/supabase/client';
+import ReactDOMServer from 'react-dom/server';
+import Logo from '@/components/Logo';
 
 export default function DocumentViewClient({ doc, locale, dict }) {
     const router = useRouter();
@@ -17,16 +19,15 @@ export default function DocumentViewClient({ doc, locale, dict }) {
         icon: '📄'
     };
 
+    // ... imports
+
     const handleDownloadPDF = () => {
-        const formatContent = (text) => {
-            return text
-                .replace(/^### (.*$)/gim, '<h3>$1</h3>')
-                .replace(/^## (.*$)/gim, '<h2>$1</h2>')
-                .replace(/^# (.*$)/gim, '<h1>$1</h1>')
-                .replace(/\*\*(.*)\*\*/gim, '<strong>$1</strong>')
-                .replace(/\*(.*)\*/gim, '<em>$1</em>')
-                .replace(/\n/g, '<br>');
-        };
+        const logoHtml = ReactDOMServer.renderToStaticMarkup(<Logo showText={true} width={40} height={40} fontSize="24px" />);
+        const contentHtml = ReactDOMServer.renderToStaticMarkup(
+            <div className="markdown-content">
+                <ReactMarkdown>{doc.content}</ReactMarkdown>
+            </div>
+        );
 
         const printWindow = window.open('', '_blank');
         printWindow.document.write(`
@@ -34,42 +35,86 @@ export default function DocumentViewClient({ doc, locale, dict }) {
         <head>
           <title>${doc.title}</title>
           <style>
-            body { font-family: 'Times New Roman', serif; max-width: 800px; margin: 40px auto; padding: 40px; line-height: 1.6; color: #111; position: relative; }
-            .header-branding { display: flex; flex-direction: column; margin-bottom: 30px; font-family: 'Inter', sans-serif; }
-            .site-name { font-weight: 800; font-size: 16px; color: #111; }
-            .site-url { font-size: 12px; color: #666; }
-            h1 { font-size: 22px; text-align: center; margin-bottom: 25px; font-weight: bold; margin-top: 10px; }
-            h2 { font-size: 18px; margin-top: 20px; font-weight: bold; border-bottom: 1px solid #eee; padding-bottom: 5px; }
-            h3 { font-size: 16px; margin-top: 15px; font-weight: bold; }
-            p { margin-bottom: 12px; }
-            strong { font-weight: bold; }
+            @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+            
+            @page {
+                size: A4;
+                margin: 0;
+            }
+            
+            body {
+                font-family: 'Inter', sans-serif;
+                margin: 0;
+                padding: 0;
+                color: #111;
+                -webkit-print-color-adjust: exact;
+            }
+
+            .print-container {
+                padding: 20mm;
+                max-width: 210mm;
+                margin: 0 auto;
+            }
+
+            /* Logo Styling */
+            .header-branding { margin-bottom: 40px; }
+            
+            /* Markdown Content Styling */
+            .markdown-content { font-size: 14px; line-height: 1.6; }
+            .markdown-content h1 { font-size: 24px; font-weight: 800; margin-bottom: 24px; color: #000; }
+            .markdown-content h2 { font-size: 18px; font-weight: 700; margin-top: 32px; margin-bottom: 16px; border-bottom: 1px solid #eee; padding-bottom: 8px; color: #333; }
+            .markdown-content h3 { font-size: 16px; font-weight: 600; margin-top: 24px; margin-bottom: 12px; color: #444; }
+            .markdown-content p { margin-bottom: 16px; text-align: justify; }
+            .markdown-content ul, .markdown-content ol { margin-bottom: 16px; padding-left: 24px; }
+            .markdown-content li { margin-bottom: 8px; }
+            
+            /* Bold/Italic Fixes */
+            .markdown-content strong { font-weight: 800; color: #000; }
+            .markdown-content em { font-style: italic; }
+            
+            /* Disclaimer */
             .disclaimer { 
-                margin-top: 50px; 
+                margin-top: 60px; 
                 padding-top: 20px; 
                 border-top: 1px solid #eee; 
                 font-size: 10px; 
-                color: #888; 
+                color: #999; 
                 text-align: center;
                 font-style: italic;
+            }
+            
+            /* Hide URL/Title headers in some browsers */
+            @media print {
+                body { -webkit-print-color-adjust: exact; }
             }
           </style>
         </head>
         <body>
-          <div class="header-branding">
-            <span class="site-name">⚡ DocForge AI</span>
-            <span class="site-url">www.docforge.site</span>
+          <div class="print-container">
+            <div class="header-branding">
+                ${logoHtml}
+            </div>
+            
+            <div class="content">
+                ${contentHtml}
+            </div>
+
+            <div class="disclaimer">
+                ${g.disclaimer}
+            </div>
           </div>
-          <div class="content">
-            ${formatContent(doc.content)}
-          </div>
-          <div class="disclaimer">
-            ${g.disclaimer}
-          </div>
+          <script>
+            window.onload = () => {
+                setTimeout(() => {
+                    window.print();
+                    window.close();
+                }, 500);
+            };
+          </script>
         </body>
       </html>
     `);
         printWindow.document.close();
-        printWindow.print();
     };
 
     return (
