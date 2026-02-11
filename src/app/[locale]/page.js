@@ -152,11 +152,11 @@ export default async function Home({ params }) {
                       key={j}
                       href={`/${locale}/tools/${item.slug}`}
                       style={s.featureItem}
-                      className="feature-hover-item"
+                      className="feature-hover-item mobile-stack"
                     >
                       <span style={s.featureItemName}>{item.name}</span>
                       <span style={s.featureItemDesc}>{item.desc}</span>
-                      <span style={s.featureArrow} className="item-arrow">→</span>
+                      <span style={s.featureArrow} className="item-arrow mobile-hide">→</span>
                     </Link>
                   ))}
                 </div>
@@ -438,7 +438,8 @@ const s = {
   featureItem: {
     display: 'flex',
     alignItems: 'center',
-    gap: '8px',
+    flexDirection: 'row',
+    gap: '12px',
     padding: '10px 12px',
     borderRadius: '8px',
     transition: 'all 0.2s ease',
@@ -453,7 +454,7 @@ const s = {
   featureItemDesc: {
     fontSize: '13px',
     color: '#6b6b80',
-    flex: 1,
+    lineHeight: '1.4',
   },
   featureArrow: {
     fontSize: '14px',
