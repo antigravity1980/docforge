@@ -9,15 +9,17 @@ export default function AdminUsers() {
     const [total, setTotal] = useState(0);
     const [totalPages, setTotalPages] = useState(0);
     const [search, setSearch] = useState('');
+    const [filterPlan, setFilterPlan] = useState('All');
+    const [deleting, setDeleting] = useState(null);
 
     useEffect(() => {
         fetchUsers();
-    }, [page, search]);
+    }, [page, search, filterPlan]);
 
     const fetchUsers = async () => {
         setLoading(true);
         try {
-            const query = new URLSearchParams({ page, search });
+            const query = new URLSearchParams({ page, search, plan: filterPlan });
             const res = await fetch(`/api/admin/users?${query}`);
             const data = await res.json();
             if (data.users) {
@@ -35,6 +37,31 @@ export default function AdminUsers() {
     const handleSearch = (e) => {
         setSearch(e.target.value);
         setPage(1); // Reset to page 1 on search
+    };
+
+    const handleDelete = async (userId, userName) => {
+        if (!confirm(`Are you sure you want to PERMANENTLY delete user "${userName}"?\n\nThis action cannot be undone.`)) {
+            return;
+        }
+
+        setDeleting(userId);
+        try {
+            const res = await fetch(`/api/admin/users?id=${userId}`, {
+                method: 'DELETE',
+            });
+            const data = await res.json();
+
+            if (res.ok) {
+                alert('User deleted successfully.');
+                fetchUsers(); // Refresh list
+            } else {
+                alert('Failed to delete user: ' + (data.error || 'Unknown error'));
+            }
+        } catch (error) {
+            alert('Network error while deleting user');
+        } finally {
+            setDeleting(null);
+        }
     };
 
     const downloadCSV = () => {
@@ -67,6 +94,16 @@ export default function AdminUsers() {
                     />
                 </div>
                 <div style={s.filters}>
+                    <select
+                        style={s.filterSelect}
+                        value={filterPlan}
+                        onChange={(e) => { setFilterPlan(e.target.value); setPage(1); }}
+                    >
+                        <option value="All">All Plans</option>
+                        <option value="Free">Free</option>
+                        <option value="Starter">Starter</option>
+                        <option value="Pro">Pro</option>
+                    </select>
                     <button className="btn btn-secondary btn-sm" onClick={downloadCSV} disabled={users.length === 0}>
                         Export CSV
                     </button>
@@ -81,7 +118,7 @@ export default function AdminUsers() {
                             <th style={s.th}>Plan</th>
                             <th style={s.th}>Registered</th>
                             <th style={s.th}>Status</th>
-                            {/* <th style={s.th}>Actions</th> */}
+                            <th style={{ ...s.th, textAlign: 'right' }}>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -119,9 +156,16 @@ export default function AdminUsers() {
                                             {user.status}
                                         </span>
                                     </td>
-                                    {/* <td style={s.td}>
-                                        <button style={s.actionBtn}>•••</button>
-                                    </td> */}
+                                    <td style={{ ...s.td, textAlign: 'right' }}>
+                                        <button
+                                            style={s.deleteBtn}
+                                            onClick={() => handleDelete(user.id, user.name)}
+                                            disabled={deleting === user.id}
+                                            title="Delete User"
+                                        >
+                                            {deleting === user.id ? '...' : '🗑'}
+                                        </button>
+                                    </td>
                                 </tr>
                             ))
                         )}
@@ -193,6 +237,8 @@ const s = {
         color: '#f0f0f5',
         padding: '0 16px',
         fontSize: '14px',
+        outline: 'none',
+        cursor: 'pointer',
     },
     tableCard: {
         padding: 0,
@@ -264,13 +310,6 @@ const s = {
         borderRadius: '50%',
         background: '#10b981',
     },
-    actionBtn: {
-        background: 'none',
-        border: 'none',
-        color: '#6b6b80',
-        cursor: 'pointer',
-        fontSize: '16px',
-    },
     pagination: {
         padding: '16px 24px',
         display: 'flex',
@@ -293,6 +332,20 @@ const s = {
         border: '1px solid rgba(255,255,255,0.06)',
         color: '#a0a0b8',
         fontSize: '13px',
+        cursor: 'pointer',
+        transition: 'all 0.2s ease',
+    },
+    deleteBtn: {
+        background: 'rgba(239, 68, 68, 0.1)',
+        border: '1px solid rgba(239, 68, 68, 0.2)',
+        color: '#ef4444',
+        borderRadius: '8px',
+        width: '32px',
+        height: '32px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        fontSize: '16px',
         cursor: 'pointer',
         transition: 'all 0.2s ease',
     },

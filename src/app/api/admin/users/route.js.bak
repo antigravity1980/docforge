@@ -15,7 +15,6 @@ export async function GET(request) {
     const { searchParams } = new URL(request.url);
     const page = parseInt(searchParams.get('page') || '1');
     const search = searchParams.get('search') || '';
-    const plan = searchParams.get('plan') || 'All';
     const limit = 10;
     const from = (page - 1) * limit;
     const to = from + limit - 1;
@@ -29,10 +28,6 @@ export async function GET(request) {
 
         if (search) {
             query = query.or(`email.ilike.%${search}%,full_name.ilike.%${search}%`);
-        }
-
-        if (plan && plan !== 'All') {
-            query = query.eq('plan', plan);
         }
 
         const { data: profiles, count, error } = await query;
@@ -58,52 +53,6 @@ export async function GET(request) {
 
     } catch (error) {
         console.error('Admin Users API Error:', error);
-        return NextResponse.json({ error: error.message }, { status: 500 });
-    }
-}
-
-export async function DELETE(request) {
-    const supabase = await createClient();
-
-    // 1. Check Auth (Double check for safety)
-    const { data: { session } } = await supabase.auth.getSession();
-    if (!session || !ADMIN_EMAILS.includes(session.user.email)) {
-        return NextResponse.json({ error: 'Unauthorized' }, { status: 403 });
-    }
-
-    try {
-        const { searchParams } = new URL(request.url);
-        const userId = searchParams.get('id');
-
-        if (!userId) {
-            return NextResponse.json({ error: 'User ID required' }, { status: 400 });
-        }
-
-        console.log(`🗑 Admin deleting user: ${userId}`);
-
-        // Delete from Auth (this usually cascades, but we also ensure profile is gone)
-        // Note: supabaseAdmin.auth.admin.deleteUser requires Service Role
-        const { error: authError } = await supabaseAdmin.auth.admin.deleteUser(userId);
-
-        if (authError) {
-            console.error('Auth delete error:', authError);
-            throw authError;
-        }
-
-        // Explicitly delete profile just in case (though it should cascade if set up right)
-        const { error: profileError } = await supabaseAdmin
-            .from('profiles')
-            .delete()
-            .eq('id', userId);
-
-        if (profileError) {
-            console.warn('Profile delete warning (might already be gone):', profileError);
-        }
-
-        return NextResponse.json({ success: true });
-
-    } catch (error) {
-        console.error('Delete user failed:', error);
         return NextResponse.json({ error: error.message }, { status: 500 });
     }
 }
