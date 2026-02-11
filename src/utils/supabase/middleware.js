@@ -9,7 +9,6 @@ export async function updateSession(request) {
         },
     })
 
-    // 1. Create Supabase Client
     const supabase = createServerClient(
         process.env.NEXT_PUBLIC_SUPABASE_URL,
         process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
@@ -31,37 +30,75 @@ export async function updateSession(request) {
         }
     )
 
-    // 2. Refresh Session
+    // 1. Refresh Session & Get User
     const { data: { user } } = await supabase.auth.getUser()
 
     const url = request.nextUrl
     const pathname = url.pathname
 
-    // --- i18n Logic (Preserved) ---
+    // 2. i18n Logic
     const locales = ['en', 'fr', 'de', 'es', 'it', 'pt']
     const defaultLocale = 'en'
     const pathnameHasLocale = locales.some(
         (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
     )
 
-    if (!pathnameHasLocale) {
-        const isInternal = pathname.startsWith('/api') ||
-            pathname.startsWith('/_next') ||
-            pathname.startsWith('/admin') ||
-            pathname.includes('.') ||
-            pathname === '/robots.txt' ||
-            pathname === '/sitemap.xml' ||
-            pathname === '/auth/v1/callback' // Exclude Supabase auth callback if it hits middleware
+    // Helper to identify internal paths
+    const isInternal = pathname.startsWith('/api') ||
+        pathname.startsWith('/_next') ||
+        pathname.startsWith('/admin') || // Admin is handled separately but is considered "internal" structure-wise
+        pathname.includes('.') ||
+        pathname === '/robots.txt' ||
+        pathname === '/sitemap.xml' ||
+        pathname === '/auth/v1/callback'
 
-        if (!isInternal) {
-            const locale = request.cookies.get('NEXT_LOCALE')?.value || defaultLocale
-            return NextResponse.redirect(new URL(`/${locale}${pathname}`, request.url))
+    if (!pathnameHasLocale && !isInternal) {
+        const locale = request.cookies.get('NEXT_LOCALE')?.value || defaultLocale
+        return NextResponse.redirect(new URL(`/${locale}${pathname}`, request.url))
+    }
+
+    // 3. Maintenance Mode Check
+    // optimization: only check if not accessing assets or admin api
+    if (!pathname.startsWith('/_next') && !pathname.includes('.')) {
+        try {
+            const { data: setting } = await supabase
+                .from('settings')
+                .select('value')
+                .eq('key', 'maintenanceMode')
+                .single()
+
+            const maintenanceMode = setting?.value === 'true'
+
+            if (maintenanceMode) {
+                // Allow:
+                // 1. Admin/Auth/API routes
+                // 2. The Maintenance page itself
+                // 3. Admin users (checked by email or metadata)
+
+                const isAllowedRoute =
+                    pathname.startsWith('/admin') ||
+                    pathname.startsWith('/api') ||
+                    pathname.includes('/auth') ||
+                    pathname.includes('/maintenance');
+
+                const userEmail = user?.email
+                const isAdmin = userEmail && (ADMIN_EMAILS.includes(userEmail) || user?.app_metadata?.role === 'admin')
+
+                if (!isAllowedRoute && !isAdmin) {
+                    // Extract locale to redirect to correct maintenance page
+                    const localeMatch = pathname.match(/^\/([a-z]{2})/);
+                    const locale = localeMatch ? localeMatch[1] : defaultLocale;
+                    return NextResponse.redirect(new URL(`/${locale}/maintenance`, request.url))
+                }
+            }
+        } catch (error) {
+            // If DB fails, default to allowing access (fail open) vs blocking (fail closed). 
+            // Fail open is safer for strictly maintenance check.
+            console.error('Maintenance check failed:', error);
         }
     }
 
-    // --- Security Logic ---
-
-    // 3. Admin Protection
+    // 4. Admin Security
     if (pathname.startsWith('/admin')) {
         if (!user) {
             return NextResponse.redirect(new URL('/auth/signin', request.url))
@@ -75,15 +112,15 @@ export async function updateSession(request) {
         }
     }
 
-    // 4. Protected Routes
+    // 5. Protected Routes
     const protectedRoutes = ['/dashboard', '/generate']
-    const isProtectedRoute = protectedRoutes.some(route => pathname.includes(route)) // .includes handles /en/dashboard etc
+    const isProtectedRoute = protectedRoutes.some(route => pathname.includes(route))
 
     if (isProtectedRoute && !user) {
         return NextResponse.redirect(new URL('/auth/signin', request.url))
     }
 
-    // 5. Auth Page Redirect (if logged in)
+    // 6. Auth Page Redirect
     if ((pathname.includes('/auth/signin') || pathname.includes('/auth/signup')) && user) {
         return NextResponse.redirect(new URL('/dashboard', request.url))
     }
