@@ -76,7 +76,11 @@ export default async function Home({ params }) {
       name: dict.pricing_page.plans.free.name,
       price: '0',
       period: `/${dict.pricing_page.period_month}`,
-      features: dict.pricing_page.plans.free.features,
+      features: [
+        dict.page.pricing.features.docs3,
+        dict.page.pricing.features.allTypes,
+        dict.page.pricing.features.pdf
+      ],
       cta: dict.pricing_page.plans.free.cta,
       popular: false
     },
@@ -84,7 +88,11 @@ export default async function Home({ params }) {
       name: dict.pricing_page.plans.starter.name,
       price: prices.starter,
       period: `/${dict.pricing_page.period_month}`,
-      features: dict.pricing_page.plans.starter.features,
+      features: [
+        dict.page.pricing.features.docs30,
+        dict.page.pricing.features.noWatermark,
+        dict.page.pricing.features.priority
+      ],
       cta: dict.pricing_page.plans.starter.cta,
       popular: true
     },
@@ -92,7 +100,11 @@ export default async function Home({ params }) {
       name: dict.pricing_page.plans.pro.name,
       price: prices.pro,
       period: `/${dict.pricing_page.period_month}`,
-      features: dict.pricing_page.plans.pro.features,
+      features: [
+        dict.page.pricing.features.docsUnlimited,
+        dict.page.pricing.features.branding,
+        dict.page.pricing.features.priority
+      ],
       cta: dict.pricing_page.plans.pro.cta,
       popular: false
     }
