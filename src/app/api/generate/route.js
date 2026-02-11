@@ -32,13 +32,13 @@ export async function POST(request) {
             .single();
 
         const limits = {
-            'Free': 3,
+            'Free': 1,
             'Starter': 30,
             'Professional': 1000
         };
 
         const currentPlan = profile?.plan || 'Free';
-        const userLimit = limits[currentPlan] || 3;
+        const userLimit = limits[currentPlan] || 1;
         const currentUsage = profile?.docs_generated_this_month || 0;
 
         // Bypass limits for admin email

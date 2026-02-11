@@ -30,7 +30,7 @@ export default async function BlogPage({ params }) {
                     <p style={styles.subtitle}>{t.subtitle}</p>
                 </header>
 
-                <div style={styles.grid}>
+                <div className="grid-3">
                     {BLOG_POSTS.map((post) => (
                         <Link key={post.slug} href={`/${locale}/blog/${post.slug}`} style={styles.card}>
                             <div style={styles.cardContent}>
@@ -73,11 +73,6 @@ const styles = {
     subtitle: {
         fontSize: '18px',
         color: '#6b6b80',
-    },
-    grid: {
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fill, minmax(360px, 1fr))',
-        gap: '32px',
     },
     card: {
         background: 'rgba(255,255,255,0.02)',

@@ -447,6 +447,9 @@ const s = {
   },
   featureCard: {
     padding: '32px',
+    display: 'flex',
+    flexDirection: 'column',
+    height: '100%',
   },
   featureCardHeader: {
     display: 'flex',
@@ -462,6 +465,7 @@ const s = {
     display: 'flex',
     flexDirection: 'column',
     gap: '4px',
+    flex: 1,
   },
   featureItem: {
     display: 'flex',

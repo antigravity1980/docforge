@@ -142,7 +142,7 @@
             "badge": "Pricing",
             "title": "Start Free,",
             "titleAccent": "Scale as You Grow",
-            "subtitle": "No credit card required. Generate 3 documents free every month.",
+            "subtitle": "No credit card required. Generate 1 document free every month.",
             "plans": {
                 "free": {
                     "name": "Kostenlos",
@@ -161,7 +161,7 @@
                 "month": "/month"
             },
             "features": {
-                "docs3": "3 documents per month",
+                "docs3": "1 document per month",
                 "docs30": "30 documents per month",
                 "docsUnlimited": "Unlimited documents",
                 "allTypes": "All document types",
@@ -207,7 +207,7 @@
                 },
                 {
                     "q": "Ist es kostenlos?",
-                    "a": "Wir bieten eine kostenlose Stufe mit 3 Dokumenten an. Bezahlte Pläne schalten unbegrenzte Generierung frei."
+                    "a": "Wir bieten eine kostenlose Stufe mit 1 Dokument an. Bezahlte Pläne schalten unbegrenzte Generierung frei."
                 },
                 {
                     "q": "Wie sicher sind meine Daten?",
@@ -252,7 +252,7 @@
             }
         },
         "features": [
-            "3 Dokumente pro Monat",
+            "1 Dokument pro Monat",
             "30 Dokumente pro Monat",
             "Unbegrenzte Dokumente",
             "Alle Dokumenttypen",

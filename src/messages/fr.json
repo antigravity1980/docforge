@@ -139,7 +139,7 @@
             "badge": "Tarifs",
             "title": "Gratuit au départ,",
             "titleAccent": "Évoluez ensuite",
-            "subtitle": "Pas de carte requise. 3 documents gratuits par mois.",
+            "subtitle": "Pas de carte requise. 1 document gratuit par mois.",
             "plans": {
                 "free": {
                     "name": "Gratuit",
@@ -158,7 +158,7 @@
                 "month": "/mois"
             },
             "features": {
-                "docs3": "3 documents par mois",
+                "docs3": "1 document par mois",
                 "docs30": "30 documents par mois",
                 "docsUnlimited": "Documents illimités",
                 "allTypes": "Tous les types de documents",
@@ -204,7 +204,7 @@
                 },
                 {
                     "q": "Est-ce gratuit ?",
-                    "a": "Offre gratuite à 3 documents. Les plans payants sont illimités."
+                    "a": "Offre gratuite à 1 document. Les plans payants sont illimités."
                 },
                 {
                     "q": "Mes données sont-elles sécurisées ?",
@@ -249,7 +249,7 @@
             }
         },
         "features": [
-            "3 documents par mois",
+            "1 document par mois",
             "30 documents par mois",
             "Documents illimités",
             "Tous types de documents",
