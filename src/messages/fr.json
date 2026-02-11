@@ -869,5 +869,9 @@
         "startNow": "Commencer à générer maintenant"
     },
     "tools_data": {},
-    "blog_posts": []
+    "blog_posts": [],
+    "privacy": {
+        "title": "Politique de Confidentialité",
+        "content": "## 1. Introduction\nBienvenue sur DocForge AI. Nous accordons une grande importance à votre vie privée.\n\n## 2. Informations collectées\nNous collectons les données suivantes :\n- **Compte :** Nom et email via Google OAuth.\n- **Paiement :** Géré par Lemon Squeezy.\n- **Utilisation :** Documents générés et statistiques de base.\n\n## 3. Utilisation des données\nVos données sont utilisées pour générer vos documents et gérer votre abonnement.\n\n## 4. Protection (RGPD)\nVous avez le droit d'accéder, d'exporter ou de supprimer vos données depuis votre tableau de bord.\n\n## 5. Contact\nsupport@docforge.site"
+    }
 }

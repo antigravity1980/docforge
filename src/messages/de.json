@@ -924,5 +924,9 @@
             "title": "DSGVO vs. CCPA: Die Unterschiede",
             "desc": "Ist Ihre Website konform? Wir erklären die Unterschiede."
         }
-    ]
+    ],
+    "privacy": {
+        "title": "Datenschutzerklärung",
+        "content": "## 1. Einleitung\nWillkommen bei DocForge AI. Der Schutz Ihrer Daten ist uns wichtig.\n\n## 2. Datenerhebung\nWir erheben E-Mail-Adressen (via Google OAuth), Zahlungsdaten (via Lemon Squeezy) und Nutzungsstatistiken.\n\n## 3. Nutzung\nIhre Daten dienen der Dokumentenerstellung und Abonnementverwaltung.\n\n## 4. Ihre Rechte (DSGVO)\nSie können Ihre Daten jederzeit einsehen oder löschen.\n\n## 5. Kontakt\nsupport@docforge.site"
+    }
 }

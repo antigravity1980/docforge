@@ -869,5 +869,9 @@
         "startNow": "Start Generating Now"
     },
     "tools_data": {},
-    "blog_posts": []
+    "blog_posts": [],
+    "privacy": {
+        "title": "Privacy Policy",
+        "content": "## 1. Introduction\nWelcome to DocForge AI. We value your privacy and are committed to protecting your personal data. This Privacy Policy outlines how we collect, use, and safeguard your information.\n\n## 2. Information We Collect\nWe collect information to provide better services to our users:\n- **Account Information:** Email address and name provided via Google OAuth or sign-up.\n- **Payment Information:** Processed securely by Lemon Squeezy. We do not store credit card details.\n- **Usage Data:** Documents generated, time of generation, and basic interaction data.\n\n## 3. How We Use Your Information\nWe use your data to:\n- Generate and store your professional documents.\n- Manage your subscription and payments.\n- Improve our AI models and service performance.\n\n## 4. Data Protection (GDPR & CCPA)\nWe comply with global data protection standards. You have the right to access, export, or delete your data at any time via your dashboard.\n\n## 5. Third-Party Services\nWe use trusted third parties:\n- **Supabase:** Database and Authentication.\n- **Lemon Squeezy:** Payment processing.\n- **Vercel:** Hosting and Analytics.\n- **Groq/DeepSeek:** AI Model providers (Docs are processed but not used for training without consent).\n\n## 6. Contact Us\nIf you have questions, contact us at support@docforge.site."
+    }
 }

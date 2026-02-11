@@ -924,5 +924,9 @@
             "title": "GDPR vs. CCPA: Capire le differenze",
             "desc": "Il tuo sito è a norma? Analizziamo le differenze chiave."
         }
-    ]
+    ],
+    "privacy": {
+        "title": "Informativa sulla Privacy",
+        "content": "## 1. Introduzione\nBenvenuti su DocForge AI. Proteggiamo i vostri dati personali.\n\n## 2. Dati raccolti\nEmail (OAuth), dati di pagamento (Lemon Squeezy) e documenti generati.\n\n## 3. Uso dei dati\nPer fornire il servizio di generazione documenti e gestire l'abbonamento.\n\n## 4. Diritti dell'utente (GDPR)\nÈ possibile accedere o cancellare i propri dati in qualsiasi momento.\n\n## 5. Contatti\nsupport@docforge.site"
+    }
 }
