@@ -1,0 +1,928 @@
+{
+    "common": {
+        "getStarted": "Loslegen",
+        "pricing": "Preise",
+        "dashboard": "Dashboard",
+        "login": "Anmelden",
+        "signup": "Kostenlos starten",
+        "logout": "Abmelden",
+        "generate": "Generieren",
+        "home": "Startseite",
+        "back": "Zurück",
+        "blog": "Blog"
+    },
+    "hero": {
+        "title": "Erstellen Sie professionelle Dokumente in",
+        "subtitle": "Rechtliche Dokumente, Geschäftsvorschläge und Berichte, erstellt von der KI. Schnell, präzise und rechtssicher.",
+        "cta": "Jetzt mit der Generierung beginnen",
+        "titleAccent": "30 Sekunden",
+        "start": "Jetzt starten",
+        "viewPricing": "Preise ansehen"
+    },
+    "nav": {
+        "features": "Funktionen",
+        "howItWorks": "Wie es funktioniert",
+        "pricing": "Preise",
+        "faq": "FAQ"
+    },
+    "footer": {
+        "legal": "Rechtsdokumente",
+        "business": "Geschäft",
+        "company": "Unternehmen",
+        "blog": "Blog & Ressourcen",
+        "privacy": "Privacy Policy",
+        "terms": "Nutzungsbedingungen",
+        "copyright": "Alle Rechte vorbehalten.",
+        "disclaimer": "KI-generierte Dokumente dienen nur zur Information und stellen keine Rechtsberatung dar.",
+        "description": "Erstellen Sie professionelle Dokumente in Sekunden mit KI. Rechtliche Dokumente, Geschäftsvorschläge, Rechnungen und SEO-Inhalte.",
+        "nda": "NDA Generator",
+        "tos": "Terms of Service",
+        "freelance": "Freelance Contract",
+        "cease": "Cease & Desist",
+        "invoice": "Invoice Generator",
+        "meta": "Meta Tags Generator",
+        "proposal": "Business Proposal",
+        "blogOutline": "SEO Blog Outline",
+        "sow": "Statement of Work"
+    },
+    "page": {
+        "hero": {
+            "badge": "🚀 KI-gestützte Dokumentenerstellung",
+            "titleAccent": "30 Sekunden",
+            "seeHow": "Wie es funktioniert",
+            "trust": "Vertrauen von 12.000+ Fachleuten weltweit"
+        },
+        "stats": [
+            {
+                "value": "12k+",
+                "label": "Dokumente generiert"
+            },
+            {
+                "value": "5k+",
+                "label": "Zufriedene Benutzer"
+            },
+            {
+                "value": "4.9/5",
+                "label": "Durchschnittliche Bewertung"
+            },
+            {
+                "value": "30s",
+                "label": "Durchschnittliche Zeit"
+            }
+        ],
+        "features": {
+            "badge": "Alles-in-einem-Plattform",
+            "title": "Jedes Dokument, das Sie brauchen,",
+            "titleAccent": "Powered by KI",
+            "subtitle": "Von NDAs über Rechnungen bis hin zu SEO-Inhalten — generieren Sie jedes professionelle Dokument in Sekunden.",
+            "categories": {
+                "legal": "Recht",
+                "business": "Geschäft",
+                "seo": "SEO & Inhalt"
+            },
+            "items": {
+                "nda": {
+                    "name": "Non-Disclosure Agreement (NDA)",
+                    "desc": "Protect confidential info."
+                },
+                "privacy": {
+                    "name": "Privacy Policy",
+                    "desc": "GDPR & CCPA compliant."
+                },
+                "tos": {
+                    "name": "Terms of Service",
+                    "desc": "Rules for your app."
+                },
+                "freelance": {
+                    "name": "Freelance Contract",
+                    "desc": "Secure your work."
+                },
+                "invoice": {
+                    "name": "Invoice",
+                    "desc": "Professional template."
+                },
+                "proposal": {
+                    "name": "Business Proposal",
+                    "desc": "Win more clients."
+                },
+                "sow": {
+                    "name": "Statement of Work",
+                    "desc": "Define project scope."
+                },
+                "meta": {
+                    "name": "SEO Meta Tags",
+                    "desc": "Boost search rankings."
+                },
+                "blog": {
+                    "name": "Blog Post Outline",
+                    "desc": "Structure effectively."
+                }
+            }
+        },
+        "howItWorks": {
+            "badge": "Einfacher Prozess",
+            "title": "Wie es funktioniert",
+            "subtitle": "Drei einfache Schritte zu Ihrem perfekten Dokument.",
+            "steps": [
+                {
+                    "title": "Vorlage wählen",
+                    "desc": "Wählen Sie aus unserer Bibliothek professioneller Vorlagen."
+                },
+                {
+                    "title": "Details ausfüllen",
+                    "desc": "Beantworten Sie ein paar einfache Fragen, um das Dokument anzupassen."
+                },
+                {
+                    "title": "Herunterladen",
+                    "desc": "Erhalten Sie sofort Ihr perfekt formatiertes Dokument."
+                }
+            ]
+        },
+        "pricing": {
+            "badge": "Pricing",
+            "title": "Start Free,",
+            "titleAccent": "Scale as You Grow",
+            "subtitle": "No credit card required. Generate 3 documents free every month.",
+            "plans": {
+                "free": "Free",
+                "starter": "Starter",
+                "pro": "Professional",
+                "popular": "Most Popular",
+                "getStarted": "Get Started",
+                "freeTrial": "Start Free Trial",
+                "getPro": "Get Professional"
+            },
+            "periods": {
+                "month": "/month"
+            },
+            "features": {
+                "docs3": "3 documents per month",
+                "docs30": "30 documents per month",
+                "docsUnlimited": "Unlimited documents",
+                "allTypes": "All document types",
+                "pdf": "PDF export",
+                "noWatermark": "No watermark",
+                "watermark": "Watermark on documents",
+                "history": "Document history",
+                "priority": "Priority AI generation",
+                "branding": "Custom branding"
+            }
+        },
+        "testimonials": {
+            "title": "Beliebt bei",
+            "titleAccent": "Profis",
+            "list": [
+                {
+                    "name": "Sarah J.",
+                    "role": "Freelance Designerin",
+                    "text": "Hat mir Hunderte an Anwaltskosten gespart. Der NDA-Generator ist makellos."
+                },
+                {
+                    "name": "Mark T.",
+                    "role": "Gründer, TechStart",
+                    "text": "Unverzichtbares Werkzeug für mein Startup. Wir erstellen alle unsere Verträge hier."
+                },
+                {
+                    "name": "Elena R.",
+                    "role": "Marketing-Beraterin",
+                    "text": "Hochwertige Dokumente und super schnell. Sehr zu empfehlen!"
+                }
+            ]
+        },
+        "faq": {
+            "title": "Häufig gestellte Fragen",
+            "list": [
+                {
+                    "q": "Ist es rechtlich bindend?",
+                    "a": "Unsere Dokumente basieren auf rechtlichen Standardrahmen, wir empfehlen jedoch die Rücksprache mit einem Anwalt."
+                },
+                {
+                    "q": "Kann ich die Dokumente bearbeiten?",
+                    "a": "Ja, Sie können das generierte Dokument direkt in unserem Editor bearbeiten."
+                },
+                {
+                    "q": "Ist es kostenlos?",
+                    "a": "Wir bieten eine kostenlose Stufe mit 3 Dokumenten an. Bezahlte Pläne schalten unbegrenzte Generierung frei."
+                },
+                {
+                    "q": "Wie sicher sind meine Daten?",
+                    "a": "Wir verwenden Verschlüsselung auf Bankenniveau und teilen Ihre Daten nicht."
+                }
+            ]
+        },
+        "cta": {
+            "title": "Bereit, Ihr erstes Dokument zu erstellen?",
+            "subtitle": "Schließen Sie sich Tausenden von Profis an, die mit DocForge AI Zeit und Geld sparen.",
+            "button": "Kostenlos starten — Keine Kreditkarte erforderlich →"
+        }
+    },
+    "pricing": {
+        "title": "Einfache, transparente",
+        "titleAccent": "Preise",
+        "subtitle": "Kostenlos starten und upgraden. Keine versteckten Gebühren.",
+        "monthly": "Monatlich",
+        "yearly": "Jährlich",
+        "save": "20% sparen",
+        "billed": "Abgerechnet",
+        "connecting": "Verbindung wird hergestellt...",
+        "guarantee": {
+            "title": "30-Tage Geld-zurück-Garantie",
+            "text": "Nicht zufrieden? Erhalten Sie innerhalb von 30 Tagen eine volle Rückerstattung. Ohne Fragen."
+        },
+        "plans": {
+            "free": {
+                "name": "Kostenlos",
+                "desc": "Perfekt zum Ausprobieren von DocForge AI",
+                "cta": "Jetzt starten"
+            },
+            "starter": {
+                "name": "Starter",
+                "desc": "Für Freiberufler und Einzelpersonen",
+                "cta": "Kostenlos testen"
+            },
+            "pro": {
+                "name": "Professionell",
+                "desc": "Für Unternehmen und Teams",
+                "cta": "Pro werden"
+            }
+        },
+        "features": [
+            "3 Dokumente pro Monat",
+            "30 Dokumente pro Monat",
+            "Unbegrenzte Dokumente",
+            "Alle Dokumenttypen",
+            "PDF-Export",
+            "PDF-Export (ohne Wasserzeichen)",
+            "Wasserzeichen auf Dokumenten",
+            "Dokumentenverlauf",
+            "Priorisierte Erstellung",
+            "Priorisierte KI-Erstellung",
+            "E-Mail-Support",
+            "Benutzerdefiniertes Branding"
+        ]
+    },
+    "pricing_page": {
+        "title": "Einfache, transparente",
+        "titleAccent": "Preise",
+        "subtitle": "Wählen Sie den Plan, der zu Ihrem Unternehmen passt. Keine versteckten Gebühren.",
+        "toggle": {
+            "monthly": "Monatlich",
+            "yearly": "Jährlich",
+            "save": "20% sparen"
+        },
+        "guarantee": "30-Tage Geld-zurück-Garantie auf alle bezahlten Pläne.",
+        "billed": "Billed",
+        "year": "/year",
+        "connecting": "Connecting...",
+        "error": "Something went wrong",
+        "plans": {
+            "free": {
+                "name": "Kostenlos",
+                "price": "0",
+                "desc": "Perfekt zum Ausprobieren unserer KI-Dokumentenerstellung."
+            },
+            "pro": {
+                "name": "Pro",
+                "price": "29",
+                "desc": "Für Profis und kleine Teams."
+            },
+            "business": {
+                "name": "Business",
+                "price": "79",
+                "desc": "Für Unternehmen mit hohem Dokumentenaufkommen."
+            }
+        },
+        "cta": "Wählen Sie"
+    },
+    "generate": {
+        "title": "Was möchten Sie",
+        "titleAccent": "erstellen",
+        "subtitle": "Wählen Sie unten einen Dokumenttyp aus, um zu beginnen",
+        "templates": "Vorlagen",
+        "popular": "Beliebt",
+        "button": "Generieren →",
+        "categories": {
+            "legal": "Rechtlich",
+            "business": "Geschäftlich",
+            "marketing": "Marketing",
+            "technical": "Technisch",
+            "seo": "Web & Compliance"
+        },
+        "docs": {
+            "employment-agreement": {
+                "name": "Arbeitsvertrag",
+                "desc": "Standardvereinbarung für die Einstellung von Mitarbeitern.",
+                "fields": [
+                    {
+                        "name": "employerName",
+                        "label": "Arbeitgeber / Unternehmen",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "employeeName",
+                        "label": "Name des Arbeitnehmers",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "jobTitle",
+                        "label": "Jobbezeichnung",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "salary",
+                        "label": "Gehalt / Vergütung",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "startDate",
+                        "label": "Startdatum",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "jurisdiction",
+                        "label": "Gerichtsstand",
+                        "type": "select",
+                        "options": [
+                            "US Federal/State",
+                            "FR CDI/CDD",
+                            "DE Arbeitsvertrag",
+                            "ES Contrato laboral",
+                            "IT Contratto di lavoro",
+                            "PT Contrato de trabalho"
+                        ],
+                        "required": true
+                    }
+                ]
+            },
+            "nda": {
+                "name": "Geheimhaltungsvereinbarung (NDA)",
+                "desc": "Schutz vertraulicher Informationen.",
+                "fields": [
+                    {
+                        "name": "disclosingParty",
+                        "label": "Offenlegende Partei",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "receivingParty",
+                        "label": "Empfangende Partei",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "purpose",
+                        "label": "Zweck der Offenlegung",
+                        "type": "textarea",
+                        "required": true
+                    },
+                    {
+                        "name": "duration",
+                        "label": "Dauer",
+                        "type": "select",
+                        "options": [
+                            "1 year",
+                            "2 years",
+                            "3 years",
+                            "5 years",
+                            "Indefinite"
+                        ],
+                        "required": true
+                    },
+                    {
+                        "name": "jurisdiction",
+                        "label": "Gerichtsstand",
+                        "type": "text",
+                        "placeholder": "e.g. California, USA",
+                        "required": true
+                    }
+                ]
+            },
+            "contractor-agreement": {
+                "name": "Vertrag für freie Mitarbeiter",
+                "desc": "Vereinbarung für freiberufliche oder Vertragsarbeit.",
+                "fields": [
+                    {
+                        "name": "clientName",
+                        "label": "Name des Kunden",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "contractorName",
+                        "label": "Name des Auftragnehmers",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "services",
+                        "label": "Leistungsbeschreibung",
+                        "type": "textarea",
+                        "required": true
+                    },
+                    {
+                        "name": "payment",
+                        "label": "Zahlungsbedingungen",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "jurisdiction",
+                        "label": "Gerichtsstand",
+                        "type": "text",
+                        "placeholder": "e.g. New York, USA",
+                        "required": true
+                    }
+                ]
+            },
+            "offer-letter": {
+                "name": "Jobangebot",
+                "desc": "Stellenangebot für einen potenziellen Kandidaten.",
+                "fields": [
+                    {
+                        "name": "companyName",
+                        "label": "Unternehmensname",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "candidateName",
+                        "label": "Name des Kandidaten",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "jobTitle",
+                        "label": "Jobbezeichnung",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "salary",
+                        "label": "Gehalt / Vergütung",
+                        "type": "text",
+                        "required": true
+                    }
+                ]
+            },
+            "service-agreement": {
+                "name": "Dienstleistungsvertrag",
+                "desc": "Allgemeine Vereinbarung über die Erbringung von Dienstleistungen.",
+                "fields": [
+                    {
+                        "name": "providerName",
+                        "label": "Dienstleister",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "clientName",
+                        "label": "Name des Kunden",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "services",
+                        "label": "Leistungsbeschreibung",
+                        "type": "textarea",
+                        "required": true
+                    },
+                    {
+                        "name": "jurisdiction",
+                        "label": "Gerichtsstand",
+                        "type": "text",
+                        "required": true
+                    }
+                ]
+            },
+            "invoice": {
+                "name": "Rechnungsvorlage",
+                "desc": "Professionelle Rechnung für Ihre Kunden.",
+                "fields": [
+                    {
+                        "name": "fromName",
+                        "label": "Von (Ihr Name)",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "toName",
+                        "label": "An (Kundenname)",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "invoiceNumber",
+                        "label": "Rechnungsnummer",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "items",
+                        "label": "Positionen/Dienste",
+                        "type": "textarea",
+                        "required": true
+                    }
+                ]
+            },
+            "non-compete": {
+                "name": "Wettbewerbsverbot",
+                "desc": "Verhindern, dass Mitarbeiter für Konkurrenten arbeiten.",
+                "fields": [
+                    {
+                        "name": "employerName",
+                        "label": "Arbeitgeber / Unternehmen",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "employeeName",
+                        "label": "Name des Arbeitnehmers",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "duration",
+                        "label": "Dauer",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "geographicArea",
+                        "label": "Geografisches Gebiet",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "jurisdiction",
+                        "label": "Gerichtsstand",
+                        "type": "text",
+                        "required": true
+                    }
+                ]
+            },
+            "tos": {
+                "name": "Nutzungsbedingungen",
+                "desc": "Regeln für die Nutzung Ihrer Website oder App.",
+                "fields": [
+                    {
+                        "name": "companyName",
+                        "label": "Unternehmensname",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "websiteUrl",
+                        "label": "Website-URL",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "jurisdiction",
+                        "label": "Gerichtsstand",
+                        "type": "text",
+                        "required": true
+                    }
+                ]
+            },
+            "privacy-policy": {
+                "name": "Datenschutzerklärung",
+                "desc": "DSGVO- und CCPA-konforme Datenschutzerklärung.",
+                "fields": [
+                    {
+                        "name": "companyName",
+                        "label": "Unternehmensname",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "websiteUrl",
+                        "label": "Website-URL",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "dataCollected",
+                        "label": "Erhobene Daten",
+                        "type": "textarea",
+                        "placeholder": "e.g. Email, IP address, Name",
+                        "required": true
+                    }
+                ]
+            },
+            "partnership-agreement": {
+                "name": "Partnerschaftsvertrag",
+                "desc": "Vereinbarung zwischen Geschäftspartnern.",
+                "fields": [
+                    {
+                        "name": "partner1",
+                        "label": "Name von Partner 1",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "partner2",
+                        "label": "Name von Partner 2",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "businessName",
+                        "label": "Firmenname",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "jurisdiction",
+                        "label": "Gerichtsstand",
+                        "type": "text",
+                        "required": true
+                    }
+                ]
+            },
+            "termination-letter": {
+                "name": "Kündigungsschreiben",
+                "desc": "Formelles Schreiben zur Kündigung eines Mitarbeiters.",
+                "fields": [
+                    {
+                        "name": "employerName",
+                        "label": "Arbeitgeber / Unternehmen",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "employeeName",
+                        "label": "Name des Arbeitnehmers",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "terminationDate",
+                        "label": "Kündigungsdatum",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "reason",
+                        "label": "Grund",
+                        "type": "textarea",
+                        "required": false
+                    }
+                ]
+            },
+            "msa": {
+                "name": "Rahmenvertrag (MSA)",
+                "desc": "Übergreifende Vereinbarung für langfristige Dienstleistungen.",
+                "fields": [
+                    {
+                        "name": "providerName",
+                        "label": "Dienstleister",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "clientName",
+                        "label": "Name des Kunden",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "jurisdiction",
+                        "label": "Gerichtsstand",
+                        "type": "text",
+                        "required": true
+                    }
+                ]
+            },
+            "sales-agreement": {
+                "name": "Kaufvertrag",
+                "desc": "Vereinbarung über den Verkauf von Waren oder Immobilien.",
+                "fields": [
+                    {
+                        "name": "sellerName",
+                        "label": "Name des Verkäufers",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "buyerName",
+                        "label": "Name des Käufers",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "itemDescription",
+                        "label": "Artikelbeschreibung",
+                        "type": "textarea",
+                        "required": true
+                    },
+                    {
+                        "name": "price",
+                        "label": "Preis",
+                        "type": "text",
+                        "required": true
+                    }
+                ]
+            },
+            "lease-agreement": {
+                "name": "Wohnungsmietvertrag",
+                "desc": "Standardmietvertrag für die Vermietung von Immobilien.",
+                "fields": [
+                    {
+                        "name": "landlordName",
+                        "label": "Name des Vermieters",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "tenantName",
+                        "label": "Name des Mieters",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "propertyAddress",
+                        "label": "Immobilienadresse",
+                        "type": "textarea",
+                        "required": true
+                    },
+                    {
+                        "name": "rentAmount",
+                        "label": "Monatsmiete",
+                        "type": "text",
+                        "required": true
+                    }
+                ]
+            },
+            "promissory-note": {
+                "name": "Schuldschein",
+                "desc": "Rechtliches Versprechen, ein Darlehen zurückzuzahlen.",
+                "fields": [
+                    {
+                        "name": "lenderName",
+                        "label": "Name des Kreditgebers",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "borrowerName",
+                        "label": "Name des Kreditnehmers",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "loanAmount",
+                        "label": "Darlehensbetrag",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "repaymentTerms",
+                        "label": "Rückzahlungsbedingungen",
+                        "type": "textarea",
+                        "required": true
+                    }
+                ]
+            }
+        },
+        "backToDocs": "← Zurück zu Dokumenten",
+        "docGenerated": "✅ Dokument generiert",
+        "copy": "📋 Kopieren",
+        "downloadPdf": "⬇️ PDF herunterladen",
+        "genAnother": "← Ein weiteres generieren",
+        "generating": "Ihr Dokument wird generiert...",
+        "genBtn": "⚡ Dokument generieren",
+        "freeNote": "Kostenloser Plan: 3 Dokumente/Monat",
+        "upgradeMore": "Upgrade für mehr",
+        "disclaimer": "Dieses Dokument wurde mit KI-Unterstützung erstellt. Es stellt KEINE Rechtsberatung dar.",
+        "select": "Auswählen...",
+        "required": "* erforderlich",
+        "formTitle": "Dokumenten-Generator",
+        "formSub": "KI-gestützt",
+        "docTitleLabel": "Dokumententitel",
+        "describeLabel": "Beschreiben Sie, was Sie benötigen",
+        "describePlaceholder": "Beschreiben Sie das Dokument, das Sie generieren möchten..."
+    },
+    "dashboard": {
+        "welcome": "Willkommen zurück! 👋",
+        "subtitle": "Erstellen Sie Ihr nächstes professionelles Dokument",
+        "newDoc": "+ Neues Dokument",
+        "docsThisMonth": "Dokumente diesen Monat",
+        "currentPlan": "Aktueller Plan",
+        "recentCount": "Anzahl letzter Erstellungen",
+        "upgrade": "Upgrade →",
+        "quickGenerate": "Schnell-Erstellung",
+        "recentDocs": "Letzte Dokumente",
+        "viewAll": "Alle ansehen →",
+        "completed": "abgeschlossen",
+        "view": "Ansehen",
+        "noDocs": "Noch keine Dokumente. Fangen Sie an!",
+        "loading": "Dashboard wird geladen..."
+    },
+    "auth": {
+        "signInTitle": "Willkommen zurück",
+        "signInSub": "Melden Sie sich bei Ihrem Konto an",
+        "signUpTitle": "Konto erstellen",
+        "signUpSub": "Kostenlos Dokumente erstellen",
+        "google": "Weiter mit Google",
+        "or": "oder",
+        "email": "E-Mail",
+        "password": "Passwort",
+        "fullName": "Vollständiger Name",
+        "forgot": "Passwort vergessen?",
+        "signingIn": "Anmeldung...",
+        "signInBtn": "Anmelden →",
+        "noAccount": "Noch kein Konto?",
+        "signUpFree": "Kostenlos registrieren",
+        "creating": "Konto wird erstellt...",
+        "createBtn": "Konto erstellen →",
+        "alreadyAccount": "Bereits ein Konto?",
+        "signInLink": "Anmelden",
+        "checkEmail": "Prüfen Sie Ihre E-Mails",
+        "magicLink": "Wir haben einen Magic Link an {email} gesendet, um Ihr Konto zu verifizieren.",
+        "backToSignUp": "← Zurück zur Registrierung",
+        "agree": "Mit der Erstellung eines Kontos stimmen Sie unseren",
+        "terms": "Nutzungsbedingungen",
+        "and": "und",
+        "privacy": "Datenschutzbestimmungen zu"
+    },
+    "blog": {
+        "title": "Blog & Ressourcen",
+        "subtitle": "Einblicke, die Ihnen helfen, Ihr Unternehmen zu vergrößern und zu schützen.",
+        "by": "Von",
+        "readMore": "Artikel lesen →",
+        "back": "← Zurück zum Blog",
+        "wantMore": "Wünschen Sie weitere Einblicke?",
+        "newsletter": "Abonnieren Sie unseren Newsletter oder beginnen Sie noch heute mit der Erstellung Ihrer eigenen professionellen Dokumente.",
+        "startGen": "Generierung starten",
+        "viewPricing": "Preise ansehen"
+    },
+    "tools": {
+        "aiPowered": "AI-Powered Tool",
+        "useGenerator": "Use this Generator →",
+        "howItWorks": "How it works",
+        "faq": "Frequently Asked Questions",
+        "ready": "Ready to create your document?",
+        "join": "Join 1,000+ businesses using DocForge AI for their legal and business needs.",
+        "startNow": "Start Generating Now"
+    },
+    "tools_data": {
+        "nda": {
+            "title": "NDA-Generator",
+            "desc": "Vertraulichkeitsvereinbarung in Sekunden erstellen.",
+            "features": [
+                "Sofortige Generierung",
+                "Rechtssichere Sprache",
+                "Anpassbare Klauseln",
+                "PDF-Export"
+            ]
+        },
+        "privacy": {
+            "title": "Datenschutzerklärung",
+            "desc": "DSGVO-konforme Datenschutzerklärung erstellen.",
+            "features": [
+                "DSGVO & CCPA konform",
+                "Automatische Updates",
+                "Eigene Datenfelder",
+                "Download als PDF"
+            ]
+        },
+        "tos": {
+            "title": "Nutzungsbedingungen",
+            "desc": "Rechtliche Absicherung für Ihre Website.",
+            "features": [
+                "Haftungsausschluss",
+                "IP-Rechte",
+                "Anwendbares Recht",
+                "Anpassbar"
+            ]
+        },
+        "freelance": {
+            "title": "Freelance-Vertrag",
+            "desc": "Projekte mit klaren Bedingungen sichern.",
+            "features": [
+                "Projektumfang",
+                "Zahlungsmeilensteine",
+                "IP-Übertragung",
+                "Revisionen"
+            ]
+        }
+    },
+    "blog_posts": [
+        {
+            "slug": "why-your-startup-needs-an-nda",
+            "title": "Warum jedes Startup ein NDA braucht",
+            "desc": "Schützen Sie Ihr geistiges Eigentum bei Finanzierung und Partnerschaften."
+        },
+        {
+            "slug": "gdpr-vs-ccpa-compliance",
+            "title": "DSGVO vs. CCPA: Die Unterschiede",
+            "desc": "Ist Ihre Website konform? Wir erklären die Unterschiede."
+        }
+    ]
+}
