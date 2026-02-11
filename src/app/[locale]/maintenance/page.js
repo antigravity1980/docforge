@@ -1,5 +1,5 @@
 import { getDictionary } from '@/lib/get-dictionary';
-import { Logo } from '@/components/Logo';
+import Logo from '@/components/Logo';
 
 export const metadata = {
     title: 'Maintenance Mode | DocForge AI',
