@@ -1,15 +1,13 @@
-'use client';
-
-import { use } from 'react';
+import { use, useState, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { getDictionary } from '@/lib/get-dictionary';
 import Link from 'next/link';
 
 export default function PrivacyPage({ params }) {
     const { locale } = use(params);
-    const [dict, setDict] = React.useState(null);
+    const [dict, setDict] = useState(null);
 
-    React.useEffect(() => {
+    useEffect(() => {
         getDictionary(locale).then(setDict);
     }, [locale]);
 
