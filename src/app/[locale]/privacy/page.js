@@ -1,3 +1,5 @@
+'use client';
+
 import { use, useState, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { getDictionary } from '@/lib/get-dictionary';
