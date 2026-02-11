@@ -141,13 +141,18 @@
             "titleAccent": "Évoluez ensuite",
             "subtitle": "Pas de carte requise. 3 documents gratuits par mois.",
             "plans": {
-                "free": "Gratuit",
-                "starter": "Starter",
-                "pro": "Professionnel",
-                "popular": "Le plus populaire",
-                "getStarted": "Commencer",
-                "freeTrial": "Essai gratuit",
-                "getPro": "Passer Pro"
+                "free": {
+                    "name": "Gratuit",
+                    "cta": "Commencer"
+                },
+                "starter": {
+                    "name": "Starter",
+                    "cta": "Essai gratuit"
+                },
+                "pro": {
+                    "name": "Professionnel",
+                    "cta": "Passer Pro"
+                }
             },
             "periods": {
                 "month": "/mois"
@@ -268,8 +273,8 @@
             "save": "Éco 20%"
         },
         "guarantee": {
-            "title": "Garantie 30 jours",
-            "text": "Pas satisfait ? Remboursement intégral sans questions."
+            "title": "Garantie de remboursement de 30 jours",
+            "text": "Garantie de remboursement de 30 jours sur tous les forfaits payants."
         },
         "billed": "Facturé",
         "year": "/an",

@@ -144,13 +144,18 @@
             "titleAccent": "Scale as You Grow",
             "subtitle": "No credit card required. Generate 3 documents free every month.",
             "plans": {
-                "free": "Free",
-                "starter": "Starter",
-                "pro": "Professional",
-                "popular": "Most Popular",
-                "getStarted": "Get Started",
-                "freeTrial": "Start Free Trial",
-                "getPro": "Get Professional"
+                "free": {
+                    "name": "Gratis",
+                    "cta": "Inizia ora"
+                },
+                "starter": {
+                    "name": "Starter",
+                    "cta": "Inizia prova gratuita"
+                },
+                "pro": {
+                    "name": "Pro",
+                    "cta": "Passa a Pro"
+                }
             },
             "periods": {
                 "month": "/month"
@@ -270,7 +275,10 @@
             "yearly": "Annuale",
             "save": "Risparmia il 20%"
         },
-        "guarantee": "Garanzia di rimborso di 30 giorni su tutti i piani a pagamento.",
+        "guarantee": {
+            "title": "Garanzia di rimborso di 30 giorni",
+            "text": "Garanzia di rimborso di 30 giorni su tutti i piani a pagamento."
+        },
         "billed": "Billed",
         "year": "/year",
         "connecting": "Connecting...",
@@ -279,17 +287,20 @@
             "free": {
                 "name": "Gratis",
                 "price": "0",
-                "desc": "Perfetto per provare la nostra generazione di documenti IA."
+                "desc": "Perfekt per provare la nostra generazione di documenti IA.",
+                "cta": "Inizia"
             },
-            "pro": {
+            "starter": {
                 "name": "Pro",
                 "price": "29",
-                "desc": "Per professionisti e piccoli team."
+                "desc": "Per professionisti e piccoli team.",
+                "cta": "Scegli"
             },
-            "business": {
+            "pro": {
                 "name": "Business",
                 "price": "79",
-                "desc": "Per aziende con grandi volumi di documenti."
+                "desc": "Per aziende con grandi volumi di documenti.",
+                "cta": "Scegli"
             }
         },
         "cta": "Scegli"

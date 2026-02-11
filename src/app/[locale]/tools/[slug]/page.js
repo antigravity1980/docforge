@@ -73,10 +73,10 @@ export default async function ToolPage({ params }) {
                 <section style={styles.faqSection}>
                     <h2 style={styles.faqTitle}>{t.faq}</h2>
                     <div style={styles.faqGrid}>
-                        {finalTool.faq.map((item, i) => (
+                        {finalTool.faq?.map((item, i) => (
                             <div key={i} style={styles.faqItem}>
-                                <h3 style={styles.question}>{item.question}</h3>
-                                <p style={styles.answer}>{item.answer}</p>
+                                <h3 style={styles.question}>{item.q}</h3>
+                                <p style={styles.answer}>{item.a}</p>
                             </div>
                         ))}
                     </div>

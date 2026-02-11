@@ -144,13 +144,18 @@
             "titleAccent": "Scale as You Grow",
             "subtitle": "No credit card required. Generate 3 documents free every month.",
             "plans": {
-                "free": "Free",
-                "starter": "Starter",
-                "pro": "Professional",
-                "popular": "Most Popular",
-                "getStarted": "Get Started",
-                "freeTrial": "Start Free Trial",
-                "getPro": "Get Professional"
+                "free": {
+                    "name": "Gratis",
+                    "cta": "Empezar"
+                },
+                "starter": {
+                    "name": "Starter",
+                    "cta": "Prueba gratuita"
+                },
+                "pro": {
+                    "name": "Profesional",
+                    "cta": "Obtener Pro"
+                }
             },
             "periods": {
                 "month": "/month"
@@ -213,7 +218,7 @@
         "cta": {
             "title": "¿Listo para generar tu primer documento?",
             "subtitle": "Únete a miles de profesionales que ahorran tiempo y dinero con DocForge AI.",
-            "button": "Empezar Gratis — Sin Tarjeta de Crédito →"
+            "button": "Empezar Gratis — Sin Crédito →"
         }
     },
     "pricing": {
@@ -270,7 +275,10 @@
             "yearly": "Anual",
             "save": "Ahorra 20%"
         },
-        "guarantee": "Garantía de devolución de dinero de 30 días en todos los planes de pago.",
+        "guarantee": {
+            "title": "Garantía de devolución de dinero de 30 días",
+            "text": "Garantía de devolución de dinero de 30 días en todos los planes de pago."
+        },
         "billed": "Billed",
         "year": "/year",
         "connecting": "Connecting...",
@@ -279,17 +287,20 @@
             "free": {
                 "name": "Gratis",
                 "price": "0",
-                "desc": "Perfecto para probar nuestra generación de documentos con IA."
+                "desc": "Perfecto para probar nuestra generación de documentos con IA.",
+                "cta": "Empezar"
             },
-            "pro": {
+            "starter": {
                 "name": "Pro",
                 "price": "29",
-                "desc": "Para profesionales y equipos pequeños."
+                "desc": "Para profesionales y equipos pequeños.",
+                "cta": "Elegir"
             },
-            "business": {
+            "pro": {
                 "name": "Business",
                 "price": "79",
-                "desc": "Para empresas con gran volumen de documentos."
+                "desc": "Para empresas con gran volumen de documentos.",
+                "cta": "Elegir"
             }
         },
         "cta": "Elegir"

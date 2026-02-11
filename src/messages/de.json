@@ -144,13 +144,18 @@
             "titleAccent": "Scale as You Grow",
             "subtitle": "No credit card required. Generate 3 documents free every month.",
             "plans": {
-                "free": "Free",
-                "starter": "Starter",
-                "pro": "Professional",
-                "popular": "Most Popular",
-                "getStarted": "Get Started",
-                "freeTrial": "Start Free Trial",
-                "getPro": "Get Professional"
+                "free": {
+                    "name": "Kostenlos",
+                    "cta": "Jetzt starten"
+                },
+                "starter": {
+                    "name": "Starter",
+                    "cta": "Kostenlose Testversion starten"
+                },
+                "pro": {
+                    "name": "Profis",
+                    "cta": "Auf Pro upgraden"
+                }
             },
             "periods": {
                 "month": "/month"
@@ -270,26 +275,31 @@
             "yearly": "Jährlich",
             "save": "20% sparen"
         },
-        "guarantee": "30-Tage Geld-zurück-Garantie auf alle bezahlten Pläne.",
+        "guarantee": {
+            "title": "30-Tage Geld-zurück-Garantie",
+            "text": "30-Tage Geld-zurück-Garantie auf alle bezahlten Pläne."
+        },
         "billed": "Billed",
         "year": "/year",
         "connecting": "Connecting...",
-        "error": "Something went wrong",
         "plans": {
             "free": {
                 "name": "Kostenlos",
                 "price": "0",
-                "desc": "Perfekt zum Ausprobieren unserer KI-Dokumentenerstellung."
+                "desc": "Perfekt zum Ausprobieren unserer KI-Dokumentenerstellung.",
+                "cta": "Jetzt starten"
+            },
+            "starter": {
+                "name": "Starter",
+                "price": "29",
+                "desc": "Für Profis und kleine Teams.",
+                "cta": "Wählen Sie"
             },
             "pro": {
-                "name": "Pro",
-                "price": "29",
-                "desc": "Für Profis und kleine Teams."
-            },
-            "business": {
                 "name": "Business",
                 "price": "79",
-                "desc": "Für Unternehmen mit hohem Dokumentenaufkommen."
+                "desc": "Für Unternehmen mit hohem Dokumentenaufkommen.",
+                "cta": "Wählen Sie"
             }
         },
         "cta": "Wählen Sie"

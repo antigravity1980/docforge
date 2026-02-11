@@ -77,7 +77,7 @@ export default function AdminSettingsPage() {
                 <div style={s.toggleSection}>
                     <div>
                         <div style={s.toggleLabel}>Maintenance Mode</div>
-                        <div style={s.toggleSub}>When enabled, users will see a "Site under maintenance" page.</div>
+                        <div style={s.toggleSub}>When enabled, users will see a &quot;Site under maintenance&quot; page.</div>
                     </div>
                     <button
                         type="button"

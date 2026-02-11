@@ -2,15 +2,17 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
 
-export default function PricingClient({ locale, dict }) {
-    const [isYearly, setIsYearly] = useState(false);
+
+export default function PricingClient({ dict, locale }) {
+    const t = dict.pricing_page;
+    const searchParams = useSearchParams();
+    const [isYearly, setIsYearly] = useState(searchParams.get('bill') === 'year');
     const [loading, setLoading] = useState(null);
     const [user, setUser] = useState(null);
     const router = useRouter();
-    const t = dict.pricing_page;
     const common = dict.common;
 
     const PLANS = [
@@ -108,7 +110,7 @@ export default function PricingClient({ locale, dict }) {
 
             const data = await response.json();
             if (data.url) {
-                window.location.href = data.url;
+                window.location.assign(data.url);
             } else {
                 alert(data.error || t.error);
                 setLoading(null);
@@ -199,10 +201,14 @@ export default function PricingClient({ locale, dict }) {
                 <div style={s.guarantee}>
                     <span style={{ fontSize: '24px' }}>🛡️</span>
                     <div>
-                        <h4 style={s.guaranteeTitle}>{t.guarantee.title}</h4>
-                        <p style={s.guaranteeText}>
-                            {t.guarantee.text}
-                        </p>
+                        <h4 style={s.guaranteeTitle}>
+                            {typeof t.guarantee === 'string' ? t.guarantee : t.guarantee?.title}
+                        </h4>
+                        {typeof t.guarantee !== 'string' && (
+                            <p style={s.guaranteeText}>
+                                {t.guarantee?.text}
+                            </p>
+                        )}
                     </div>
                 </div>
             </div>

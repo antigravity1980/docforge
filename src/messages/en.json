@@ -141,13 +141,18 @@
             "titleAccent": "Scale as You Grow",
             "subtitle": "No credit card required. Generate 3 documents free every month.",
             "plans": {
-                "free": "Free",
-                "starter": "Starter",
-                "pro": "Professional",
-                "popular": "Most Popular",
-                "getStarted": "Get Started",
-                "freeTrial": "Start Free Trial",
-                "getPro": "Get Professional"
+                "free": {
+                    "name": "Free",
+                    "cta": "Get Started"
+                },
+                "starter": {
+                    "name": "Starter",
+                    "cta": "Start Free Trial"
+                },
+                "pro": {
+                    "name": "Professional",
+                    "cta": "Get Professional"
+                }
             },
             "periods": {
                 "month": "/month"

@@ -83,7 +83,7 @@ export default function AdminManagementPage() {
                     View and manage users with administrative privileges.
                     <br />
                     <span style={{ fontSize: '12px', opacity: 0.7 }}>
-                        Note: "Config Admins" are hardcoded and cannot be removed here. "Database Admins" are managed via Supabase Auth metadata.
+                        Note: &quot;Config Admins&quot; are hardcoded and cannot be removed here. &quot;Database Admins&quot; are managed via Supabase Auth metadata.
                     </span>
                 </p>
             </div>

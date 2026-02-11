@@ -55,6 +55,33 @@ export default async function Home({ params }) {
     rating: 5
   }));
 
+  const PRICING_PLANS = [
+    {
+      name: p.pricing.plans.free.name,
+      price: '0',
+      period: p.pricing.periods.month,
+      features: [p.pricing.features.docs3, p.pricing.features.allTypes, p.pricing.features.pdf],
+      cta: p.pricing.plans.free.cta,
+      popular: false
+    },
+    {
+      name: p.pricing.plans.starter.name,
+      price: '29',
+      period: p.pricing.periods.month,
+      features: [p.pricing.features.docs30, p.pricing.features.noWatermark, p.pricing.features.priority],
+      cta: p.pricing.plans.starter.cta,
+      popular: true
+    },
+    {
+      name: p.pricing.plans.pro.name,
+      price: '79',
+      period: p.pricing.periods.month,
+      features: [p.pricing.features.unlimited, p.pricing.features.customBranding, p.pricing.features.support],
+      cta: p.pricing.plans.pro.cta,
+      popular: false
+    }
+  ];
+
   const FAQS = p.faq.list;
 
   return (
@@ -165,11 +192,11 @@ export default async function Home({ params }) {
         <div className="container">
           <div style={s.sectionHeader}>
             <h2 style={s.sectionTitle}>{dict.nav.pricing}</h2>
-            <p style={s.sectionSubtitle}>{p.pricingSub}</p>
+            <p style={s.sectionSubtitle}>{p.pricing.subtitle}</p>
           </div>
 
           <div className="grid-3" style={{ maxWidth: '1000px', margin: '0 auto' }}>
-            {p.pricing.plans.map((plan, i) => (
+            {PRICING_PLANS.map((plan, i) => (
               <div
                 key={i}
                 className="card"
@@ -178,12 +205,12 @@ export default async function Home({ params }) {
                   ...(plan.popular ? s.pricingPopular : {})
                 }}
               >
-                {plan.popular && <div style={s.popularBadge}>{p.pricing.popular}</div>}
+                {plan.popular && <div style={s.popularBadge}>{p.pricing.plans.popular}</div>}
                 <div style={s.planName}>{plan.name}</div>
                 <div style={s.planPrice}>
                   <span style={s.planPriceSmall}>$</span>
                   {plan.price}
-                  <span style={s.planPeriod}>/{plan.period}</span>
+                  <span style={s.planPeriod}>{plan.period}</span>
                 </div>
                 <ul style={s.planFeatures}>
                   {plan.features.map((feat, j) => (
@@ -213,7 +240,7 @@ export default async function Home({ params }) {
             {TESTIMONIALS.map((t, i) => (
               <div key={i} className="card" style={s.testimonialCard}>
                 <div style={s.testimonialStars}>{'★'.repeat(t.rating)}</div>
-                <p style={s.testimonialText}>"{t.text}"</p>
+                <p style={s.testimonialText}>&quot;{t.text}&quot;</p>
                 <div style={s.testimonialAuthor}>
                   <div style={s.testimonialAvatar}>{t.name.charAt(0)}</div>
                   <div>
