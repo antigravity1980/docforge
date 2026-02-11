@@ -12,7 +12,34 @@ export async function GET(request) {
 
         try {
             const cookieStore = await cookies();
-            const supabase = createRouteHandlerClient({ cookies: () => cookieStore });
+
+            // Create a custom cookie adapter to bridge Next.js 15 async cookies with auth-helpers
+            const supabase = createRouteHandlerClient({
+                cookies: () => ({
+                    get(name) {
+                        return cookieStore.get(name)?.value;
+                    },
+                    getAll() {
+                        return cookieStore.getAll();
+                    },
+                    set(name, value, options) {
+                        console.log(`Setting cookie: ${name}`);
+                        try {
+                            cookieStore.set(name, value, options);
+                        } catch (err) {
+                            console.error(`Failed to set cookie ${name}:`, err);
+                        }
+                    },
+                    remove(name, options) {
+                        console.log(`Removing cookie: ${name}`);
+                        try {
+                            cookieStore.set(name, '', { ...options, maxAge: 0 });
+                        } catch (err) {
+                            console.error(`Failed to remove cookie ${name}:`, err);
+                        }
+                    },
+                })
+            });
 
             console.log('Exchanging code for session...');
             const { data, error } = await supabase.auth.exchangeCodeForSession(code);
@@ -23,7 +50,6 @@ export async function GET(request) {
             }
 
             console.log('Session exchanged successfully. User:', data.session?.user?.email);
-            console.log('Session ID:', data.session?.user?.id);
         } catch (e) {
             console.error('Critical callback error:', e.message);
             return NextResponse.redirect(`${origin}/auth/signin?error=server-error&details=${encodeURIComponent(e.message)}`);
@@ -32,7 +58,9 @@ export async function GET(request) {
         console.warn('No code provided in callback');
     }
 
-    // URL to redirect to after sign in process completes
-    console.log(`Redirecting to ${origin}/dashboard`);
-    return NextResponse.redirect(`${origin}/dashboard`);
+    // Force strict HTTPS redirect to www to avoid cookie/protocol mismatches
+    // Using hardcoded production URL to ensure we land on the correct domain where cookies are set
+    const dashboardUrl = 'https://www.docforge.site/dashboard';
+    console.log(`Redirecting to ${dashboardUrl}`);
+    return NextResponse.redirect(dashboardUrl);
 }
