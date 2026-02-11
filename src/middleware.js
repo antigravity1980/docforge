@@ -2,7 +2,7 @@ import { createServerClient } from '@supabase/auth-helpers-nextjs';
 import { NextResponse } from 'next/server';
 import { ADMIN_EMAILS } from '@/lib/config';
 
-export async function proxy(req) {
+export async function middleware(req) {
     let res = NextResponse.next();
     const { pathname } = req.nextUrl;
 
