@@ -8,20 +8,31 @@ export async function GET(request) {
     const origin = requestUrl.origin;
 
     if (code) {
-        const supabase = createRouteHandlerClient({ cookies });
+        console.log('Exchange Code:', code.substring(0, 10) + '...');
+
         try {
-            const { error } = await supabase.auth.exchangeCodeForSession(code);
+            const cookieStore = await cookies();
+            const supabase = createRouteHandlerClient({ cookies: () => cookieStore });
+
+            console.log('Exchanging code for session...');
+            const { data, error } = await supabase.auth.exchangeCodeForSession(code);
+
             if (error) {
                 console.error('OAuth exchange error:', error.message);
-                return NextResponse.redirect(`${origin}/auth/signin?error=auth-code-error`);
+                return NextResponse.redirect(`${origin}/auth/signin?error=auth-code-error&details=${encodeURIComponent(error.message)}`);
             }
+
+            console.log('Session exchanged successfully. User:', data.session?.user?.email);
+            console.log('Session ID:', data.session?.user?.id);
         } catch (e) {
             console.error('Critical callback error:', e.message);
-            return NextResponse.redirect(`${origin}/auth/signin?error=server-error`);
+            return NextResponse.redirect(`${origin}/auth/signin?error=server-error&details=${encodeURIComponent(e.message)}`);
         }
+    } else {
+        console.warn('No code provided in callback');
     }
 
     // URL to redirect to after sign in process completes
-    // We redirect to /dashboard and let middleware handle i18n redirect
+    console.log(`Redirecting to ${origin}/dashboard`);
     return NextResponse.redirect(`${origin}/dashboard`);
 }
