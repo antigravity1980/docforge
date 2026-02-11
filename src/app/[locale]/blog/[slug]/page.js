@@ -3,6 +3,7 @@ import Link from 'next/link';
 import ReactMarkdown from 'react-markdown';
 import { BLOG_POSTS as STATIC_BLOG_POSTS } from '@/lib/blog-data';
 import { getDictionary } from '@/lib/get-dictionary';
+import JsonLd from '@/components/JsonLd';
 
 export async function generateMetadata({ params }) {
     const { slug, locale } = await params;
@@ -17,6 +18,14 @@ export async function generateMetadata({ params }) {
     return {
         title: `${finalPost.title} | ${dict.blog.title}`,
         description: finalPost.description,
+        openGraph: {
+            title: finalPost.title,
+            description: finalPost.description,
+            type: 'article',
+            publishedTime: finalPost.date ? new Date(finalPost.date).toISOString() : new Date().toISOString(),
+            authors: ['DocForge Team'],
+            images: ['/og-image.jpg'],
+        },
     };
 }
 
@@ -34,8 +43,34 @@ export default async function BlogPostPage({ params }) {
     const localized = dict.blog_posts?.find(p => p.slug === slug);
     const finalPost = localized ? { ...post, ...localized } : post;
 
+    const jsonLdData = {
+        '@context': 'https://schema.org',
+        '@type': 'BlogPosting',
+        headline: finalPost.title,
+        description: finalPost.description,
+        image: [`https://www.docforge.site/og-image.jpg`],
+        datePublished: finalPost.date ? new Date(finalPost.date).toISOString() : new Date().toISOString(),
+        author: {
+            '@type': 'Person',
+            name: finalPost.author || 'DocForge Team',
+        },
+        publisher: {
+            '@type': 'Organization',
+            name: 'DocForge AI',
+            logo: {
+                '@type': 'ImageObject',
+                url: 'https://www.docforge.site/icon.svg'
+            }
+        },
+        mainEntityOfPage: {
+            '@type': 'WebPage',
+            '@id': `https://www.docforge.site/${locale}/blog/${slug}`
+        }
+    };
+
     return (
         <div style={styles.page}>
+            <JsonLd data={jsonLdData} />
             <div className="container">
                 <Link href={`/${locale}/blog`} style={styles.backLink}>{t.back}</Link>
 

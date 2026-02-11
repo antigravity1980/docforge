@@ -2,6 +2,7 @@ import { getDictionary } from '@/lib/get-dictionary';
 import { TOOLS as STATIC_TOOLS } from '@/lib/tools-data';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import JsonLd from '@/components/JsonLd';
 
 export async function generateMetadata({ params }) {
     const { slug, locale } = await params;
@@ -16,11 +17,18 @@ export async function generateMetadata({ params }) {
     return {
         title: `${finalTool.title} | DocForge AI`,
         description: finalTool.description,
+        openGraph: {
+            title: finalTool.title,
+            description: finalTool.description,
+            type: 'website',
+            url: `/${locale}/tools/${slug}`,
+        },
     };
 }
 
 export default async function ToolPage({ params }) {
     const { slug, locale } = await params;
+
     const tool = STATIC_TOOLS[slug];
 
     if (!tool) {
@@ -40,8 +48,23 @@ export default async function ToolPage({ params }) {
     const localizedData = dict.tools_data?.[slug];
     const finalTool = localizedData ? { ...tool, ...localizedData } : tool;
 
+    const jsonLdData = {
+        '@context': 'https://schema.org',
+        '@type': 'SoftwareApplication',
+        name: finalTool.title,
+        description: finalTool.description,
+        applicationCategory: 'BusinessApplication',
+        operatingSystem: 'Web',
+        offers: {
+            '@type': 'Offer',
+            price: '0',
+            priceCurrency: 'USD'
+        }
+    };
+
     return (
         <div style={styles.page}>
+            <JsonLd data={jsonLdData} />
             <div className="container" style={{ maxWidth: '1000px' }}>
                 <header style={styles.header}>
                     <div style={styles.badge}>{t.badge}</div>
