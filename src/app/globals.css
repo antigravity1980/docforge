@@ -604,6 +604,34 @@ select {
   font-style: italic;
 }
 
+/* ===== FEATURE GRID ITEM (Alignment Fix) ===== */
+.feature-grid-item {
+  display: grid;
+  grid-template-columns: 180px 1fr auto; /* Fixed Name, Fluid Desc, Arrow */
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.feature-grid-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.feature-grid-item .item-arrow {
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: all 0.2s ease;
+}
+
+.feature-grid-item:hover .item-arrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+
 /* ===== RESPONSIVE UTILITIES ===== */
 .grid-2,
 .grid-3,
@@ -654,9 +682,12 @@ select {
     display: none !important;
   }
 
-  .mobile-stack {
+  .mobile-stack,
+  .feature-grid-item {
+    display: flex !important;
     flex-direction: column !important;
     align-items: flex-start !important;
+    gap: 4px !important;
   }
 
   .section,

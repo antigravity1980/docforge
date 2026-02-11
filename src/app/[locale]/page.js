@@ -179,12 +179,11 @@ export default async function Home({ params }) {
                     <Link
                       key={j}
                       href={`/${locale}/tools/${item.slug}`}
-                      style={s.featureItem}
-                      className="feature-hover-item mobile-stack"
+                      className="feature-grid-item"
                     >
-                      <span style={s.featureItemName}>{item.name}</span>
-                      <span style={s.featureItemDesc}>{item.desc}</span>
-                      <span style={s.featureArrow} className="item-arrow mobile-hide">→</span>
+                      <span style={{ fontSize: '14px', fontWeight: 600, color: '#f0f0f5' }}>{item.name}</span>
+                      <span style={{ fontSize: '13px', color: '#6b6b80', lineHeight: '1.4' }}>{item.desc}</span>
+                      <span className="item-arrow">→</span>
                     </Link>
                   ))}
                 </div>
@@ -466,34 +465,6 @@ const s = {
     flexDirection: 'column',
     gap: '4px',
     flex: 1,
-  },
-  featureItem: {
-    display: 'flex',
-    alignItems: 'center',
-    flexDirection: 'row',
-    gap: '12px',
-    padding: '10px 12px',
-    borderRadius: '8px',
-    transition: 'all 0.2s ease',
-    textDecoration: 'none',
-    cursor: 'pointer',
-  },
-  featureItemName: {
-    fontSize: '14px',
-    fontWeight: 600,
-    color: '#f0f0f5',
-  },
-  featureItemDesc: {
-    fontSize: '13px',
-    color: '#6b6b80',
-    lineHeight: '1.4',
-  },
-  featureArrow: {
-    fontSize: '14px',
-    color: '#6b6b80',
-    opacity: 0,
-    transform: 'translateX(-4px)',
-    transition: 'all 0.2s ease',
   },
 
   /* Steps */
