@@ -57,7 +57,7 @@ export default function Header({ dict }) {
                 </Link>
 
                 <nav className="nav-desktop" style={styles.nav}>
-                    <Link href={`${linkPrefix}/generate`} style={styles.navLink}>{dict.generate && dict.generate.title ? dict.generate.title.split(' ')[0] : 'Templates'}</Link>
+                    <Link href={`${linkPrefix}/generate`} style={styles.navLink}>{common.templates}</Link>
                     <Link href={`${linkPrefix}/#features`} style={styles.navLink}>{t.features}</Link>
                     <Link href={`${linkPrefix}/#how-it-works`} style={styles.navLink}>{t.howItWorks}</Link>
                     <Link href={`${linkPrefix}/pricing`} style={styles.navLink}>{t.pricing}</Link>
@@ -126,7 +126,7 @@ export default function Header({ dict }) {
 
             {mobileMenuOpen && (
                 <div style={styles.mobileMenu}>
-                    <Link href={`${linkPrefix}/generate`} style={styles.mobileLink} onClick={() => setMobileMenuOpen(false)}>{dict.generate && dict.generate.title ? dict.generate.title.split(' ')[0] : 'Templates'}</Link>
+                    <Link href={`${linkPrefix}/generate`} style={styles.mobileLink} onClick={() => setMobileMenuOpen(false)}>{common.templates}</Link>
                     <Link href={`${linkPrefix}/#features`} style={styles.mobileLink} onClick={() => setMobileMenuOpen(false)}>{t.features}</Link>
                     <Link href={`${linkPrefix}/#how-it-works`} style={styles.mobileLink} onClick={() => setMobileMenuOpen(false)}>{t.howItWorks}</Link>
                     <Link href={`${linkPrefix}/pricing`} style={styles.mobileLink} onClick={() => setMobileMenuOpen(false)}>{t.pricing}</Link>
