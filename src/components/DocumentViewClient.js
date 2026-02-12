@@ -49,7 +49,7 @@ export default function DocumentViewClient({ doc, locale, dict }) {
             
             @page {
                 size: A4;
-                margin: 0;
+                margin: 20mm;
             }
             
             body {
@@ -61,9 +61,8 @@ export default function DocumentViewClient({ doc, locale, dict }) {
             }
 
             .print-container {
-                padding: 20mm;
-                max-width: 210mm;
-                margin: 0 auto;
+                width: 100%;
+                margin: 0;
             }
 
             /* Logo Styling */
