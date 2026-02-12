@@ -157,10 +157,10 @@ const styles = {
         left: 0,
         right: 0,
         zIndex: 1000,
-        background: 'rgba(10, 10, 15, 0.85)',
+        background: 'rgba(15, 23, 42, 0.85)',
         backdropFilter: 'blur(20px)',
         WebkitBackdropFilter: 'blur(20px)',
-        borderBottom: '1px solid rgba(255, 255, 255, 0.06)',
+        borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
         height: '72px',
     },
     inner: {
@@ -178,7 +178,7 @@ const styles = {
         alignItems: 'center',
     },
     logoAccent: {
-        background: 'linear-gradient(135deg, #6366f1, #a78bfa)',
+        background: 'var(--gradient-primary)',
         WebkitBackgroundClip: 'text',
         WebkitTextFillColor: 'transparent',
     },

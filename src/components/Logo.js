@@ -9,12 +9,12 @@ export default function Logo({ width = 32, height = 32, showText = true, fontSiz
                 viewBox="0 0 100 100"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
-                style={{ filter: 'drop-shadow(0 0 8px rgba(99, 102, 241, 0.3))' }}
+                style={{ filter: 'drop-shadow(0 0 8px rgba(245, 158, 11, 0.3))' }}
             >
                 <defs>
                     <linearGradient id="logo-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stopColor="#6366f1" />
-                        <stop offset="100%" stopColor="#a78bfa" />
+                        <stop offset="0%" stopColor="#f59e0b" />
+                        <stop offset="100%" stopColor="#fbbf24" />
                     </linearGradient>
                 </defs>
                 {/* Forge / Shield Shape */}
@@ -29,18 +29,18 @@ export default function Logo({ width = 32, height = 32, showText = true, fontSiz
                     fillOpacity="0.9"
                 />
                 {/* AI Spark */}
-                <circle cx="50" cy="45" r="4" fill="#6366f1" />
+                <circle cx="50" cy="45" r="4" fill="#f59e0b" />
             </svg>
 
             {showText && (
                 <span style={{
                     fontSize: fontSize,
                     fontWeight: 800,
-                    color: '#f0f0f5',
+                    color: 'var(--text-primary)',
                     letterSpacing: '-0.5px'
                 }}>
                     Doc<span style={{
-                        background: 'linear-gradient(135deg, #6366f1, #a78bfa)',
+                        background: 'var(--gradient-primary)',
                         WebkitBackgroundClip: 'text',
                         WebkitTextFillColor: 'transparent',
                     }}>Forge</span> AI

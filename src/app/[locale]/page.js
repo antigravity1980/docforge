@@ -26,7 +26,7 @@ export default async function Home({ params }) {
     {
       category: p.features.categories.legal,
       icon: '⚖️',
-      color: '#6366f1',
+      color: 'var(--accent-primary)',
       items: [
         { ...p.features.items.nda, slug: 'nda-generator' },
         { ...p.features.items.privacy, slug: 'privacy-policy-generator' },
@@ -37,7 +37,7 @@ export default async function Home({ params }) {
     {
       category: p.features.categories.business,
       icon: '💼',
-      color: '#8b5cf6',
+      color: 'var(--accent-secondary)',
       items: [
         { ...p.features.items.invoice, slug: 'invoice-generator' },
         { ...p.features.items.proposal, slug: 'business-proposal-generator' },
@@ -47,7 +47,7 @@ export default async function Home({ params }) {
     {
       category: p.features.categories.seo,
       icon: '🚀',
-      color: '#10b981',
+      color: 'var(--accent-success)',
       items: [
         { ...p.features.items.meta, slug: 'meta-tags-generator' },
         { ...p.features.items.blog, slug: 'seo-blog-outline-generator' },
@@ -321,7 +321,7 @@ const s = {
     minHeight: '90vh',
     display: 'flex',
     alignItems: 'center',
-    background: 'radial-gradient(ellipse at top, #1a1a3e 0%, #0a0a0f 70%)',
+    background: 'var(--gradient-radial)',
   },
   heroGlow: {
     position: 'absolute',
@@ -330,15 +330,15 @@ const s = {
     transform: 'translateX(-50%)',
     width: '800px',
     height: '800px',
-    background: 'radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, transparent 70%)',
+    background: 'radial-gradient(circle, rgba(245, 158, 11, 0.1) 0%, transparent 70%)',
     pointerEvents: 'none',
   },
   heroGrid: {
     position: 'absolute',
     inset: 0,
     backgroundImage: `
-            linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)
+            linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px)
             `,
     backgroundSize: '60px 60px',
     pointerEvents: 'none',
@@ -409,7 +409,7 @@ const s = {
   statValue: {
     fontSize: '32px',
     fontWeight: 800,
-    background: 'linear-gradient(135deg, #6366f1, #a78bfa)',
+    background: 'var(--gradient-primary)',
     WebkitBackgroundClip: 'text',
     WebkitTextFillColor: 'transparent',
   },
@@ -480,7 +480,7 @@ const s = {
   stepNum: {
     fontSize: '14px',
     fontWeight: 700,
-    color: '#6366f1',
+    color: 'var(--accent-primary)',
     marginBottom: '16px',
     letterSpacing: '2px',
   },
@@ -509,15 +509,15 @@ const s = {
     position: 'relative',
   },
   pricingPopular: {
-    borderColor: '#6366f1',
-    boxShadow: '0 0 30px rgba(99, 102, 241, 0.2)',
+    borderColor: 'var(--accent-primary)',
+    boxShadow: '0 0 30px rgba(245, 158, 11, 0.2)',
   },
   popularBadge: {
     position: 'absolute',
     top: '-12px',
     left: '50%',
     transform: 'translateX(-50%)',
-    background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+    background: 'var(--gradient-primary)',
     color: 'white',
     padding: '4px 16px',
     borderRadius: '20px',
@@ -592,7 +592,7 @@ const s = {
     width: '40px',
     height: '40px',
     borderRadius: '50%',
-    background: 'linear-gradient(135deg, #6366f1, #a78bfa)',
+    background: 'var(--gradient-primary)',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',

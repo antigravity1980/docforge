@@ -263,7 +263,7 @@ const s = {
         width: '20px',
         height: '20px',
         borderRadius: '50%',
-        background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+        background: 'linear-gradient(135deg, #f59e0b, #fbbf24)', // Amber gradient
         transition: 'transform 0.2s ease',
     },
     saveBadge: {
@@ -288,8 +288,8 @@ const s = {
         position: 'relative',
     },
     popularCard: {
-        borderColor: '#6366f1',
-        boxShadow: '0 0 40px rgba(99, 102, 241, 0.2)',
+        borderColor: '#f59e0b', // Amber
+        boxShadow: '0 0 40px rgba(245, 158, 11, 0.2)', // Amber shadow
         transform: 'scale(1.02)',
     },
     popularBadge: {
@@ -297,7 +297,7 @@ const s = {
         top: '-12px',
         left: '50%',
         transform: 'translateX(-50%)',
-        background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+        background: 'linear-gradient(135deg, #f59e0b, #fbbf24)', // Amber gradient
         color: 'white',
         padding: '4px 20px',
         borderRadius: '20px',
@@ -369,8 +369,8 @@ const s = {
         maxWidth: '500px',
         margin: '64px auto 0',
         padding: '24px',
-        background: 'rgba(99, 102, 241, 0.05)',
-        border: '1px solid rgba(99, 102, 241, 0.15)',
+        background: 'rgba(245, 158, 11, 0.05)', // Amber background
+        border: '1px solid rgba(245, 158, 11, 0.15)', // Amber border
         borderRadius: '12px',
         textAlign: 'left',
     },

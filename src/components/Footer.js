@@ -76,8 +76,8 @@ export default function Footer({ dict }) {
 
 const styles = {
     footer: {
-        borderTop: '1px solid rgba(255, 255, 255, 0.06)',
-        background: '#08080d',
+        borderTop: '1px solid rgba(255, 255, 255, 0.1)',
+        background: '#0a0f1d',
         padding: '64px 0 32px',
     },
     inner: {
