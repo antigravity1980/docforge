@@ -9,6 +9,7 @@ export default async function sitemap() {
         '',
         '/pricing',
         '/login',
+        '/generate',
         '/templates',
         '/features' // Removed how-it-works if it's just a section, but if it's a page keep it. 
         // Checking nav keys, 'howItWorks' usually scrolls. But let's assume it might be a page or just keep main ones.

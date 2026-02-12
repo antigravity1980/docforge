@@ -27,7 +27,7 @@ export async function generateMetadata({ params }) {
       template: `%s — DocForge AI`
     },
     description: h.subtitle,
-    keywords: dict.common.generate, // Ensure this key exists or fallback to generic keywords
+    keywords: ['AI Document Generator', 'Legal Templates', 'Contract Maker', 'Business Proposals', 'NDA Generator', 'Privacy Policy Creator', 'DocForge AI'],
     openGraph: {
       title: dict.hero.title,
       description: h.subtitle,
@@ -67,6 +67,9 @@ export async function generateMetadata({ params }) {
       icon: '/icon.svg',
       shortcut: '/favicon.ico',
       apple: '/apple-touch-icon.png',
+    },
+    verification: {
+      google: '8EYkQKUIVc32uOJ4Udt7g9-X12rdKN--jkoWyjzGSCU',
     },
   };
 }
