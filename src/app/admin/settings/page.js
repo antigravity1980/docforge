@@ -12,6 +12,8 @@ export default function AdminSettings() {
         maxFreeDocs: 3,
         priceStarter: 29,
         pricePro: 79,
+        priceStarterYearly: 290,
+        priceProYearly: 790,
     });
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
@@ -208,13 +210,37 @@ export default function AdminSettings() {
                             />
                         </div>
                         <div style={s.formGroup}>
-                            <label style={s.label}>Pro Price ($)</label>
+                            <label style={s.label}>Pro Price ($/mo)</label>
                             <input
                                 type="number"
                                 step="0.01"
                                 style={s.input}
                                 value={settings.pricePro}
                                 onChange={(e) => setSettings({ ...settings, pricePro: e.target.value })}
+                            />
+                        </div>
+                    </div>
+                    <div style={s.row}>
+                        <div style={s.formGroup}>
+                            <label style={s.label}>Starter Price (Yearly) ($)</label>
+                            <input
+                                type="number"
+                                step="0.01"
+                                style={s.input}
+                                value={settings.priceStarterYearly || ''}
+                                onChange={(e) => setSettings({ ...settings, priceStarterYearly: e.target.value })}
+                                placeholder="e.g. 290"
+                            />
+                        </div>
+                        <div style={s.formGroup}>
+                            <label style={s.label}>Pro Price (Yearly) ($)</label>
+                            <input
+                                type="number"
+                                step="0.01"
+                                style={s.input}
+                                value={settings.priceProYearly || ''}
+                                onChange={(e) => setSettings({ ...settings, priceProYearly: e.target.value })}
+                                placeholder="e.g. 790"
                             />
                         </div>
                     </div>
