@@ -13,6 +13,7 @@ import ReactMarkdown from 'react-markdown'; // Keep for fallback in PDF generati
 export default function DocumentViewClient({ doc, locale, dict }) {
     const router = useRouter();
     const g = dict.generate;
+    const ui = g.ui || {};
     const [editorHtml, setEditorHtml] = useState(null); // Added state
 
     // Config based on doc type, similar to generator
@@ -129,10 +130,8 @@ export default function DocumentViewClient({ doc, locale, dict }) {
         tempDiv.style.width = '595pt';
         tempDiv.style.padding = '40px';
         tempDiv.style.background = '#fff';
-        tempDiv.style.color = '#000';
-        tempDiv.style.fontFamily = 'Inter, sans-serif';
         tempDiv.style.position = 'absolute';
-        tempDiv.style.left = '-9999px';
+        tempDiv.style.left = '-10000px';
         tempDiv.style.top = '0';
 
         const logoHtml = ReactDOMServer.renderToStaticMarkup(<Logo showText={true} width={40} height={40} fontSize="24px" />);
@@ -148,22 +147,39 @@ export default function DocumentViewClient({ doc, locale, dict }) {
             );
         }
 
+        // Inject styles directly for html2canvas to capture
         tempDiv.innerHTML = `
-            <div style="margin-bottom: 30px;">${logoHtml}</div>
-            <div class="pdf-content" style="font-size: 11pt; line-height: 1.6; color: #000;">
-                ${contentHtml}
-            </div>
-            <div style="margin-top: 50px; padding-top: 15px; border-top: 0.5pt solid #eee; font-size: 9pt; color: #666; text-align: center; font-style: italic;">
-                ${g.disclaimer}
+            <style>
+                @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+                .pdf-container { font-family: 'Inter', sans-serif; color: #111; }
+                .header-branding { margin-bottom: 30px; }
+                .pdf-content { font-size: 11pt; line-height: 1.6; color: #000; }
+                .pdf-content h1 { font-size: 24px; font-weight: 800; margin-bottom: 12px; color: #000; }
+                .pdf-content h2 { font-size: 18px; font-weight: 700; margin-top: 24px; margin-bottom: 12px; border-bottom: 1px solid #eee; padding-bottom: 8px; color: #333; }
+                .pdf-content h3 { font-size: 16px; font-weight: 600; margin-top: 18px; margin-bottom: 10px; color: #444; }
+                .pdf-content p { margin-bottom: 12px; text-align: justify; }
+                .pdf-content ul, .pdf-content ol { margin-bottom: 12px; padding-left: 20px; }
+                .pdf-content li { margin-bottom: 6px; }
+                .pdf-content strong { font-weight: 800; color: #000; }
+                .disclaimer { margin-top: 50px; padding-top: 15px; border-top: 0.5pt solid #eee; font-size: 9pt; color: #666; text-align: center; font-style: italic; }
+            </style>
+            <div class="pdf-container">
+                <div class="header-branding">${logoHtml}</div>
+                <div class="pdf-content">
+                    ${contentHtml}
+                </div>
+                <div class="disclaimer">
+                    ${ui.disclaimer}
+                </div>
             </div>
         `;
 
         document.body.appendChild(tempDiv);
 
         try {
-            docPDF.html(tempDiv, {
+            await docPDF.html(tempDiv, {
                 callback: function (pdf) {
-                    pdf.save(`${doc.title}.pdf`);
+                    pdf.save(`${doc.title || 'document'}.pdf`);
                     document.body.removeChild(tempDiv);
                 },
                 x: 0,
@@ -174,15 +190,16 @@ export default function DocumentViewClient({ doc, locale, dict }) {
                 autoPaging: 'text',
                 html2canvas: {
                     scale: 0.75,
-                    logging: false,
-                    letterRendering: true,
-                    useCORS: true
+                    useCORS: true,
+                    logging: false
                 }
             });
         } catch (e) {
             console.error(e);
             alert("Error generating PDF. Please try 'Print' instead.");
-            document.body.removeChild(tempDiv);
+            if (document.body.contains(tempDiv)) {
+                document.body.removeChild(tempDiv);
+            }
         }
     };
 
@@ -198,16 +215,16 @@ export default function DocumentViewClient({ doc, locale, dict }) {
 
                 <div style={s.resultSection}>
                     <div style={s.resultHeader}>
-                        <h2 style={s.resultTitle}>{g.docGenerated || "Document Content"}</h2>
+                        <h2 style={s.resultTitle}>{ui.docGenerated || "Document Content"}</h2>
                         <div style={s.resultActions}>
                             <button onClick={() => { navigator.clipboard.writeText(editorHtml || doc.content); }} className="btn btn-secondary btn-sm">
-                                📋 {g.copy || 'Copy'}
+                                📋 {ui.copy || 'Copy'}
                             </button>
                             <button onClick={handleDownload} className="btn btn-primary btn-sm">
-                                💾 {g.downloadPdf || 'Download PDF'}
+                                💾 {ui.downloadPdf || 'Download PDF'}
                             </button>
                             <button onClick={handlePrint} className="btn btn-secondary btn-sm">
-                                🖨️ {g.print || 'Print'}
+                                🖨️ {ui.print || 'Print'}
                             </button>
                         </div>
                     </div>
@@ -217,7 +234,7 @@ export default function DocumentViewClient({ doc, locale, dict }) {
                     </div>
 
                     <div style={s.disclaimer}>
-                        {g.disclaimer}
+                        {ui.disclaimer}
                     </div>
                 </div>
             </div>

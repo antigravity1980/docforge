@@ -73,7 +73,7 @@ export default function GenerateDocumentClient({ locale, config, ui, user }) {
         printWindow.document.write(`
       <html>
         <head>
-          <title>${config.title}</title>
+          <title>${config.name}</title>
           <style>
             @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
             
@@ -152,30 +152,15 @@ export default function GenerateDocumentClient({ locale, config, ui, user }) {
     };
 
     const handleDownload = async () => {
-        // We'll use the print logic but inside a hidden iframe or temporary div to grab canvas?
-        // Actually, easiest way compatible with current CSS is using html2canvas on a temporary rendered element.
-        // But html2canvas often misses styles. 
-        // A better approach for "Download without Print Dialog" using our exact print layout
-        // is tricky purely client-side without using window.print() to PDF (which is manual).
-        // Standard jsPDF 'html' method:
-
         const { jsPDF } = await import('jspdf');
         const doc = new jsPDF('p', 'pt', 'a4');
-        const margin = 40;
-        const scale = 0.8; // Adjust to fit width
-
-        // Element to capture
-        // We need to render the content into a hidden div that mimics the print layout
-        // For simplicity, let's capture the 'editor' content if possible, or construct a temporary node.
 
         const tempDiv = document.createElement('div');
-        tempDiv.style.width = '595pt'; // A4 width in pt
+        tempDiv.style.width = '595pt';
         tempDiv.style.padding = '40px';
         tempDiv.style.background = '#fff';
-        tempDiv.style.color = '#000';
-        tempDiv.style.fontFamily = 'Inter, sans-serif';
         tempDiv.style.position = 'absolute';
-        tempDiv.style.left = '-9999px';
+        tempDiv.style.left = '-10000px';
         tempDiv.style.top = '0';
 
         // Logo
@@ -193,41 +178,59 @@ export default function GenerateDocumentClient({ locale, config, ui, user }) {
             );
         }
 
+        // Inject styles directly for html2canvas to capture
         tempDiv.innerHTML = `
-            <div style="margin-bottom: 40px;">${logoHtml}</div>
-            <div class="pdf-content" style="font-size: 12px; line-height: 1.5;">
-                ${contentHtml}
-            </div>
-            <div style="margin-top: 60px; padding-top: 20px; border-top: 1px solid #eee; font-size: 10px; color: #999; text-align: center;">
-                ${g.disclaimer}
+            <style>
+                @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+                .pdf-container { font-family: 'Inter', sans-serif; color: #111; }
+                .header-branding { margin-bottom: 30px; }
+                .pdf-content { font-size: 11pt; line-height: 1.6; color: #000; }
+                .pdf-content h1 { font-size: 24px; font-weight: 800; margin-bottom: 12px; color: #000; }
+                .pdf-content h2 { font-size: 18px; font-weight: 700; margin-top: 24px; margin-bottom: 12px; border-bottom: 1px solid #eee; padding-bottom: 8px; color: #333; }
+                .pdf-content h3 { font-size: 16px; font-weight: 600; margin-top: 18px; margin-bottom: 10px; color: #444; }
+                .pdf-content p { margin-bottom: 12px; text-align: justify; }
+                .pdf-content ul, .pdf-content ol { margin-bottom: 12px; padding-left: 20px; }
+                .pdf-content li { margin-bottom: 6px; }
+                .pdf-content strong { font-weight: 800; color: #000; }
+                .disclaimer { margin-top: 50px; padding-top: 15px; border-top: 0.5pt solid #eee; font-size: 9pt; color: #666; text-align: center; font-style: italic; }
+            </style>
+            <div class="pdf-container">
+                <div class="header-branding">${logoHtml}</div>
+                <div class="pdf-content">
+                    ${contentHtml}
+                </div>
+                <div class="disclaimer">
+                    ${g.disclaimer}
+                </div>
             </div>
         `;
 
         document.body.appendChild(tempDiv);
 
         try {
-            doc.html(tempDiv, {
+            await doc.html(tempDiv, {
                 callback: function (doc) {
-                    doc.save(`${config.title}.pdf`);
+                    doc.save(`${config.name || 'document'}.pdf`);
                     document.body.removeChild(tempDiv);
                 },
                 x: 0,
                 y: 0,
-                width: 595, // target width in the PDF document
-                windowWidth: 800, // window width in CSS pixels
+                width: 595,
+                windowWidth: 800,
                 margin: [20, 20, 20, 20],
                 autoPaging: 'text',
                 html2canvas: {
-                    scale: 0.75, // Adjust scale to fit
-                    logging: false,
-                    letterRendering: true,
-                    useCORS: true
+                    scale: 0.75, // Adjust scale to fit A4 width
+                    useCORS: true,
+                    logging: false
                 }
             });
         } catch (e) {
             console.error(e);
             alert("Error generating PDF. Please try 'Print' instead.");
-            document.body.removeChild(tempDiv);
+            if (document.body.contains(tempDiv)) {
+                document.body.removeChild(tempDiv);
+            }
         }
     };
 
@@ -236,9 +239,9 @@ export default function GenerateDocumentClient({ locale, config, ui, user }) {
             <div className="container" style={{ maxWidth: '800px' }}>
                 <div style={s.header}>
                     <button onClick={() => router.push(`/${locale}/templates`)} style={s.backBtn}>← {g.backToDocs || 'Back'}</button>
-                    <div style={s.headerIcon}>{config.icon}</div>
-                    <h1 className="responsive-title">{config.title}</h1>
-                    <p style={s.subtitle}>{config.subtitle}</p>
+                    <div style={s.headerIcon}>{config.icon || '📄'}</div>
+                    <h1 className="responsive-title">{config.name}</h1>
+                    <p style={s.subtitle}>{config.desc}</p>
                 </div>
 
                 {result ? (
