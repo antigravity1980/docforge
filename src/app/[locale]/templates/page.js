@@ -12,93 +12,107 @@ export async function generateMetadata({ params }) {
 export default async function TemplatesPage({ params }) {
     const { locale } = await params;
     const dict = await getDictionary(locale);
-    const g = dict.generate;
-    const t = g.docs;
+    // Load English fallback if current locale is not English
+    const limitDict = locale === 'en' ? dict : await getDictionary('en');
+
+    // Helper to safely get doc name
+    const getName = (slug) => {
+        // Try current locale
+        let val = dict.generate?.docs?.[slug];
+        if (val?.name) return val.name;
+
+        // Try fallback (English)
+        val = limitDict.generate?.docs?.[slug];
+        if (val?.name) return val.name;
+
+        // Fallback to slug title case
+        return slug.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+    };
 
     // Reusing the same category structure (in a real app, extract this to a shared config)
     const CATEGORIES = [
         {
-            title: g.categories.legal,
+            title: dict.generate?.categories?.legal || "Legal",
             icon: '⚖️',
             items: [
-                { name: t['employment-agreement'].name, slug: 'employment-agreement' },
-                { name: t.nda.name, slug: 'nda' },
-                { name: t['contractor-agreement'].name, slug: 'contractor-agreement' },
-                { name: t['non-compete'].name, slug: 'non-compete' },
-                { name: t['partnership-agreement'].name, slug: 'partnership-agreement' },
-                { name: t['msa'].name, slug: 'msa' },
-                { name: t['power-of-attorney'].name, slug: 'power-of-attorney' },
-                { name: t['living-will'].name, slug: 'living-will' },
-                { name: t.affidavit.name, slug: 'affidavit' },
-                { name: t['cease-and-desist'].name, slug: 'cease-and-desist' },
-                { name: t['demand-letter'].name, slug: 'demand-letter' },
-                { name: t['child-travel-consent'].name, slug: 'child-travel-consent' },
+                { name: getName('employment-agreement'), slug: 'employment-agreement' },
+                { name: getName('nda'), slug: 'nda' },
+                { name: getName('contractor-agreement'), slug: 'contractor-agreement' },
+                { name: getName('non-compete'), slug: 'non-compete' },
+                { name: getName('partnership-agreement'), slug: 'partnership-agreement' },
+                { name: getName('msa'), slug: 'msa' },
+                { name: getName('power-of-attorney'), slug: 'power-of-attorney' },
+                { name: getName('living-will'), slug: 'living-will' },
+                { name: getName('affidavit'), slug: 'affidavit' },
+                { name: getName('cease-and-desist'), slug: 'cease-and-desist' },
+                { name: getName('demand-letter'), slug: 'demand-letter' },
+                { name: getName('child-travel-consent'), slug: 'child-travel-consent' },
             ]
         },
         {
             title: "Real Estate",
             icon: '🏠',
             items: [
-                { name: t['residential-lease'].name, slug: 'residential-lease' },
-                { name: t['commercial-lease'].name, slug: 'commercial-lease' },
-                { name: t['eviction-notice'].name, slug: 'eviction-notice' },
-                { name: t['roommate-agreement'].name, slug: 'roommate-agreement' },
-                { name: t['sublease-agreement'].name, slug: 'sublease-agreement' },
-                { name: t['intent-to-vacate'].name, slug: 'intent-to-vacate' },
-                { name: t['rent-increase-notice'].name, slug: 'rent-increase-notice' },
+                { name: getName('residential-lease'), slug: 'residential-lease' },
+                { name: getName('commercial-lease'), slug: 'commercial-lease' },
+                { name: getName('eviction-notice'), slug: 'eviction-notice' },
+                { name: getName('roommate-agreement'), slug: 'roommate-agreement' },
+                { name: getName('sublease-agreement'), slug: 'sublease-agreement' },
+                { name: getName('intent-to-vacate'), slug: 'intent-to-vacate' },
+                { name: getName('rent-increase-notice'), slug: 'rent-increase-notice' },
             ]
         },
         {
             title: "HR & Employment",
             icon: '👥',
             items: [
-                { name: t['offer-letter'].name, slug: 'offer-letter' },
-                { name: t['termination-letter'].name, slug: 'termination-letter' },
-                { name: t['recommendation-letter'].name, slug: 'recommendation-letter' },
-                { name: t['resignation-letter'].name, slug: 'resignation-letter' },
-                { name: t['employee-handbook'].name, slug: 'employee-handbook' },
-                { name: t['remote-work-policy'].name, slug: 'remote-work-policy' },
-                { name: t['social-media-policy'].name, slug: 'social-media-policy' },
+                { name: getName('offer-letter'), slug: 'offer-letter' },
+                { name: getName('termination-letter'), slug: 'termination-letter' },
+                { name: getName('recommendation-letter'), slug: 'recommendation-letter' },
+                { name: getName('resignation-letter'), slug: 'resignation-letter' },
+                { name: getName('employee-handbook'), slug: 'employee-handbook' },
+                { name: getName('remote-work-policy'), slug: 'remote-work-policy' },
+                { name: getName('social-media-policy'), slug: 'social-media-policy' },
             ]
         },
         {
-            title: g.categories.business,
+            title: dict.generate?.categories?.business || "Business",
             icon: '💼',
             items: [
-                { name: t.invoice.name, slug: 'invoice' },
-                { name: t['business-plan'].name, slug: 'business-plan' },
-                { name: t['service-agreement'].name, slug: 'service-agreement' },
-                { name: t['sales-agreement'].name, slug: 'sales-agreement' },
-                { name: t['meeting-minutes'].name, slug: 'meeting-minutes' },
-                { name: t['board-resolution'].name, slug: 'board-resolution' },
-                { name: t['marketing-plan'].name, slug: 'marketing-plan' },
-                { name: t['swot-analysis'].name, slug: 'swot-analysis' },
-                { name: t.memo.name, slug: 'memo' },
-                { name: t['letter-of-intent'].name, slug: 'letter-of-intent' },
-                { name: t['partnership-dissolution'].name, slug: 'partnership-dissolution' },
+                { name: getName('invoice'), slug: 'invoice' },
+                { name: getName('business-plan'), slug: 'business-plan' },
+                { name: getName('service-agreement'), slug: 'service-agreement' },
+                { name: getName('sales-agreement'), slug: 'sales-agreement' },
+                { name: getName('meeting-minutes'), slug: 'meeting-minutes' },
+                { name: getName('board-resolution'), slug: 'board-resolution' },
+                { name: getName('marketing-plan'), slug: 'marketing-plan' },
+                { name: getName('swot-analysis'), slug: 'swot-analysis' },
+                { name: getName('memo'), slug: 'memo' },
+                { name: getName('letter-of-intent'), slug: 'letter-of-intent' },
+                { name: getName('partnership-dissolution'), slug: 'partnership-dissolution' },
             ]
         },
         {
             title: "Sales & Finance",
             icon: '💰',
             items: [
-                { name: t['promissory-note'].name, slug: 'promissory-note' },
-                { name: t['loan-agreement'].name, slug: 'loan-agreement' },
-                { name: t['purchase-order'].name, slug: 'purchase-order' },
-                { name: t.receipt.name, slug: 'receipt' },
-                { name: t['bill-of-sale-car'].name, slug: 'bill-of-sale-car' },
-                { name: t['bill-of-sale-general'].name, slug: 'bill-of-sale-general' },
-                { name: t['debt-settlement'].name, slug: 'debt-settlement' },
+                { name: getName('promissory-note'), slug: 'promissory-note' },
+                { name: getName('loan-agreement'), slug: 'loan-agreement' },
+                { name: getName('purchase-order'), slug: 'purchase-order' },
+                { name: getName('receipt'), slug: 'receipt' },
+                { name: getName('bill-of-sale-car'), slug: 'bill-of-sale-car' },
+                { name: getName('bill-of-sale-general'), slug: 'bill-of-sale-general' },
+                { name: getName('debt-settlement'), slug: 'debt-settlement' },
             ]
         },
         {
             title: "Standard & Web",
             icon: '🌐',
             items: [
-                { name: t['privacy-policy'].name, slug: 'privacy-policy' },
-                { name: t.tos.name, slug: 'tos' },
-                { name: dict.page.features.items.meta.name, slug: 'meta-tags-generator' },
-                { name: dict.page.features.items.blog.name, slug: 'seo-blog-outline-generator' },
+                { name: getName('privacy-policy'), slug: 'privacy-policy' },
+                { name: getName('tos'), slug: 'tos' },
+                { name: "Meta Tags Generator", slug: 'meta-tags-generator' },
+                { name: "SEO Blog Outline", slug: 'seo-blog-outline-generator' },
             ]
         }
     ];
