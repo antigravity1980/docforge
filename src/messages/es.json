@@ -35,15 +35,15 @@
         "copyright": "Todos los derechos reservados.",
         "disclaimer": "Los documentos generados por IA son solo para fines informativos y no constituyen asesoramiento legal.",
         "description": "Genera documentos profesionales en segundos con IA. Documentos legales, propuestas comerciales, facturas y contenido SEO.",
-        "nda": "NDA Generator",
-        "tos": "Terms of Service",
-        "freelance": "Freelance Contract",
-        "cease": "Cease & Desist",
-        "invoice": "Invoice Generator",
-        "meta": "Meta Tags Generator",
-        "proposal": "Business Proposal",
-        "blogOutline": "SEO Blog Outline",
-        "sow": "Statement of Work"
+        "nda": "Generador de NDA",
+        "tos": "Términos de Servicio",
+        "freelance": "Contrato Freelance",
+        "cease": "Cese y Desistimiento",
+        "invoice": "Generador de Facturas",
+        "meta": "Generador de Metaetiquetas",
+        "proposal": "Propuesta Comercial",
+        "blogOutline": "Esquema de Blog SEO",
+        "sow": "Alcance del Trabajo (SOW)"
     },
     "page": {
         "hero": {
@@ -82,40 +82,40 @@
             },
             "items": {
                 "nda": {
-                    "name": "Non-Disclosure Agreement (NDA)",
-                    "desc": "Protect confidential info."
+                    "name": "Acuerdo de Confidencialidad (NDA)",
+                    "desc": "Proteja info confidencial."
                 },
                 "privacy": {
-                    "name": "Privacy Policy",
-                    "desc": "GDPR & CCPA compliant."
+                    "name": "Política de Privacidad",
+                    "desc": "Cumple con RGPD y CCPA."
                 },
                 "tos": {
-                    "name": "Terms of Service",
-                    "desc": "Rules for your app."
+                    "name": "Términos de Servicio",
+                    "desc": "Reglas para su app."
                 },
                 "freelance": {
-                    "name": "Freelance Contract",
-                    "desc": "Secure your work."
+                    "name": "Contrato Freelance",
+                    "desc": "Asegure su trabajo."
                 },
                 "invoice": {
-                    "name": "Invoice",
-                    "desc": "Professional template."
+                    "name": "Factura",
+                    "desc": "Plantilla profesional."
                 },
                 "proposal": {
-                    "name": "Business Proposal",
-                    "desc": "Win more clients."
+                    "name": "Propuesta Comercial",
+                    "desc": "Gane más clientes."
                 },
                 "sow": {
-                    "name": "Statement of Work",
-                    "desc": "Define project scope."
+                    "name": "Alcance del Trabajo (SOW)",
+                    "desc": "Defina el alcance del proyecto."
                 },
                 "meta": {
-                    "name": "SEO Meta Tags",
-                    "desc": "Boost search rankings."
+                    "name": "Metaetiquetas SEO",
+                    "desc": "Mejore el ranking de búsqueda."
                 },
                 "blog": {
-                    "name": "Blog Post Outline",
-                    "desc": "Structure effectively."
+                    "name": "Esquema de Blog",
+                    "desc": "Estructure eficazmente."
                 }
             }
         },
@@ -161,16 +161,17 @@
                 "month": "/month"
             },
             "features": {
-                "docs3": "1 document per month",
-                "docs30": "30 documents per month",
-                "docsUnlimited": "Unlimited documents",
-                "allTypes": "All document types",
-                "pdf": "PDF export",
-                "noWatermark": "No watermark",
-                "watermark": "Watermark on documents",
-                "history": "Document history",
-                "priority": "Priority AI generation",
-                "branding": "Custom branding"
+                "docs3": "1 documento al mes",
+                "docs30": "30 documentos al mes",
+                "docsUnlimited": "Documentos ilimitados",
+                "allTypes": "Todo tipo de documentos",
+                "pdf": "Exportación a PDF",
+                "noWatermark": "Sin marca de agua",
+                "watermark": "Con marca de agua",
+                "history": "Historial de documentos",
+                "priority": "Generación prioritaria",
+                "branding": "Branding personalizado",
+                "emailSupport": "Soporte por email"
             }
         },
         "testimonials": {
@@ -279,8 +280,9 @@
             "title": "Garantía de devolución de dinero de 30 días",
             "text": "Garantía de devolución de dinero de 30 días en todos los planes de pago."
         },
-        "billed": "Billed",
-        "year": "/year",
+        "billed": "Facturado",
+        "year": "/año",
+        "period_month": "mes",
         "connecting": "Connecting...",
         "error": "Something went wrong",
         "plans": {
@@ -1659,23 +1661,25 @@
                 ]
             }
         },
-        "backToDocs": "← Volver a Documentos",
-        "docGenerated": "✅ Documento Generado",
-        "copy": "📋 Copiar",
-        "downloadPdf": "⬇️ Descargar PDF",
-        "genAnother": "← Generar Otro",
-        "generating": "Generando tu documento...",
-        "genBtn": "⚡ Generar Documento",
-        "freeNote": "Plan gratuito: 3 documentos/mes",
-        "upgradeMore": "Actualizar para más",
-        "disclaimer": "Este documento fue generado con asistencia de IA. NO constituye asesoramiento legal.",
-        "select": "Seleccionar...",
-        "required": "* requerido",
-        "formTitle": "Generador de Documentos",
-        "formSub": "Potenciado por IA",
-        "docTitleLabel": "Título del Documento",
-        "describeLabel": "Describe lo que necesitas",
-        "describePlaceholder": "Describe el documento que quieres generar..."
+        "ui": {
+            "backToDocs": "← Volver a Documentos",
+            "docGenerated": "✅ Documento Generado",
+            "copy": "📋 Copiar",
+            "downloadPdf": "⬇️ Descargar PDF",
+            "genAnother": "← Generar Otro",
+            "generating": "Generando tu documento...",
+            "genBtn": "⚡ Generar Documento",
+            "freeNote": "Plan gratuito: 3 documentos/mes",
+            "upgradeMore": "Actualizar para más",
+            "disclaimer": "Este documento fue generado con asistencia de IA. NO constituye asesoramiento legal.",
+            "select": "Seleccionar...",
+            "required": "* requerido",
+            "formTitle": "Generador de Documentos",
+            "formSub": "Potenciado por IA",
+            "docTitleLabel": "Título del Documento",
+            "describeLabel": "Describe lo que necesitas",
+            "describePlaceholder": "Describe el documento que quieres generar..."
+        }
     },
     "dashboard": {
         "welcome": "¡Bienvenido de nuevo! 👋",

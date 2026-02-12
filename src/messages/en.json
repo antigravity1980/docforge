@@ -167,7 +167,8 @@
                 "watermark": "Watermark on documents",
                 "history": "Document history",
                 "priority": "Priority AI generation",
-                "branding": "Custom branding"
+                "branding": "Custom branding",
+                "emailSupport": "Email support"
             }
         },
         "testimonials": {
@@ -278,6 +279,7 @@
         },
         "billed": "Billed",
         "year": "/year",
+        "period_month": "month",
         "connecting": "Connecting...",
         "error": "Something went wrong",
         "plans": {

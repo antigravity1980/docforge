@@ -36,14 +36,14 @@
         "disclaimer": "KI-generierte Dokumente dienen nur zur Information und stellen keine Rechtsberatung dar.",
         "description": "Erstellen Sie professionelle Dokumente in Sekunden mit KI. Rechtliche Dokumente, Geschäftsvorschläge, Rechnungen und SEO-Inhalte.",
         "nda": "NDA Generator",
-        "tos": "Terms of Service",
-        "freelance": "Freelance Contract",
-        "cease": "Cease & Desist",
-        "invoice": "Invoice Generator",
-        "meta": "Meta Tags Generator",
-        "proposal": "Business Proposal",
-        "blogOutline": "SEO Blog Outline",
-        "sow": "Statement of Work"
+        "tos": "Nutzungsbedingungen",
+        "freelance": "Freelancer-Vertrag",
+        "cease": "Abmahnung",
+        "invoice": "Rechnungsgenerator",
+        "meta": "Meta-Tag-Generator",
+        "proposal": "Geschäftsvorschlag",
+        "blogOutline": "SEO Blog-Gliederung",
+        "sow": "Leistungsbeschreibung (SOW)"
     },
     "page": {
         "hero": {
@@ -82,40 +82,40 @@
             },
             "items": {
                 "nda": {
-                    "name": "Non-Disclosure Agreement (NDA)",
-                    "desc": "Protect confidential info."
+                    "name": "Geheimhaltungsvereinbarung (NDA)",
+                    "desc": "Vertrauliche Infos schützen."
                 },
                 "privacy": {
-                    "name": "Privacy Policy",
-                    "desc": "GDPR & CCPA compliant."
+                    "name": "Datenschutzerklärung",
+                    "desc": "DSGVO- & CCPA-konform."
                 },
                 "tos": {
-                    "name": "Terms of Service",
-                    "desc": "Rules for your app."
+                    "name": "Nutzungsbedingungen",
+                    "desc": "Regeln für Ihre App."
                 },
                 "freelance": {
-                    "name": "Freelance Contract",
-                    "desc": "Secure your work."
+                    "name": "Freelancer-Vertrag",
+                    "desc": "Sichern Sie Ihre Arbeit."
                 },
                 "invoice": {
-                    "name": "Invoice",
-                    "desc": "Professional template."
+                    "name": "Rechnung",
+                    "desc": "Professionelle Vorlage."
                 },
                 "proposal": {
-                    "name": "Business Proposal",
-                    "desc": "Win more clients."
+                    "name": "Geschäftsvorschlag",
+                    "desc": "Mehr Kunden gewinnen."
                 },
                 "sow": {
-                    "name": "Statement of Work",
-                    "desc": "Define project scope."
+                    "name": "Leistungsbeschreibung (SOW)",
+                    "desc": "Projektumfang definieren."
                 },
                 "meta": {
-                    "name": "SEO Meta Tags",
-                    "desc": "Boost search rankings."
+                    "name": "SEO Meta-Tags",
+                    "desc": "Suchrankings verbessern."
                 },
                 "blog": {
-                    "name": "Blog Post Outline",
-                    "desc": "Structure effectively."
+                    "name": "Blog-Post-Gliederung",
+                    "desc": "Effektiv strukturieren."
                 }
             }
         },
@@ -161,16 +161,17 @@
                 "month": "/month"
             },
             "features": {
-                "docs3": "1 document per month",
-                "docs30": "30 documents per month",
-                "docsUnlimited": "Unlimited documents",
-                "allTypes": "All document types",
-                "pdf": "PDF export",
-                "noWatermark": "No watermark",
-                "watermark": "Watermark on documents",
-                "history": "Document history",
-                "priority": "Priority AI generation",
-                "branding": "Custom branding"
+                "docs3": "1 Dokument pro Monat",
+                "docs30": "30 Dokumente pro Monat",
+                "docsUnlimited": "Unbegrenzte Dokumente",
+                "allTypes": "Alle Dokumenttypen",
+                "pdf": "PDF-Export",
+                "noWatermark": "Kein Wasserzeichen",
+                "watermark": "Mit Wasserzeichen",
+                "history": "Dokumentenhistorie",
+                "priority": "Priorisierte Generierung",
+                "branding": "Eigenes Branding",
+                "emailSupport": "E-Mail-Support"
             }
         },
         "testimonials": {
@@ -279,8 +280,9 @@
             "title": "30-Tage Geld-zurück-Garantie",
             "text": "30-Tage Geld-zurück-Garantie auf alle bezahlten Pläne."
         },
-        "billed": "Billed",
-        "year": "/year",
+        "billed": "Abgerechnet",
+        "year": "/Jahr",
+        "period_month": "Monat",
         "connecting": "Connecting...",
         "plans": {
             "free": {
@@ -1658,23 +1660,25 @@
                 ]
             }
         },
-        "backToDocs": "← Zurück zu Dokumenten",
-        "docGenerated": "✅ Dokument generiert",
-        "copy": "📋 Kopieren",
-        "downloadPdf": "⬇️ PDF herunterladen",
-        "genAnother": "← Ein weiteres generieren",
-        "generating": "Ihr Dokument wird generiert...",
-        "genBtn": "⚡ Dokument generieren",
-        "freeNote": "Kostenloser Plan: 3 Dokumente/Monat",
-        "upgradeMore": "Upgrade für mehr",
-        "disclaimer": "Dieses Dokument wurde mit KI-Unterstützung erstellt. Es stellt KEINE Rechtsberatung dar.",
-        "select": "Auswählen...",
-        "required": "* erforderlich",
-        "formTitle": "Dokumenten-Generator",
-        "formSub": "KI-gestützt",
-        "docTitleLabel": "Dokumententitel",
-        "describeLabel": "Beschreiben Sie, was Sie benötigen",
-        "describePlaceholder": "Beschreiben Sie das Dokument, das Sie generieren möchten..."
+        "ui": {
+            "backToDocs": "← Zurück zu Dokumenten",
+            "docGenerated": "✅ Dokument generiert",
+            "copy": "📋 Kopieren",
+            "downloadPdf": "⬇️ PDF herunterladen",
+            "genAnother": "← Ein weiteres generieren",
+            "generating": "Ihr Dokument wird generiert...",
+            "genBtn": "⚡ Dokument generieren",
+            "freeNote": "Kostenloser Plan: 3 Dokumente/Monat",
+            "upgradeMore": "Upgrade für mehr",
+            "disclaimer": "Dieses Dokument wurde mit KI-Unterstützung erstellt. Es stellt KEINE Rechtsberatung dar.",
+            "select": "Auswählen...",
+            "required": "* erforderlich",
+            "formTitle": "Dokumenten-Generator",
+            "formSub": "KI-gestützt",
+            "docTitleLabel": "Dokumententitel",
+            "describeLabel": "Beschreiben Sie, was Sie benötigen",
+            "describePlaceholder": "Beschreiben Sie das Dokument, das Sie generieren möchten..."
+        }
     },
     "dashboard": {
         "welcome": "Willkommen zurück! 👋",

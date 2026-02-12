@@ -167,7 +167,8 @@
                 "watermark": "Filigrane sur documents",
                 "history": "Historique",
                 "priority": "Génération prioritaire",
-                "branding": "Branding personnalisé"
+                "branding": "Branding personnalisé",
+                "emailSupport": "Support par email"
             }
         },
         "testimonials": {
@@ -278,6 +279,7 @@
         },
         "billed": "Facturé",
         "year": "/an",
+        "period_month": "mois",
         "connecting": "Connexion...",
         "error": "Une erreur est survenue",
         "plans": {
@@ -1650,23 +1652,25 @@
                 ]
             }
         },
-        "backToDocs": "← Retour aux Documents",
-        "docGenerated": "✅ Document Généré",
-        "copy": "📋 Copier",
-        "downloadPdf": "⬇️ Télécharger le PDF",
-        "genAnother": "← Générer un autre",
-        "generating": "Génération de votre document...",
-        "genBtn": "⚡ Générer le document",
-        "freeNote": "Plan gratuit : 3 documents/mois",
-        "upgradeMore": "Mettre à niveau pour plus",
-        "disclaimer": "Ce document a été généré avec l'aide de l'IA. Il ne constitue PAS un conseil juridique.",
-        "select": "Sélectionner...",
-        "required": "* requis",
-        "formTitle": "Générateur de documents",
-        "formSub": "Propulsé par l'IA",
-        "docTitleLabel": "Titre du document",
-        "describeLabel": "Décrivez ce dont vous avez besoin",
-        "describePlaceholder": "Décrivez le document que vous souhaitez générer..."
+        "ui": {
+            "backToDocs": "← Retour aux Documents",
+            "docGenerated": "✅ Document Généré",
+            "copy": "📋 Copier",
+            "downloadPdf": "⬇️ Télécharger le PDF",
+            "genAnother": "← Générer un autre",
+            "generating": "Génération de votre document...",
+            "genBtn": "⚡ Générer le document",
+            "freeNote": "Plan gratuit : 3 documents/mois",
+            "upgradeMore": "Mettre à niveau pour plus",
+            "disclaimer": "Ce document a été généré avec l'aide de l'IA. Il ne constitue PAS un conseil juridique.",
+            "select": "Sélectionner...",
+            "required": "* requis",
+            "formTitle": "Générateur de documents",
+            "formSub": "Propulsé par l'IA",
+            "docTitleLabel": "Titre du document",
+            "describeLabel": "Décrivez ce dont vous avez besoin",
+            "describePlaceholder": "Décrivez le document que vous souhaitez générer..."
+        }
     },
     "dashboard": {
         "welcome": "Bon retour ! 👋",
