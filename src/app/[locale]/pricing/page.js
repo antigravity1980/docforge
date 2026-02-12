@@ -18,7 +18,9 @@ export default async function PricingPage({ params }) {
 
     const prices = {
         starter: settings.priceStarter || '29',
-        pro: settings.pricePro || '79'
+        pro: settings.pricePro || '79',
+        starterYearly: settings.priceStarterYearly || '290',
+        proYearly: settings.priceProYearly || '790'
     };
 
     return <PricingClient locale={locale} dict={dict} prices={prices} />;
