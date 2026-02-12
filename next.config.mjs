@@ -8,6 +8,7 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  // Cache bust: Force rebuild for Phase 2 content
 };
 
 export default nextConfig;
