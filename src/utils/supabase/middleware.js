@@ -52,9 +52,20 @@ export async function updateSession(request) {
         pathname === '/sitemap.xml' ||
         pathname === '/auth/v1/callback'
 
+    // Redirect /en to / (hide default locale)
+    if (pathname.startsWith(`/${defaultLocale}/`) || pathname === `/${defaultLocale}`) {
+        const newPath = pathname.replace(`/${defaultLocale}`, '') || '/';
+        return NextResponse.redirect(new URL(newPath, request.url))
+    }
+
     if (!pathnameHasLocale && !isInternal) {
         const locale = request.cookies.get('NEXT_LOCALE')?.value || defaultLocale
-        return NextResponse.redirect(new URL(`/${locale}${pathname}`, request.url))
+        // If locale is default (en), rewrite instead of redirect to keep clean URL
+        if (locale === defaultLocale) {
+            return NextResponse.rewrite(new URL(`/${locale}${pathname}`, request.url))
+        } else {
+            return NextResponse.redirect(new URL(`/${locale}${pathname}`, request.url))
+        }
     }
 
     // 3. Maintenance Mode Check

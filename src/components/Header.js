@@ -16,8 +16,8 @@ export default function Header({ dict }) {
     // Determine current locale from pathname
     const segments = pathname ? pathname.split('/') : [''];
     const currentLocale = locales.includes(segments[1]) ? segments[1] : 'en';
+    const linkPrefix = currentLocale === 'en' ? '' : `/${currentLocale}`;
 
-    // Fallback if dict is missing (e.g. initial render or error)
     const t = dict?.nav || {
         features: "Features",
         howItWorks: "How It Works",
@@ -52,15 +52,16 @@ export default function Header({ dict }) {
     return (
         <header style={styles.header}>
             <div style={styles.inner}>
-                <Link href={`/${currentLocale}`} style={styles.logoLink}>
+                <Link href={`${linkPrefix || '/'}`} style={styles.logoLink}>
                     <Logo />
                 </Link>
 
                 <nav className="nav-desktop" style={styles.nav}>
-                    <Link href={`/${currentLocale}/#features`} style={styles.navLink}>{t.features}</Link>
-                    <Link href={`/${currentLocale}/#how-it-works`} style={styles.navLink}>{t.howItWorks}</Link>
-                    <Link href={`/${currentLocale}/pricing`} style={styles.navLink}>{t.pricing}</Link>
-                    <Link href={`/${currentLocale}/#faq`} style={styles.navLink}>{t.faq}</Link>
+                    <Link href={`${linkPrefix}/generate`} style={styles.navLink}>{dict.generate && dict.generate.title ? dict.generate.title.split(' ')[0] : 'Templates'}</Link>
+                    <Link href={`${linkPrefix}/#features`} style={styles.navLink}>{t.features}</Link>
+                    <Link href={`${linkPrefix}/#how-it-works`} style={styles.navLink}>{t.howItWorks}</Link>
+                    <Link href={`${linkPrefix}/pricing`} style={styles.navLink}>{t.pricing}</Link>
+                    <Link href={`${linkPrefix}/#faq`} style={styles.navLink}>{t.faq}</Link>
                 </nav>
 
                 <div className="actions-desktop" style={styles.actions}>
@@ -91,13 +92,13 @@ export default function Header({ dict }) {
 
                     {session ? (
                         <>
-                            <Link href={`/${currentLocale}/dashboard`} className="btn btn-secondary btn-sm">{common.dashboard}</Link>
+                            <Link href={`${linkPrefix}/dashboard`} className="btn btn-secondary btn-sm">{common.dashboard}</Link>
                             <button onClick={handleSignOut} className="btn btn-primary btn-sm">{common.logout}</button>
                         </>
                     ) : (
                         <>
-                            <Link href={`/${currentLocale}/auth/signin`} className="btn btn-secondary btn-sm">{common.login}</Link>
-                            <Link href={`/${currentLocale}/auth/signup`} className="btn btn-primary btn-sm">{common.signup}</Link>
+                            <Link href={`${linkPrefix}/auth/signin`} className="btn btn-secondary btn-sm">{common.login}</Link>
+                            <Link href={`${linkPrefix}/auth/signup`} className="btn btn-primary btn-sm">{common.signup}</Link>
                         </>
                     )}
                 </div>
@@ -125,20 +126,21 @@ export default function Header({ dict }) {
 
             {mobileMenuOpen && (
                 <div style={styles.mobileMenu}>
-                    <Link href={`/${currentLocale}/#features`} style={styles.mobileLink} onClick={() => setMobileMenuOpen(false)}>{t.features}</Link>
-                    <Link href={`/${currentLocale}/#how-it-works`} style={styles.mobileLink} onClick={() => setMobileMenuOpen(false)}>{t.howItWorks}</Link>
-                    <Link href={`/${currentLocale}/pricing`} style={styles.mobileLink} onClick={() => setMobileMenuOpen(false)}>{t.pricing}</Link>
-                    <Link href={`/${currentLocale}/#faq`} style={styles.mobileLink} onClick={() => setMobileMenuOpen(false)}>{t.faq}</Link>
+                    <Link href={`${linkPrefix}/generate`} style={styles.mobileLink} onClick={() => setMobileMenuOpen(false)}>{dict.generate && dict.generate.title ? dict.generate.title.split(' ')[0] : 'Templates'}</Link>
+                    <Link href={`${linkPrefix}/#features`} style={styles.mobileLink} onClick={() => setMobileMenuOpen(false)}>{t.features}</Link>
+                    <Link href={`${linkPrefix}/#how-it-works`} style={styles.mobileLink} onClick={() => setMobileMenuOpen(false)}>{t.howItWorks}</Link>
+                    <Link href={`${linkPrefix}/pricing`} style={styles.mobileLink} onClick={() => setMobileMenuOpen(false)}>{t.pricing}</Link>
+                    <Link href={`${linkPrefix}/#faq`} style={styles.mobileLink} onClick={() => setMobileMenuOpen(false)}>{t.faq}</Link>
                     <div style={styles.mobileActions}>
                         {session ? (
                             <>
-                                <Link href={`/${currentLocale}/dashboard`} className="btn btn-secondary" style={{ width: '100%' }} onClick={() => setMobileMenuOpen(false)}>{common.dashboard}</Link>
+                                <Link href={`${linkPrefix}/dashboard`} className="btn btn-secondary" style={{ width: '100%' }} onClick={() => setMobileMenuOpen(false)}>{common.dashboard}</Link>
                                 <button onClick={handleSignOut} className="btn btn-primary" style={{ width: '100%' }}>{common.logout}</button>
                             </>
                         ) : (
                             <>
-                                <Link href={`/${currentLocale}/auth/signin`} className="btn btn-secondary" style={{ width: '100%' }} onClick={() => setMobileMenuOpen(false)}>{common.login}</Link>
-                                <Link href={`/${currentLocale}/auth/signup`} className="btn btn-primary" style={{ width: '100%' }} onClick={() => setMobileMenuOpen(false)}>{common.signup}</Link>
+                                <Link href={`${linkPrefix}/auth/signin`} className="btn btn-secondary" style={{ width: '100%' }} onClick={() => setMobileMenuOpen(false)}>{common.login}</Link>
+                                <Link href={`${linkPrefix}/auth/signup`} className="btn btn-primary" style={{ width: '100%' }} onClick={() => setMobileMenuOpen(false)}>{common.signup}</Link>
                             </>
                         )}
                     </div>

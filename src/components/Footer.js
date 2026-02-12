@@ -8,8 +8,10 @@ import Logo from './Logo';
 
 export default function Footer({ dict }) {
     const pathname = usePathname();
+    // Determine current locale
     const segments = pathname ? pathname.split('/') : [''];
     const currentLocale = locales.includes(segments[1]) ? segments[1] : 'en';
+    const linkPrefix = currentLocale === 'en' ? '' : `/${currentLocale}`;
 
     // Fallback
     const t = dict?.footer || {};
@@ -36,28 +38,28 @@ export default function Footer({ dict }) {
                     {/* Legal Documents */}
                     <div style={styles.column}>
                         <h4 style={styles.columnTitle}>{t.legal || "Legal"}</h4>
-                        <Link href={`/${currentLocale}/tools/nda-generator`} style={styles.link}>{g.nda?.name || "NDA Generator"}</Link>
-                        <Link href={`/${currentLocale}/tools/privacy-policy-generator`} style={styles.link}>{g.privacy?.name || "Privacy Policy"}</Link>
-                        <Link href={`/${currentLocale}/tools/terms-of-service-generator`} style={styles.link}>{g.tos?.name || "Terms of Service"}</Link>
-                        <Link href={`/${currentLocale}/tools/freelance-contract-generator`} style={styles.link}>{g.freelance?.name || "Freelance Contract"}</Link>
+                        <Link href={`${linkPrefix}/tools/nda-generator`} style={styles.link}>{g.nda?.name || "NDA Generator"}</Link>
+                        <Link href={`${linkPrefix}/tools/privacy-policy-generator`} style={styles.link}>{g.privacy?.name || "Privacy Policy"}</Link>
+                        <Link href={`${linkPrefix}/tools/terms-of-service-generator`} style={styles.link}>{g.tos?.name || "Terms of Service"}</Link>
+                        <Link href={`${linkPrefix}/tools/freelance-contract-generator`} style={styles.link}>{g.freelance?.name || "Freelance Contract"}</Link>
                     </div>
 
                     {/* Business */}
                     <div style={styles.column}>
                         <h4 style={styles.columnTitle}>{t.business || "Business"}</h4>
-                        <Link href={`/${currentLocale}/tools/invoice-generator`} style={styles.link}>{g.invoice?.name || "Invoice Generator"}</Link>
-                        <Link href={`/${currentLocale}/tools/meta-tags-generator`} style={styles.link}>{g.meta?.name || "Meta Tags"}</Link>
-                        <Link href={`/${currentLocale}/tools/business-proposal-generator`} style={styles.link}>{g.proposal?.name || "Business Proposal"}</Link>
+                        <Link href={`${linkPrefix}/tools/invoice-generator`} style={styles.link}>{g.invoice?.name || "Invoice Generator"}</Link>
+                        <Link href={`${linkPrefix}/tools/meta-tags-generator`} style={styles.link}>{g.meta?.name || "Meta Tags"}</Link>
+                        <Link href={`${linkPrefix}/tools/business-proposal-generator`} style={styles.link}>{g.proposal?.name || "Business Proposal"}</Link>
                     </div>
 
                     {/* Company */}
                     <div style={styles.column}>
                         <h4 style={styles.columnTitle}>{t.company || "Company"}</h4>
-                        <Link href={`/${currentLocale}/blog`} style={styles.link}>{dict?.nav?.blog || "Blog"}</Link>
-                        <Link href={`/${currentLocale}/pricing`} style={styles.link}>{dict?.nav?.pricing || "Pricing"}</Link>
-                        <Link href={`/${currentLocale}/templates`} style={styles.link}>{dict?.generate?.title || "Templates"}</Link>
-                        <Link href={`/${currentLocale}/#faq`} style={styles.link}>{dict?.nav?.faq || "FAQ"}</Link>
-                        <Link href={`/${currentLocale}/privacy`} style={styles.link}>{t.privacy || "Privacy"}</Link>
+                        <Link href={`${linkPrefix}/blog`} style={styles.link}>{dict?.nav?.blog || "Blog"}</Link>
+                        <Link href={`${linkPrefix}/pricing`} style={styles.link}>{dict?.nav?.pricing || "Pricing"}</Link>
+                        <Link href={`${linkPrefix}/generate`} style={styles.link}>{dict?.generate?.title ? dict.generate.title.split(' ')[0] : "Templates"}</Link>
+                        <Link href={`${linkPrefix}/#faq`} style={styles.link}>{dict?.nav?.faq || "FAQ"}</Link>
+                        <Link href={`${linkPrefix}/privacy`} style={styles.link}>{t.privacy || "Privacy"}</Link>
                     </div>
                 </div>
 
