@@ -799,6 +799,864 @@
                         "required": true
                     }
                 ]
+            },
+            "residential-lease": {
+                "name": "Contratto di locazione abitativa",
+                "desc": "Contratto standard per abitazioni.",
+                "fields": [
+                    {
+                        "name": "landlord",
+                        "label": "Landlord Name",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "tenant",
+                        "label": "Tenant Name",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "address",
+                        "label": "Property Address",
+                        "type": "textarea",
+                        "required": true
+                    },
+                    {
+                        "name": "rent",
+                        "label": "Monthly Rent",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "startDate",
+                        "label": "Lease Start Date",
+                        "type": "text",
+                        "required": true
+                    }
+                ]
+            },
+            "commercial-lease": {
+                "name": "Locazione commerciale",
+                "desc": "Affitto di immobili commerciali.",
+                "fields": [
+                    {
+                        "name": "landlord",
+                        "label": "Landlord",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "tenant",
+                        "label": "Tenant Company",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "property",
+                        "label": "Property Details",
+                        "type": "textarea",
+                        "required": true
+                    },
+                    {
+                        "name": "term",
+                        "label": "Lease Term",
+                        "type": "text",
+                        "required": true
+                    }
+                ]
+            },
+            "eviction-notice": {
+                "name": "Avviso di sfratto",
+                "desc": "Avviso formale all'inquilino di lasciare l'immobile.",
+                "fields": [
+                    {
+                        "name": "tenant",
+                        "label": "Tenant Name",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "reason",
+                        "label": "Reason for Eviction",
+                        "type": "textarea",
+                        "required": true
+                    },
+                    {
+                        "name": "date",
+                        "label": "Vacate By Date",
+                        "type": "text",
+                        "required": true
+                    }
+                ]
+            },
+            "roommate-agreement": {
+                "name": "Accordo tra coinquilini",
+                "desc": "Regole tra inquilini.",
+                "fields": [
+                    {
+                        "name": "roommates",
+                        "label": "Names of Roommates",
+                        "type": "textarea",
+                        "required": true
+                    },
+                    {
+                        "name": "address",
+                        "label": "Property Address",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "rentSplit",
+                        "label": "Rent Split Details",
+                        "type": "textarea",
+                        "required": true
+                    }
+                ]
+            },
+            "sublease-agreement": {
+                "name": "Contratto di sublocazione",
+                "desc": "Affittare una stanza o proprietà in affitto.",
+                "fields": [
+                    {
+                        "name": "sublessor",
+                        "label": "Current Tenant (Sublessor)",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "sublessee",
+                        "label": "New Tenant (Sublessee)",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "term",
+                        "label": "Sublease Term",
+                        "type": "text",
+                        "required": true
+                    }
+                ]
+            },
+            "intent-to-vacate": {
+                "name": "Preavviso di rilascio",
+                "desc": "Lettera che informa il proprietario della partenza.",
+                "fields": [
+                    {
+                        "name": "landlord",
+                        "label": "Landlord Name",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "moveOutDate",
+                        "label": "Move Out Date",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "forwardingAddress",
+                        "label": "Forwarding Address",
+                        "type": "textarea",
+                        "required": true
+                    }
+                ]
+            },
+            "rent-increase-notice": {
+                "name": "Avviso aumento affitto",
+                "desc": "Informare l'inquilino del nuovo canone.",
+                "fields": [
+                    {
+                        "name": "tenant",
+                        "label": "Tenant Name",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "currentRent",
+                        "label": "Current Rent",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "newRent",
+                        "label": "New Rent Amount",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "effectiveDate",
+                        "label": "Effective Date",
+                        "type": "text",
+                        "required": true
+                    }
+                ]
+            },
+            "recommendation-letter": {
+                "name": "Lettera di raccomandazione",
+                "desc": "Referenza positiva per un dipendente.",
+                "fields": [
+                    {
+                        "name": "candidate",
+                        "label": "Candidate Name",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "relationship",
+                        "label": "Your Relationship",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "strengths",
+                        "label": "Key Strengths",
+                        "type": "textarea",
+                        "required": true
+                    }
+                ]
+            },
+            "resignation-letter": {
+                "name": "Lettera di dimissioni",
+                "desc": "Lasciare formalmente un lavoro.",
+                "fields": [
+                    {
+                        "name": "manager",
+                        "label": "Manager Name",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "lastDay",
+                        "label": "Last Working Day",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "reason",
+                        "label": "Reason (Optional)",
+                        "type": "textarea",
+                        "required": false
+                    }
+                ]
+            },
+            "employee-handbook": {
+                "name": "Manuale del dipendente",
+                "desc": "Regole e politiche aziendali.",
+                "fields": [
+                    {
+                        "name": "company",
+                        "label": "Company Name",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "values",
+                        "label": "Core Values",
+                        "type": "textarea",
+                        "required": true
+                    },
+                    {
+                        "name": "policies",
+                        "label": "Key Policies to Include",
+                        "type": "textarea",
+                        "required": true
+                    }
+                ]
+            },
+            "remote-work-policy": {
+                "name": "Politica lavoro agile",
+                "desc": "Linee guida per il lavoro da remoto.",
+                "fields": [
+                    {
+                        "name": "company",
+                        "label": "Company Name",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "eligibility",
+                        "label": "Who is eligible?",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "requirements",
+                        "label": "Tech/Hours Requirements",
+                        "type": "textarea",
+                        "required": true
+                    }
+                ]
+            },
+            "social-media-policy": {
+                "name": "Politica social media",
+                "desc": "Regole per l'uso dei social media.",
+                "fields": [
+                    {
+                        "name": "company",
+                        "label": "Company Name",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "guidelines",
+                        "label": "Do's and Don'ts",
+                        "type": "textarea",
+                        "required": true
+                    }
+                ]
+            },
+            "affidavit": {
+                "name": "Atto notorio",
+                "desc": "Dichiarazione giurata scritta.",
+                "fields": [
+                    {
+                        "name": "affiant",
+                        "label": "Your Name (Affiant)",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "facts",
+                        "label": "Facts to Swear To",
+                        "type": "textarea",
+                        "required": true
+                    },
+                    {
+                        "name": "location",
+                        "label": "Location (City/State)",
+                        "type": "text",
+                        "required": true
+                    }
+                ]
+            },
+            "cease-and-desist": {
+                "name": "Lettera di diffida",
+                "desc": "Richiesta di cessazione di attività illegale.",
+                "fields": [
+                    {
+                        "name": "recipient",
+                        "label": "Recipient Name",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "activity",
+                        "label": "Activity to Stop",
+                        "type": "textarea",
+                        "required": true
+                    },
+                    {
+                        "name": "demand",
+                        "label": "Your Demand",
+                        "type": "textarea",
+                        "required": true
+                    }
+                ]
+            },
+            "demand-letter": {
+                "name": "Lettera di sollecito",
+                "desc": "Richiesta formale di pagamento o azione.",
+                "fields": [
+                    {
+                        "name": "recipient",
+                        "label": "Recipient",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "amount",
+                        "label": "Amount Owed (if applicable)",
+                        "type": "text",
+                        "required": false
+                    },
+                    {
+                        "name": "issue",
+                        "label": "Issue Description",
+                        "type": "textarea",
+                        "required": true
+                    }
+                ]
+            },
+            "child-travel-consent": {
+                "name": "Consenso viaggio minori",
+                "desc": "Autorizzazione per il viaggio di minori.",
+                "fields": [
+                    {
+                        "name": "child",
+                        "label": "Child's Name",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "guardian",
+                        "label": "Accompanying Adult / Guardian",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "dates",
+                        "label": "Travel Dates",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "destination",
+                        "label": "Destination",
+                        "type": "text",
+                        "required": true
+                    }
+                ]
+            },
+            "power-of-attorney": {
+                "name": "Power of Attorney (General)",
+                "desc": "Grant someone authority to act for you.",
+                "fields": [
+                    {
+                        "name": "principal",
+                        "label": "Your Name (Principal)",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "agent",
+                        "label": "Agent Name",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "powers",
+                        "label": "Powers Granted",
+                        "type": "textarea",
+                        "required": true
+                    }
+                ]
+            },
+            "living-will": {
+                "name": "Testamento biologico",
+                "desc": "Dichiarazione anticipata di trattamento.",
+                "fields": [
+                    {
+                        "name": "declarant",
+                        "label": "Your Name",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "wishes",
+                        "label": "Medical Wishes",
+                        "type": "textarea",
+                        "required": true
+                    },
+                    {
+                        "name": "agent",
+                        "label": "Healthcare Agent (Optional)",
+                        "type": "text",
+                        "required": false
+                    }
+                ]
+            },
+            "meeting-minutes": {
+                "name": "Verbale di riunione",
+                "desc": "Note ufficiali di una riunione.",
+                "fields": [
+                    {
+                        "name": "company",
+                        "label": "Company/Org Name",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "date",
+                        "label": "Date & Time",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "attendees",
+                        "label": "Attendees",
+                        "type": "textarea",
+                        "required": true
+                    },
+                    {
+                        "name": "decisions",
+                        "label": "Key Decisions Made",
+                        "type": "textarea",
+                        "required": true
+                    }
+                ]
+            },
+            "board-resolution": {
+                "name": "Delibera del consiglio",
+                "desc": "Decisione ufficiale del consiglio di amministrazione.",
+                "fields": [
+                    {
+                        "name": "company",
+                        "label": "Company Name",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "resolution",
+                        "label": "Resolution Details",
+                        "type": "textarea",
+                        "required": true
+                    },
+                    {
+                        "name": "date",
+                        "label": "Date",
+                        "type": "text",
+                        "required": true
+                    }
+                ]
+            },
+            "business-plan": {
+                "name": "Business Plan",
+                "desc": "Piano completo per una nuova attività.",
+                "fields": [
+                    {
+                        "name": "businessName",
+                        "label": "Business Name",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "problem",
+                        "label": "Problem Solved",
+                        "type": "textarea",
+                        "required": true
+                    },
+                    {
+                        "name": "solution",
+                        "label": "Solution (Product)",
+                        "type": "textarea",
+                        "required": true
+                    },
+                    {
+                        "name": "targetMarket",
+                        "label": "Target Market",
+                        "type": "text",
+                        "required": true
+                    }
+                ]
+            },
+            "marketing-plan": {
+                "name": "Piano di marketing",
+                "desc": "Strategia per promuovere prodotti.",
+                "fields": [
+                    {
+                        "name": "company",
+                        "label": "Company Name",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "goals",
+                        "label": "Marketing Goals",
+                        "type": "textarea",
+                        "required": true
+                    },
+                    {
+                        "name": "channels",
+                        "label": "Channels (Social, Email, etc.)",
+                        "type": "textarea",
+                        "required": true
+                    }
+                ]
+            },
+            "swot-analysis": {
+                "name": "Analisi SWOT",
+                "desc": "Punti di forza, debolezza, opportunità, minacce.",
+                "fields": [
+                    {
+                        "name": "subject",
+                        "label": "Subject (Company/Project)",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "strengths",
+                        "label": "Strengths",
+                        "type": "textarea",
+                        "required": true
+                    },
+                    {
+                        "name": "weaknesses",
+                        "label": "Weaknesses",
+                        "type": "textarea",
+                        "required": true
+                    },
+                    {
+                        "name": "opportunities",
+                        "label": "Opportunities",
+                        "type": "textarea",
+                        "required": true
+                    },
+                    {
+                        "name": "threats",
+                        "label": "Threats",
+                        "type": "textarea",
+                        "required": true
+                    }
+                ]
+            },
+            "memo": {
+                "name": "Memorandum",
+                "desc": "Documento di comunicazione interna.",
+                "fields": [
+                    {
+                        "name": "to",
+                        "label": "To",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "from",
+                        "label": "From",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "subject",
+                        "label": "Subject",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "message",
+                        "label": "Message",
+                        "type": "textarea",
+                        "required": true
+                    }
+                ]
+            },
+            "letter-of-intent": {
+                "name": "Lettera di intenti",
+                "desc": "Accordo preliminare prima del contratto finale.",
+                "fields": [
+                    {
+                        "name": "sender",
+                        "label": "Sender",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "recipient",
+                        "label": "Recipient",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "intent",
+                        "label": "Statement of Intent",
+                        "type": "textarea",
+                        "required": true
+                    }
+                ]
+            },
+            "partnership-dissolution": {
+                "name": "Scioglimento della partnership",
+                "desc": "Porre fine formalmente a una partnership.",
+                "fields": [
+                    {
+                        "name": "partners",
+                        "label": "Names of Partners",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "business",
+                        "label": "Business Name",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "terms",
+                        "label": "Dissolution Terms",
+                        "type": "textarea",
+                        "required": true
+                    }
+                ]
+            },
+            "purchase-order": {
+                "name": "Ordine di acquisto",
+                "desc": "Richiesta ufficiale di beni o servizi.",
+                "fields": [
+                    {
+                        "name": "buyer",
+                        "label": "Buyer Company",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "vendor",
+                        "label": "Vendor Name",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "items",
+                        "label": "Items Needed",
+                        "type": "textarea",
+                        "required": true
+                    }
+                ]
+            },
+            "receipt": {
+                "name": "Ricevuta di vendita",
+                "desc": "Prova di pagamento.",
+                "fields": [
+                    {
+                        "name": "seller",
+                        "label": "Seller Name",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "buyer",
+                        "label": "Buyer Name",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "amount",
+                        "label": "Amount Paid",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "item",
+                        "label": "Item/Service",
+                        "type": "text",
+                        "required": true
+                    }
+                ]
+            },
+            "bill-of-sale-car": {
+                "name": "Atto di vendita (Auto)",
+                "desc": "Trasferimento di proprietà di un'auto.",
+                "fields": [
+                    {
+                        "name": "seller",
+                        "label": "Seller Name",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "buyer",
+                        "label": "Buyer Name",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "vehicle",
+                        "label": "Vehicle Details (Make/Model/VIN)",
+                        "type": "textarea",
+                        "required": true
+                    },
+                    {
+                        "name": "price",
+                        "label": "Sale Price",
+                        "type": "text",
+                        "required": true
+                    }
+                ]
+            },
+            "bill-of-sale-general": {
+                "name": "Atto di vendita (Generale)",
+                "desc": "Trasferimento di proprietà di beni.",
+                "fields": [
+                    {
+                        "name": "seller",
+                        "label": "Seller",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "buyer",
+                        "label": "Buyer",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "item",
+                        "label": "Item Description",
+                        "type": "textarea",
+                        "required": true
+                    },
+                    {
+                        "name": "price",
+                        "label": "Price",
+                        "type": "text",
+                        "required": true
+                    }
+                ]
+            },
+            "loan-agreement": {
+                "name": "Contratto di prestito",
+                "desc": "Accordo formale di prestito.",
+                "fields": [
+                    {
+                        "name": "lender",
+                        "label": "Lender",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "borrower",
+                        "label": "Borrower",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "amount",
+                        "label": "Loan Amount",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "interest",
+                        "label": "Interest Rate (if any)",
+                        "type": "text",
+                        "required": false
+                    },
+                    {
+                        "name": "schedule",
+                        "label": "Repayment Schedule",
+                        "type": "textarea",
+                        "required": true
+                    }
+                ]
+            },
+            "debt-settlement": {
+                "name": "Saldo e stralcio",
+                "desc": "Accordo per saldare un debito a importo ridotto.",
+                "fields": [
+                    {
+                        "name": "creditor",
+                        "label": "Creditor",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "debtor",
+                        "label": "Debtor",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "originalAmount",
+                        "label": "Original Debt Amount",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "settlementAmount",
+                        "label": "Settlement Amount",
+                        "type": "text",
+                        "required": true
+                    }
+                ]
             }
         },
         "backToDocs": "← Torna ai Documenti",

@@ -9,36 +9,16 @@ import Logo from '@/components/Logo';
 import Editor from '@/components/Editor'; // Added
 import ReactMarkdown from 'react-markdown'; // Keep for fallback
 
-export default function GenerateDocumentClient({ locale, dict }) {
-    const params = useParams();
-    const router = useRouter();
-    const docType = params.type;
-    const g = dict.generate;
-    const [editorHtml, setEditorHtml] = useState(null); // Added state
-
-    // Get document config from dictionary
-    const docConfig = g.docs && g.docs[docType] ? g.docs[docType] : null;
-
-    const DEFAULT_CONFIG = {
-        title: g.formTitle || "Document Generator",
-        subtitle: g.formSub || "AI-Powered",
-        icon: '📄',
-        fields: [
-            { name: 'title', label: g.docTitleLabel || "Document Title", type: 'text', required: true },
-            { name: 'content', label: g.describeLabel || "Describe what you need", type: 'textarea', placeholder: g.describePlaceholder || "Describe the document...", required: true },
-        ],
-    };
-
-    const config = docConfig ? {
-        title: docConfig.name,
-        subtitle: docConfig.desc,
-        icon: docConfig.icon || '📄',
-        fields: docConfig.fields || DEFAULT_CONFIG.fields
-    } : DEFAULT_CONFIG;
-
+export default function GenerateDocumentClient({ locale, config, ui, user }) {
     const [formData, setFormData] = useState({});
     const [loading, setLoading] = useState(false);
-    const [result, setResult] = useState(null);
+    const [result, setResult] = useState('');
+    const [editorHtml, setEditorHtml] = useState('');
+    const router = useRouter();
+
+    // We use 'ui' prop for translations now
+    const g = ui || {};
+
     const [error, setError] = useState(null);
 
     const handleChange = (name, value) => {
@@ -49,23 +29,20 @@ export default function GenerateDocumentClient({ locale, dict }) {
         e.preventDefault();
         setLoading(true);
         setError(null);
-        setEditorHtml(null); // Reset editor state on new generation
+        setResult(''); // Reset editor state on new generation
 
         try {
             const res = await fetch('/api/generate', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    type: docType,
-                    data: formData,
-                    locale: locale
-                }),
+                    type: config.slug, // Ensure config has slug
+                    locale,
+                    data: formData
+                })
             });
 
-            if (!res.ok) {
-                const errData = await res.json();
-                throw new Error(errData.error || 'Generation failed');
-            }
+            if (!res.ok) throw new Error('Failed to generate');
 
             const data = await res.json();
             setResult(data.document);
@@ -77,7 +54,7 @@ export default function GenerateDocumentClient({ locale, dict }) {
     };
 
 
-    const handleDownloadPDF = () => {
+    const handlePrint = () => {
         const logoHtml = ReactDOMServer.renderToStaticMarkup(<Logo showText={true} width={40} height={40} fontSize="24px" />);
 
         // Use edited HTML if available, otherwise fallback to initial markdown
@@ -102,13 +79,13 @@ export default function GenerateDocumentClient({ locale, dict }) {
             
             @page {
                 size: A4;
-                margin: 20mm;
+                margin: 0; /* Remove browser headers/footers */
             }
             
             body {
                 font-family: 'Inter', sans-serif;
                 margin: 0;
-                padding: 0;
+                padding: 20mm; /* Add content margin back */
                 color: #111;
                 -webkit-print-color-adjust: exact;
             }
@@ -123,7 +100,7 @@ export default function GenerateDocumentClient({ locale, dict }) {
             
             /* Content Styling (Shared for Markdown & Editor HTML) */
             .content { font-size: 14px; line-height: 1.6; }
-            .content h1 { font-size: 24px; font-weight: 800; margin-bottom: 24px; color: #000; }
+            .content h1 { font-size: 24px; font-weight: 800; margin-bottom: 12px; color: #000; }
             .content h2 { font-size: 18px; font-weight: 700; margin-top: 32px; margin-bottom: 16px; border-bottom: 1px solid #eee; padding-bottom: 8px; color: #333; }
             .content h3 { font-size: 16px; font-weight: 600; margin-top: 24px; margin-bottom: 12px; color: #444; }
             .content p { margin-bottom: 16px; text-align: justify; }
@@ -143,11 +120,6 @@ export default function GenerateDocumentClient({ locale, dict }) {
                 color: #999; 
                 text-align: center;
                 font-style: italic;
-            }
-            
-            /* Hide URL/Title headers in some browsers */
-            @media print {
-                body { -webkit-print-color-adjust: exact; }
             }
           </style>
         </head>
@@ -179,13 +151,93 @@ export default function GenerateDocumentClient({ locale, dict }) {
         printWindow.document.close();
     };
 
+    const handleDownload = async () => {
+        // We'll use the print logic but inside a hidden iframe or temporary div to grab canvas?
+        // Actually, easiest way compatible with current CSS is using html2canvas on a temporary rendered element.
+        // But html2canvas often misses styles. 
+        // A better approach for "Download without Print Dialog" using our exact print layout
+        // is tricky purely client-side without using window.print() to PDF (which is manual).
+        // Standard jsPDF 'html' method:
+
+        const { jsPDF } = await import('jspdf');
+        const doc = new jsPDF('p', 'pt', 'a4');
+        const margin = 40;
+        const scale = 0.8; // Adjust to fit width
+
+        // Element to capture
+        // We need to render the content into a hidden div that mimics the print layout
+        // For simplicity, let's capture the 'editor' content if possible, or construct a temporary node.
+
+        const tempDiv = document.createElement('div');
+        tempDiv.style.width = '595pt'; // A4 width in pt
+        tempDiv.style.padding = '40px';
+        tempDiv.style.background = '#fff';
+        tempDiv.style.color = '#000';
+        tempDiv.style.fontFamily = 'Inter, sans-serif';
+        tempDiv.style.position = 'absolute';
+        tempDiv.style.left = '-9999px';
+        tempDiv.style.top = '0';
+
+        // Logo
+        const logoHtml = ReactDOMServer.renderToStaticMarkup(<Logo showText={true} width={40} height={40} fontSize="24px" />);
+
+        // Content
+        let contentHtml;
+        if (editorHtml) {
+            contentHtml = editorHtml;
+        } else {
+            contentHtml = ReactDOMServer.renderToStaticMarkup(
+                <div className="markdown-content">
+                    <ReactMarkdown>{result}</ReactMarkdown>
+                </div>
+            );
+        }
+
+        tempDiv.innerHTML = `
+            <div style="margin-bottom: 40px;">${logoHtml}</div>
+            <div class="pdf-content" style="font-size: 12px; line-height: 1.5;">
+                ${contentHtml}
+            </div>
+            <div style="margin-top: 60px; padding-top: 20px; border-top: 1px solid #eee; font-size: 10px; color: #999; text-align: center;">
+                ${g.disclaimer}
+            </div>
+        `;
+
+        document.body.appendChild(tempDiv);
+
+        try {
+            doc.html(tempDiv, {
+                callback: function (doc) {
+                    doc.save(`${config.title}.pdf`);
+                    document.body.removeChild(tempDiv);
+                },
+                x: 0,
+                y: 0,
+                width: 595, // target width in the PDF document
+                windowWidth: 800, // window width in CSS pixels
+                margin: [20, 20, 20, 20],
+                autoPaging: 'text',
+                html2canvas: {
+                    scale: 0.75, // Adjust scale to fit
+                    logging: false,
+                    letterRendering: true,
+                    useCORS: true
+                }
+            });
+        } catch (e) {
+            console.error(e);
+            alert("Error generating PDF. Please try 'Print' instead.");
+            document.body.removeChild(tempDiv);
+        }
+    };
+
     return (
         <section style={s.page}>
             <div className="container" style={{ maxWidth: '800px' }}>
                 <div style={s.header}>
-                    <button onClick={() => router.push(`/${locale}/generate`)} style={s.backBtn}>{g.backToDocs}</button>
+                    <button onClick={() => router.push(`/${locale}/templates`)} style={s.backBtn}>← {g.backToDocs || 'Back'}</button>
                     <div style={s.headerIcon}>{config.icon}</div>
-                    <h1 style={s.title}>{config.title}</h1>
+                    <h1 className="responsive-title">{config.title}</h1>
                     <p style={s.subtitle}>{config.subtitle}</p>
                 </div>
 
@@ -194,11 +246,14 @@ export default function GenerateDocumentClient({ locale, dict }) {
                         <div style={s.resultHeader}>
                             <h2 style={s.resultTitle}>{g.docGenerated}</h2>
                             <div style={s.resultActions}>
-                                <button onClick={() => { navigator.clipboard.writeText(result); }} className="btn btn-secondary btn-sm">
-                                    {g.copy}
+                                <button onClick={() => { navigator.clipboard.writeText(editorHtml || result); }} className="btn btn-secondary btn-sm">
+                                    📋 {g.copy || 'Copy'}
                                 </button>
-                                <button onClick={handleDownloadPDF} className="btn btn-primary btn-sm">
-                                    {g.downloadPdf}
+                                <button onClick={handleDownload} className="btn btn-primary btn-sm">
+                                    💾 {g.downloadPdf || 'Download PDF'}
+                                </button>
+                                <button onClick={handlePrint} className="btn btn-secondary btn-sm">
+                                    🖨️ {g.print || 'Print'}
                                 </button>
                             </div>
                         </div>
@@ -314,9 +369,7 @@ const s = {
         marginBottom: '12px',
     },
     title: {
-        fontSize: '28px',
-        fontWeight: 800,
-        marginBottom: '4px',
+        // Handled by .responsive-title
     },
     subtitle: {
         fontSize: '16px',

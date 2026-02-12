@@ -716,3 +716,17 @@ select {
     display: flex !important;
   }
 }
+
+/* ===== COMPONENT UTILITIES ===== */
+.responsive-title {
+  font-size: 28px;
+  font-weight: 800;
+  margin-bottom: 4px;
+  line-height: 1.2;
+}
+
+@media (max-width: 640px) {
+  .responsive-title {
+    font-size: 22px;
+  }
+}

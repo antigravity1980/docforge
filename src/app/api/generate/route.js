@@ -65,10 +65,26 @@ export async function POST(request) {
         };
         const targetLanguage = languageMap[locale] || 'English';
 
-        const systemPrompt = `${promptConfig.system}\n\nCRITICAL: The entire document MUST be generated in ${targetLanguage}. Do not use any other languages. Ensure natural phrasing and correct legal/business terminology in ${targetLanguage}.`;
+        const systemPrompt = `${promptConfig.system}
+
+STRICT GUIDELINES:
+1. Generate the entire document in ${targetLanguage}.
+2. Use professional, clean, and legally-appropriate formatting.
+3. Use Markdown headings (e.g., #, ##) and bold text (**bold**) for structure.
+4. If some inputs are inappropriate or nonsensical, ignore the offensive parts and generate a standard professional document. Do not refuse to generate unless it's a severe safety violation.
+5. DO NOT include any conversational text, introductions, or conclusions. Return ONLY the document content.`;
+
         const userPrompt = promptConfig.buildUserPrompt(data);
 
-        const documentContent = await generateWithAI(systemPrompt, userPrompt);
+        let documentContent;
+        try {
+            documentContent = await generateWithAI(systemPrompt, userPrompt);
+        } catch (aiErr) {
+            console.error('AI Generation error:', aiErr);
+            return NextResponse.json({
+                error: 'The document could not be generated due to safety filters or technical issues. Please check your inputs and try again.'
+            }, { status: 400 });
+        }
 
         // 4. Save to Database
         console.log(`💾 Saving generated ${type} document for user ${session.user.id}`);

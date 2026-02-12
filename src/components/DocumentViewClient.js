@@ -24,7 +24,7 @@ export default function DocumentViewClient({ doc, locale, dict }) {
 
     // ... imports
 
-    const handleDownloadPDF = () => {
+    const handlePrint = () => {
         const logoHtml = ReactDOMServer.renderToStaticMarkup(<Logo showText={true} width={40} height={40} fontSize="24px" />);
 
         // Use edited HTML if available, otherwise generate from initial markdown
@@ -49,13 +49,13 @@ export default function DocumentViewClient({ doc, locale, dict }) {
             
             @page {
                 size: A4;
-                margin: 20mm;
+                margin: 0;
             }
             
             body {
                 font-family: 'Inter', sans-serif;
                 margin: 0;
-                padding: 0;
+                padding: 20mm;
                 color: #111;
                 -webkit-print-color-adjust: exact;
             }
@@ -70,7 +70,7 @@ export default function DocumentViewClient({ doc, locale, dict }) {
             
             /* Content Styling (Shared for Markdown & Editor HTML) */
             .content { font-size: 14px; line-height: 1.6; }
-            .content h1 { font-size: 24px; font-weight: 800; margin-bottom: 24px; color: #000; }
+            .content h1 { font-size: 24px; font-weight: 800; margin-bottom: 12px; color: #000; }
             .content h2 { font-size: 18px; font-weight: 700; margin-top: 32px; margin-bottom: 16px; border-bottom: 1px solid #eee; padding-bottom: 8px; color: #333; }
             .content h3 { font-size: 16px; font-weight: 600; margin-top: 24px; margin-bottom: 12px; color: #444; }
             .content p { margin-bottom: 16px; text-align: justify; }
@@ -90,11 +90,6 @@ export default function DocumentViewClient({ doc, locale, dict }) {
                 color: #999; 
                 text-align: center;
                 font-style: italic;
-            }
-            
-            /* Hide URL/Title headers in some browsers */
-            @media print {
-                body { -webkit-print-color-adjust: exact; }
             }
           </style>
         </head>
@@ -126,13 +121,78 @@ export default function DocumentViewClient({ doc, locale, dict }) {
         printWindow.document.close();
     };
 
+    const handleDownload = async () => {
+        const { jsPDF } = await import('jspdf');
+        const docPDF = new jsPDF('p', 'pt', 'a4');
+
+        const tempDiv = document.createElement('div');
+        tempDiv.style.width = '595pt';
+        tempDiv.style.padding = '40px';
+        tempDiv.style.background = '#fff';
+        tempDiv.style.color = '#000';
+        tempDiv.style.fontFamily = 'Inter, sans-serif';
+        tempDiv.style.position = 'absolute';
+        tempDiv.style.left = '-9999px';
+        tempDiv.style.top = '0';
+
+        const logoHtml = ReactDOMServer.renderToStaticMarkup(<Logo showText={true} width={40} height={40} fontSize="24px" />);
+
+        let contentHtml;
+        if (editorHtml) {
+            contentHtml = editorHtml;
+        } else {
+            contentHtml = ReactDOMServer.renderToStaticMarkup(
+                <div className="markdown-content">
+                    <ReactMarkdown>{doc.content}</ReactMarkdown>
+                </div>
+            );
+        }
+
+        tempDiv.innerHTML = `
+            <div style="margin-bottom: 30px;">${logoHtml}</div>
+            <div class="pdf-content" style="font-size: 11pt; line-height: 1.6; color: #000;">
+                ${contentHtml}
+            </div>
+            <div style="margin-top: 50px; padding-top: 15px; border-top: 0.5pt solid #eee; font-size: 9pt; color: #666; text-align: center; font-style: italic;">
+                ${g.disclaimer}
+            </div>
+        `;
+
+        document.body.appendChild(tempDiv);
+
+        try {
+            docPDF.html(tempDiv, {
+                callback: function (pdf) {
+                    pdf.save(`${doc.title}.pdf`);
+                    document.body.removeChild(tempDiv);
+                },
+                x: 0,
+                y: 0,
+                width: 595,
+                windowWidth: 800,
+                margin: [20, 20, 20, 20],
+                autoPaging: 'text',
+                html2canvas: {
+                    scale: 0.75,
+                    logging: false,
+                    letterRendering: true,
+                    useCORS: true
+                }
+            });
+        } catch (e) {
+            console.error(e);
+            alert("Error generating PDF. Please try 'Print' instead.");
+            document.body.removeChild(tempDiv);
+        }
+    };
+
     return (
         <section style={s.page}>
             <div className="container" style={{ maxWidth: '800px' }}>
                 <div style={s.header}>
                     <Link href={`/${locale}/documents`} style={s.backBtn}>← {dict.dashboard.viewAll}</Link>
                     <div style={s.headerIcon}>{docConfig.icon || '📄'}</div>
-                    <h1 style={s.title}>{doc.title}</h1>
+                    <h1 className="responsive-title">{doc.title}</h1>
                     <p style={s.subtitle}>{new Date(doc.created_at).toLocaleDateString(locale)} · {doc.type}</p>
                 </div>
 
@@ -140,11 +200,14 @@ export default function DocumentViewClient({ doc, locale, dict }) {
                     <div style={s.resultHeader}>
                         <h2 style={s.resultTitle}>{g.docGenerated || "Document Content"}</h2>
                         <div style={s.resultActions}>
-                            <button onClick={() => { navigator.clipboard.writeText(doc.content); }} className="btn btn-secondary btn-sm">
-                                {g.copy}
+                            <button onClick={() => { navigator.clipboard.writeText(editorHtml || doc.content); }} className="btn btn-secondary btn-sm">
+                                📋 {g.copy || 'Copy'}
                             </button>
-                            <button onClick={handleDownloadPDF} className="btn btn-primary btn-sm">
-                                {g.downloadPdf}
+                            <button onClick={handleDownload} className="btn btn-primary btn-sm">
+                                💾 {g.downloadPdf || 'Download PDF'}
+                            </button>
+                            <button onClick={handlePrint} className="btn btn-secondary btn-sm">
+                                🖨️ {g.print || 'Print'}
                             </button>
                         </div>
                     </div>
@@ -187,9 +250,7 @@ const s = {
         marginBottom: '12px',
     },
     title: {
-        fontSize: '28px',
-        fontWeight: 800,
-        marginBottom: '4px',
+        // Handled by .responsive-title
     },
     subtitle: {
         fontSize: '16px',
