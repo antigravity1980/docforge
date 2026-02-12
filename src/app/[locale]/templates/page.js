@@ -97,8 +97,8 @@ export default async function TemplatesPage({ params }) {
             items: [
                 { name: t['privacy-policy'].name, slug: 'privacy-policy' },
                 { name: t.tos.name, slug: 'tos' },
-                { name: t.meta.name, slug: 'meta-tags-generator' },
-                { name: t.blog.name, slug: 'seo-blog-outline-generator' },
+                { name: dict.page.features.items.meta.name, slug: 'meta-tags-generator' },
+                { name: dict.page.features.items.blog.name, slug: 'seo-blog-outline-generator' },
             ]
         }
     ];
