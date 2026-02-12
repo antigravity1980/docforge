@@ -68,9 +68,6 @@ export async function generateMetadata({ params }) {
       shortcut: '/favicon.ico',
       apple: '/apple-touch-icon.png',
     },
-    verification: {
-      google: '8EYkQKUIVc32uOJ4Udt7g9-X12rdKN--jkoWyjzGSCU',
-    },
   };
 }
 
