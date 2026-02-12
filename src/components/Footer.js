@@ -55,6 +55,7 @@ export default function Footer({ dict }) {
                         <h4 style={styles.columnTitle}>{t.company || "Company"}</h4>
                         <Link href={`/${currentLocale}/blog`} style={styles.link}>{dict?.nav?.blog || "Blog"}</Link>
                         <Link href={`/${currentLocale}/pricing`} style={styles.link}>{dict?.nav?.pricing || "Pricing"}</Link>
+                        <Link href={`/${currentLocale}/templates`} style={styles.link}>{dict?.generate?.title || "Templates"}</Link>
                         <Link href={`/${currentLocale}/#faq`} style={styles.link}>{dict?.nav?.faq || "FAQ"}</Link>
                         <Link href={`/${currentLocale}/privacy`} style={styles.link}>{t.privacy || "Privacy"}</Link>
                     </div>

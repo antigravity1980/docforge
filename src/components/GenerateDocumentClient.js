@@ -2,16 +2,19 @@
 
 import { useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import ReactMarkdown from 'react-markdown';
+// import ReactMarkdown from 'react-markdown'; // Removed
 import Link from 'next/link';
 import ReactDOMServer from 'react-dom/server';
 import Logo from '@/components/Logo';
+import Editor from '@/components/Editor'; // Added
+import ReactMarkdown from 'react-markdown'; // Keep for fallback
 
 export default function GenerateDocumentClient({ locale, dict }) {
     const params = useParams();
     const router = useRouter();
     const docType = params.type;
     const g = dict.generate;
+    const [editorHtml, setEditorHtml] = useState(null); // Added state
 
     // Get document config from dictionary
     const docConfig = g.docs && g.docs[docType] ? g.docs[docType] : null;
@@ -46,6 +49,7 @@ export default function GenerateDocumentClient({ locale, dict }) {
         e.preventDefault();
         setLoading(true);
         setError(null);
+        setEditorHtml(null); // Reset editor state on new generation
 
         try {
             const res = await fetch('/api/generate', {
@@ -75,11 +79,18 @@ export default function GenerateDocumentClient({ locale, dict }) {
 
     const handleDownloadPDF = () => {
         const logoHtml = ReactDOMServer.renderToStaticMarkup(<Logo showText={true} width={40} height={40} fontSize="24px" />);
-        const contentHtml = ReactDOMServer.renderToStaticMarkup(
-            <div className="markdown-content">
-                <ReactMarkdown>{result}</ReactMarkdown>
-            </div>
-        );
+
+        // Use edited HTML if available, otherwise fallback to initial markdown
+        let contentHtml;
+        if (editorHtml) {
+            contentHtml = editorHtml;
+        } else {
+            contentHtml = ReactDOMServer.renderToStaticMarkup(
+                <div className="markdown-content">
+                    <ReactMarkdown>{result}</ReactMarkdown>
+                </div>
+            );
+        }
 
         const printWindow = window.open('', '_blank');
         printWindow.document.write(`
@@ -111,18 +122,18 @@ export default function GenerateDocumentClient({ locale, dict }) {
             /* Logo Styling */
             .header-branding { margin-bottom: 40px; }
             
-            /* Markdown Content Styling */
-            .markdown-content { font-size: 14px; line-height: 1.6; }
-            .markdown-content h1 { font-size: 24px; font-weight: 800; margin-bottom: 24px; color: #000; }
-            .markdown-content h2 { font-size: 18px; font-weight: 700; margin-top: 32px; margin-bottom: 16px; border-bottom: 1px solid #eee; padding-bottom: 8px; color: #333; }
-            .markdown-content h3 { font-size: 16px; font-weight: 600; margin-top: 24px; margin-bottom: 12px; color: #444; }
-            .markdown-content p { margin-bottom: 16px; text-align: justify; }
-            .markdown-content ul, .markdown-content ol { margin-bottom: 16px; padding-left: 24px; }
-            .markdown-content li { margin-bottom: 8px; }
+            /* Content Styling (Shared for Markdown & Editor HTML) */
+            .content { font-size: 14px; line-height: 1.6; }
+            .content h1 { font-size: 24px; font-weight: 800; margin-bottom: 24px; color: #000; }
+            .content h2 { font-size: 18px; font-weight: 700; margin-top: 32px; margin-bottom: 16px; border-bottom: 1px solid #eee; padding-bottom: 8px; color: #333; }
+            .content h3 { font-size: 16px; font-weight: 600; margin-top: 24px; margin-bottom: 12px; color: #444; }
+            .content p { margin-bottom: 16px; text-align: justify; }
+            .content ul, .content ol { margin-bottom: 16px; padding-left: 24px; }
+            .content li { margin-bottom: 8px; }
             
             /* Bold/Italic Fixes */
-            .markdown-content strong { font-weight: 800; color: #000; }
-            .markdown-content em { font-style: italic; }
+            .content strong { font-weight: 800; color: #000; }
+            .content em { font-style: italic; }
             
             /* Disclaimer */
             .disclaimer { 
@@ -193,15 +204,15 @@ export default function GenerateDocumentClient({ locale, dict }) {
                             </div>
                         </div>
 
-                        <div style={s.resultContent} className="markdown-content">
-                            <ReactMarkdown>{result}</ReactMarkdown>
+                        <div style={s.resultContent}>
+                            <Editor initialContent={result} onChange={setEditorHtml} />
                         </div>
 
                         <div style={s.disclaimer}>
                             {g.disclaimer}
                         </div>
 
-                        <button onClick={() => { setResult(null); }} className="btn btn-secondary" style={{ width: '100%', marginTop: '16px' }}>
+                        <button onClick={() => { setResult(null); setEditorHtml(null); }} className="btn btn-secondary" style={{ width: '100%', marginTop: '16px' }}>
                             {g.genAnother}
                         </button>
                     </div>
