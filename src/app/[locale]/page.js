@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { supabaseAdmin } from '@/lib/supabase-admin';
+import { getDictionary } from '@/lib/get-dictionary';
 import AuthCTA from '@/components/AuthCTA';
 
 export default async function Home({ params }) {
