@@ -148,7 +148,7 @@
                 },
                 "starter": {
                     "name": "Starter",
-                    "cta": "Start Free Trial"
+                    "cta": "Subscribe"
                 },
                 "pro": {
                     "name": "Professional",
@@ -242,7 +242,7 @@
             "starter": {
                 "name": "Starter",
                 "desc": "For freelancers and individuals",
-                "cta": "Start Free Trial"
+                "cta": "Subscribe"
             },
             "pro": {
                 "name": "Professional",
@@ -293,7 +293,7 @@
             "starter": {
                 "name": "Starter",
                 "desc": "For freelancers and individuals",
-                "cta": "Start Free Trial"
+                "cta": "Subscribe"
             },
             "pro": {
                 "name": "Professional",

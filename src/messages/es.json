@@ -151,7 +151,7 @@
                 },
                 "starter": {
                     "name": "Starter",
-                    "cta": "Prueba gratuita"
+                    "cta": "Suscribirse"
                 },
                 "pro": {
                     "name": "Profesional",
@@ -245,7 +245,7 @@
             "starter": {
                 "name": "Starter",
                 "desc": "Para freelancers e individuos",
-                "cta": "Prueba gratuita"
+                "cta": "Suscribirse"
             },
             "pro": {
                 "name": "Profesional",

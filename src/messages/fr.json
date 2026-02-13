@@ -148,7 +148,7 @@
                 },
                 "starter": {
                     "name": "Starter",
-                    "cta": "Essai gratuit"
+                    "cta": "S'abonner"
                 },
                 "pro": {
                     "name": "Professionnel",
@@ -242,7 +242,7 @@
             "starter": {
                 "name": "Starter",
                 "desc": "Pour les indépendants et les particuliers",
-                "cta": "Essai gratuit"
+                "cta": "S'abonner"
             },
             "pro": {
                 "name": "Professionnel",
@@ -292,7 +292,7 @@
             "starter": {
                 "name": "Starter",
                 "desc": "Pour les indépendants",
-                "cta": "Essai gratuit"
+                "cta": "S'abonner"
             },
             "pro": {
                 "name": "Professionnel",
