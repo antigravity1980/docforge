@@ -121,9 +121,9 @@ STRICT GUIDELINES:
             generatedAt: new Date().toISOString(),
         });
     } catch (error) {
-        console.error('Document generation error:', error);
+        console.error('Generate API Error:', error);
         return NextResponse.json(
-            { error: error.message || 'Failed to generate document' },
+            { error: 'Failed to generate document. Please try again.' },
             { status: 500 }
         );
     }

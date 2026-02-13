@@ -1,20 +1,6 @@
-'use client';
-
-import { use, useState, useEffect } from 'react';
-import ReactMarkdown from 'react-markdown';
-import { getDictionary } from '@/lib/get-dictionary';
-import Link from 'next/link';
-
-export default function TermsPage({ params }) {
-    const { locale } = use(params);
-    const [dict, setDict] = useState(null);
-
-    useEffect(() => {
-        getDictionary(locale).then(setDict);
-    }, [locale]);
-
-    if (!dict) return <div style={styles.loading}>Loading...</div>;
-
+export default async function TermsPage({ params }) {
+    const { locale } = await params;
+    const dict = await getDictionary(locale);
     const t = dict.terms;
 
     return (

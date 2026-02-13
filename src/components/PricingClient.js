@@ -117,7 +117,7 @@ export default function PricingClient({ dict, locale, prices = { starter: '29', 
             }
         } catch (error) {
             console.error('Checkout error:', error);
-            alert('Payment system error. Please try again later.');
+            alert(t.error_payment || 'Payment system error. Please try again later.');
             setLoading(null);
         }
     };

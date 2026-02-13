@@ -283,6 +283,7 @@
         "period_month": "month",
         "connecting": "Connecting...",
         "error": "Something went wrong",
+        "error_payment": "Payment system error. Please try again later.",
         "plans": {
             "free": {
                 "name": "Free",
