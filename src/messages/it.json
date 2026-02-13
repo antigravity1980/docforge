@@ -1804,7 +1804,12 @@
         "content": "## 1. Introduzione\nBenvenuti su DocForge AI. Proteggiamo i vostri dati personali.\n\n## 2. Dati raccolti\nEmail (OAuth), dati di pagamento (Lemon Squeezy) e documenti generati.\n\n## 3. Uso dei dati\nPer fornire il servizio di generazione documenti e gestire l'abbonamento.\n\n## 4. Diritti dell'utente (GDPR)\nÈ possibile accedere o cancellare i propri dati in qualsiasi momento.\n\n## 5. Contact\nDocForge AI: [@docforgebot](https://t.me/docforgebot)"
     },
     "terms": {
-        "title": "Termini di Servizio",
-        "content": "## 1. Accettazione\nUsando DocForge AI, accetti i presenti termini.\n\n## 2. Servizio\nDocForge AI è una piattaforma di generazione documenti tramite IA.\n\n## 3. Nessuna consulenza legale\n**IMPORTANTE:** DocForge AI non è uno studio legale. I documenti sono a scopo informativo.\n\n## 4. Pagamenti\nGestiti tramite Lemon Squeezy.\n\n## 5. Contatti\nDocForge AI Support: [@docforgebot](https://t.me/docforgebot)"
+        "title": "Termini di servizio",
+        "content": "## 1. Accettazione dei termini\nUtilizzando DocForge AI, accetti questi termini. Se non sei d'accordo, non utilizzare il servizio.\n\n## 2. Descrizione del servizio\nDocForge AI fornisce una piattaforma di generazione di documenti basata sull'IA. I documenti vengono generati in base ai tuoi input.\n\n## 3. Nessuna consulenza legale\n**IMPORTANTE:** DocForge AI non è uno studio legale. I documenti generati sono a scopo informativo e non costituiscono consulenza legale. Si prega di consultare un professionista legale per esigenze critiche.\n\n## 4. Abbonamenti e pagamenti\nI pagamenti sono elaborati da Lemon Squeezy. Gli abbonamenti possono essere gestiti o cancellati dal tuo pannello di controllo.\n\n## 5. Contenuto dell'utente\nMantieni la proprietà dei documenti generati, ma ci concedi la licenza per elaborarli a fini di generazione.\n\n## 6. Contatto\nSupporto DocForge AI: [@docforgebot](https://t.me/docforgebot)"
+    },
+    "cookieBanner": {
+        "text": "Utilizziamo i cookie per migliorare la tua esperienza. Utilizzando il nostro sito, accetti la nostra",
+        "link": "Informativa sulla privacy",
+        "accept": "Accetta"
     }
 }

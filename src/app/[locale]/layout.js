@@ -2,6 +2,7 @@ import '../globals.css';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import JsonLd from '@/components/JsonLd';
+import CookieBanner from '@/components/CookieBanner';
 import { getDictionary } from '@/lib/get-dictionary';
 
 export async function generateMetadata({ params }) {
@@ -102,6 +103,7 @@ export default async function RootLayout({ children, params }) {
           {children}
         </main>
         <Footer dict={dict} />
+        <CookieBanner dict={dict} locale={locale} />
       </body>
     </html>
   );

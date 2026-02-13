@@ -1804,7 +1804,12 @@
         "content": "## 1. Introducción\nBienvenido a DocForge AI. Respetamos su privacidad.\n\n## 2. Información recolectada\nRecopilamos su email (Google), datos de pago (Lemon Squeezy) y documentos generados.\n\n## 3. Uso de información\nPara proporcionar el servicio de generación de documentos y gestionar su cuenta.\n\n## 4. Sus derechos\nPuede exportar o eliminar sus datos desde el panel de control.\n\n## 5. Contact\nDocForge AI: [@docforgebot](https://t.me/docforgebot)"
     },
     "terms": {
-        "title": "Términos de Servicio",
-        "content": "## 1. Aceptación\nAl usar DocForge AI, acepta estos términos.\n\n## 2. Descripción\nDocForge AI es una plataforma de generación de documentos con IA.\n\n## 3. Sin asesoría legal\n**IMPORTANTE:** DocForge AI no es un bufete de abogados. Los documentos son informativos.\n\n## 4. Pagos\nGestionados por Lemon Squeezy.\n\n## 5. Contacto\nDocForge AI Support: [@docforgebot](https://t.me/docforgebot)"
+        "title": "Términos de servicio",
+        "content": "## 1. Aceptación de los términos\nAl utilizar DocForge AI, aceptas estos términos. Si no estás de acuerdo, no utilices el servicio.\n\n## 2. Descripción del servicio\nDocForge AI proporciona una plataforma de generación de documentos impulsada por IA. Los documentos se generan en función de tus entradas.\n\n## 3. Sin asesoramiento legal\n**IMPORTANTE:** DocForge AI no es un bufete de abogados. Los documentos generados son para fines informativos y no constituyen asesoramiento legal. Consulta con un profesional legal para necesidades críticas.\n\n## 4. Suscripciones y pagos\nLos pagos son procesados por Lemon Squeezy. Las suscripciones se pueden gestionar o cancelar desde tu panel de control.\n\n## 5. Contenido del usuario\nConservas la propiedad de los documentos que generas, pero nos otorgas licencia para procesarlos con fines de generación.\n\n## 6. Contacto\nSoporte de DocForge AI: [@docforgebot](https://t.me/docforgebot)"
+    },
+    "cookieBanner": {
+        "text": "Utilizamos cookies para mejorar su experiencia. Al utilizar nuestro sitio, acepta nuestra",
+        "link": "Política de privacidad",
+        "accept": "Aceptar"
     }
 }

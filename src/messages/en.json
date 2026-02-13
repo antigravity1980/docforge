@@ -1810,5 +1810,10 @@
     "terms": {
         "title": "Terms of Service",
         "content": "## 1. Acceptance of Terms\nBy using DocForge AI, you agree to these terms. If you do not agree, do not use the service.\n\n## 2. Description of Service\nDocForge AI provides an AI-powered document generation platform. Documents are generated based on your inputs. \n\n## 3. No Legal Advice\n**IMPORTANT:** DocForge AI is not a law firm. Documents generated are for informational purposes and do not constitute legal advice. Please consult with a legal professional for critical needs.\n\n## 4. Subscriptions and Payments\nPayments are processed by Lemon Squeezy. Subscriptions can be managed or cancelled from your dashboard.\n\n## 5. User Content\nYou retain ownership of the documents you generate, but grant us license to process them for generation purposes.\n\n## 6. Contact\nDocForge AI Support: [@docforgebot](https://t.me/docforgebot)"
+    },
+    "cookieBanner": {
+        "text": "We use cookies to improve your experience. By using our site, you agree to our",
+        "link": "Privacy Policy",
+        "accept": "Accept"
     }
 }
