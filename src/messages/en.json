@@ -368,14 +368,46 @@
                         "label": "Jurisdiction",
                         "type": "select",
                         "options": [
-                            "US Federal/State",
-                            "FR CDI/CDD",
-                            "DE Arbeitsvertrag",
-                            "ES Contrato laboral",
-                            "IT Contratto di lavoro",
-                            "PT Contrato de trabalho"
+                            "US (At-Will)",
+                            "US (Montana/Just Cause)",
+                            "DE (Germany - Nachweisgesetz)",
+                            "FR (France - CDI)",
+                            "UK (Employment Rights Act)",
+                            "ES (Spain)",
+                            "IT (Italy)",
+                            "PT (Portugal)"
                         ],
                         "required": true
+                    },
+                    {
+                        "name": "probationPeriod",
+                        "label": "Probation Period (e.g., 6 months)",
+                        "type": "text",
+                        "required": false
+                    },
+                    {
+                        "name": "noticePeriod",
+                        "label": "Notice Period (e.g., 4 weeks to 15th)",
+                        "type": "text",
+                        "required": false
+                    },
+                    {
+                        "name": "workingHours",
+                        "label": "Weekly Working Hours",
+                        "type": "text",
+                        "required": false
+                    },
+                    {
+                        "name": "vacationDays",
+                        "label": "Annual Vacation Days",
+                        "type": "text",
+                        "required": false
+                    },
+                    {
+                        "name": "cba",
+                        "label": "Collective Agreement (CBA/Tarifvertrag) - Optional",
+                        "type": "text",
+                        "required": false
                     }
                 ]
             },
@@ -628,10 +660,30 @@
                     },
                     {
                         "name": "dataCollected",
-                        "label": "Data Collected",
-                        "type": "textarea",
-                        "placeholder": "e.g. Email, IP address, Name",
                         "required": true
+                    },
+                    {
+                        "name": "legislation",
+                        "label": "Primary Legislation",
+                        "type": "select",
+                        "options": [
+                            "GDPR (EU/UK)",
+                            "CCPA/CPRA (California)",
+                            "General / Other"
+                        ],
+                        "required": true
+                    },
+                    {
+                        "name": "dataController",
+                        "label": "Data Controller Identity (for GDPR)",
+                        "type": "text",
+                        "required": false
+                    },
+                    {
+                        "name": "dpoContact",
+                        "label": "DPO Contact Email (Optional)",
+                        "type": "text",
+                        "required": false
                     }
                 ]
             },
