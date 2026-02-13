@@ -1,6 +1,6 @@
-import { getDictionary } from '@/lib/get-dictionary';
 import Link from 'next/link';
 import { supabaseAdmin } from '@/lib/supabase-admin';
+import AuthCTA from '@/components/AuthCTA';
 
 export default async function Home({ params }) {
   const { locale } = await params;
@@ -131,9 +131,9 @@ export default async function Home({ params }) {
             {dict.hero.subtitle}
           </p>
           <div style={s.heroCtas} className="animate-fade-in-up delay-3">
-            <Link href={`/${locale}/auth/signup`} className="btn btn-primary btn-lg">
+            <AuthCTA locale={locale} className="btn btn-primary btn-lg">
               {dict.hero.cta} →
-            </Link>
+            </AuthCTA>
             <Link href={`/${locale}/#how-it-works`} className="btn btn-secondary btn-lg">
               {p.hero.seeHow}
             </Link>
@@ -244,21 +244,21 @@ export default async function Home({ params }) {
                     <li key={j} style={s.planFeature}>✓ {feat}</li>
                   ))}
                 </ul>
-                <Link
-                  href={`/${locale}/auth/signup`}
+                <AuthCTA
+                  locale={locale}
                   className={`btn ${plan.popular ? 'btn-primary' : 'btn-secondary'} btn-lg`}
                   style={{ width: '100%' }}
                 >
                   {plan.cta}
-                </Link>
+                </AuthCTA>
               </div>
             ))}
           </div>
         </div>
-      </section>
+      </section >
 
       {/* ===== TESTIMONIALS ===== */}
-      <section className="section-alt">
+      < section className="section-alt" >
         <div className="container">
           <div style={s.sectionHeader}>
             <h2 style={s.sectionTitle}>{p.testimonials.title}</h2>
@@ -279,10 +279,10 @@ export default async function Home({ params }) {
             ))}
           </div>
         </div>
-      </section>
+      </section >
 
       {/* ===== FAQ ===== */}
-      <section className="section" id="faq">
+      < section className="section" id="faq" >
         <div className="container">
           <div style={s.sectionHeader}>
             <h2 style={s.sectionTitle}>{p.faq.title}</h2>
@@ -296,18 +296,18 @@ export default async function Home({ params }) {
             ))}
           </div>
         </div>
-      </section>
+      </section >
 
       {/* ===== CTA ===== */}
-      <section style={s.ctaSection}>
+      < section style={s.ctaSection} >
         <div className="container" style={s.ctaInner}>
           <h2 style={s.ctaTitle}>{p.cta.title}</h2>
           <p style={s.ctaSubtitle}>{p.cta.subtitle}</p>
-          <Link href={`/${locale}/auth/signup`} className="btn btn-primary btn-lg">
+          <AuthCTA locale={locale} className="btn btn-primary btn-lg">
             {p.cta.button}
-          </Link>
+          </AuthCTA>
         </div>
-      </section>
+      </section >
     </>
   );
 }
