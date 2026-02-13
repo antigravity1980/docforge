@@ -1,3 +1,7 @@
+import { getDictionary } from '@/lib/get-dictionary';
+import Link from 'next/link';
+import ReactMarkdown from 'react-markdown';
+
 export default async function TermsPage({ params }) {
     const { locale } = await params;
     const dict = await getDictionary(locale);
