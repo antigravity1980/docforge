@@ -9,7 +9,7 @@ export async function generateMetadata({ params }) {
   const { locale } = await params;
   const dict = await getDictionary(locale);
   const h = dict.hero;
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://www.docforge.site';
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://docforge.site';
 
   // Construct alternates for all supported languages
   const languages = {
@@ -75,7 +75,7 @@ export async function generateMetadata({ params }) {
 export default async function RootLayout({ children, params }) {
   const { locale } = await params;
   const dict = await getDictionary(locale);
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://www.docforge.site';
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://docforge.site';
 
   const jsonLdData = {
     '@context': 'https://schema.org',

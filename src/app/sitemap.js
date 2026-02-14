@@ -1,7 +1,7 @@
 import { getDictionary } from '@/lib/get-dictionary';
 
 export default async function sitemap() {
-    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://www.docforge.site';
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://docforge.site';
     const locales = ['en', 'fr', 'de', 'es', 'it', 'pt'];
 
     // Static routes

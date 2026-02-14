@@ -1,5 +1,5 @@
 export default function robots() {
-    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://www.docforge.site';
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://docforge.site';
 
     return {
         rules: {
