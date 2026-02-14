@@ -17,7 +17,6 @@
     "@tiptap/extension-typography": "^3.19.0",
     "@tiptap/react": "^3.19.0",
     "@tiptap/starter-kit": "^3.19.0",
-    "crypto": "^1.0.1",
     "groq-sdk": "^0.37.0",
     "html2canvas": "^1.4.1",
     "jspdf": "^4.1.0",
