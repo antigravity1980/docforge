@@ -1,6 +1,14 @@
 import { updateSession } from '@/utils/supabase/middleware'
 
 export async function middleware(request) {
+    // 0. Force www -> non-www redirect (for SEO consistency)
+    const hostname = request.headers.get('host') || ''
+    if (hostname.startsWith('www.')) {
+        const url = request.nextUrl.clone()
+        url.host = hostname.replace('www.', '')
+        return Response.redirect(url, 301)
+    }
+
     return await updateSession(request)
 }
 
