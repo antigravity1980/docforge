@@ -8,12 +8,10 @@ export default async function sitemap() {
     const routes = [
         '',
         '/pricing',
-        '/login',
         '/generate',
-        '/templates',
-        '/features' // Removed how-it-works if it's just a section, but if it's a page keep it. 
-        // Checking nav keys, 'howItWorks' usually scrolls. But let's assume it might be a page or just keep main ones.
-        // If /how-it-works doesn't exist, it will 404. I'll stick to confirmed pages.
+        '/privacy',
+        '/terms',
+        '/blog'
     ];
 
     const sitemapEntries = [];
