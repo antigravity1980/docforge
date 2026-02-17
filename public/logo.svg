@@ -25,12 +25,12 @@
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
      inkscape:zoom="0.89739799"
-     inkscape:cx="117.56211"
+     inkscape:cx="118.11928"
      inkscape:cy="227.88105"
      inkscape:window-width="1440"
-     inkscape:window-height="900"
+     inkscape:window-height="842"
      inkscape:window-x="0"
-     inkscape:window-y="0"
+     inkscape:window-y="30"
      inkscape:window-maximized="0"
      inkscape:current-layer="layer1" /><defs
      id="defs1"><linearGradient
@@ -44,7 +44,7 @@
          id="stop18" /></linearGradient><linearGradient
        id="linearGradient15"
        inkscape:collect="always"><stop
-         style="stop-color:#edb343;stop-opacity:1;"
+         style="stop-color:#f6dba7;stop-opacity:1;"
          offset="0"
          id="stop15" /><stop
          style="stop-color:#e78e15;stop-opacity:1;"
