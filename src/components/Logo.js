@@ -1,36 +1,16 @@
 'use client';
+import Image from 'next/image';
 
-export default function Logo({ width = 32, height = 32, showText = true, fontSize = '20px' }) {
+export default function Logo({ width = 32, height = 32, showText = true, fontSize = '20px', className = '' }) {
     return (
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <svg
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }} className={className}>
+            <Image
+                src="/logo.svg"
+                alt="DocForge Logo"
                 width={width}
                 height={height}
-                viewBox="0 0 100 100"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                style={{ filter: 'drop-shadow(0 0 8px rgba(245, 158, 11, 0.3))' }}
-            >
-                <defs>
-                    <linearGradient id="logo-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stopColor="#f59e0b" />
-                        <stop offset="100%" stopColor="#fbbf24" />
-                    </linearGradient>
-                </defs>
-                {/* Forge / Shield Shape */}
-                <path
-                    d="M50 5 L85 20 L85 55 C85 75 50 95 50 95 C50 95 15 75 15 55 L15 20 L50 5Z"
-                    fill="url(#logo-gradient)"
-                />
-                {/* Document Silhouette */}
-                <path
-                    d="M35 30 H65 V70 L50 60 L35 70 V30Z"
-                    fill="white"
-                    fillOpacity="0.9"
-                />
-                {/* AI Spark */}
-                <circle cx="50" cy="45" r="4" fill="#f59e0b" />
-            </svg>
+                priority
+            />
 
             {showText && (
                 <span style={{
