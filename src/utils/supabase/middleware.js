@@ -52,6 +52,25 @@ export async function updateSession(request) {
         pathname === '/sitemap.xml' ||
         pathname === '/auth/v1/callback'
 
+    // Normalize pathname by removing locale prefix for route checks
+    let normalizedPath = pathname
+    for (const locale of locales) {
+        if (pathname.startsWith(`/${locale}/`)) {
+            normalizedPath = pathname.replace(`/${locale}`, '')
+            break
+        }
+    }
+
+    // 3. Protected Routes Check (BEFORE i18n redirects)
+    const protectedRoutes = ['/dashboard', '/generate']
+    const isProtectedRoute = protectedRoutes.some(route => normalizedPath.includes(route))
+
+    if (isProtectedRoute && !user) {
+        // Preserve locale in redirect URL
+        const signinPath = pathnameHasLocale ? `/${pathname.split('/')[1]}/auth/signin` : '/auth/signin'
+        return NextResponse.redirect(new URL(signinPath, request.url))
+    }
+
     // Redirect /en to / (hide default locale)
     if (pathname.startsWith(`/${defaultLocale}/`) || pathname === `/${defaultLocale}`) {
         const newPath = pathname.replace(`/${defaultLocale}`, '') || '/';
@@ -68,7 +87,7 @@ export async function updateSession(request) {
         }
     }
 
-    // 3. Maintenance Mode Check
+    // 4. Maintenance Mode Check
     // optimization: only check if not accessing assets or admin api
     if (!pathname.startsWith('/_next') && !pathname.includes('.')) {
         try {
@@ -109,7 +128,7 @@ export async function updateSession(request) {
         }
     }
 
-    // 4. Admin Security
+    // 5. Admin Security
     if (pathname.startsWith('/admin')) {
         if (!user) {
             return NextResponse.redirect(new URL('/auth/signin', request.url))
@@ -121,14 +140,6 @@ export async function updateSession(request) {
         if (!isConfigAdmin && !isMetaAdmin) {
             return NextResponse.redirect(new URL('/dashboard', request.url))
         }
-    }
-
-    // 5. Protected Routes
-    const protectedRoutes = ['/dashboard', '/generate']
-    const isProtectedRoute = protectedRoutes.some(route => pathname.includes(route))
-
-    if (isProtectedRoute && !user) {
-        return NextResponse.redirect(new URL('/auth/signin', request.url))
     }
 
     // 6. Auth Page Redirect
