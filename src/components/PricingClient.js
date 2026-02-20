@@ -161,7 +161,7 @@ export default function PricingClient({ dict, locale, prices = { starter: '29', 
                                 <span style={s.price}>
                                     {isYearly ? plan.yearlyPrice : plan.monthlyPrice}
                                 </span>
-                                <span style={s.period}>{dict.page.pricing.periods.month}</span>
+                                <span style={s.period}>/{dict.page.pricing.periods.month}</span>
                             </div>
                             {isYearly && plan.monthlyPrice > 0 && (
                                 <p style={s.yearlyNote}>

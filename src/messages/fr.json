@@ -156,7 +156,7 @@
                 }
             },
             "periods": {
-                "month": "/mois"
+                "month": "mois"
             },
             "features": {
                 "docs3": "1 document par mois",

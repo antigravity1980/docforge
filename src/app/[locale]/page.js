@@ -76,7 +76,7 @@ export default async function Home({ params }) {
     {
       name: dict.pricing_page.plans.free.name,
       price: '0',
-      period: `/${dict.pricing_page.period_month}`,
+      period: dict.pricing_page.period_month,
       features: [
         dict.page.pricing.features.docs3,
         dict.page.pricing.features.allTypes,
@@ -88,7 +88,7 @@ export default async function Home({ params }) {
     {
       name: dict.pricing_page.plans.starter.name,
       price: prices.starter,
-      period: `/${dict.pricing_page.period_month}`,
+      period: dict.pricing_page.period_month,
       features: [
         dict.page.pricing.features.docs30,
         dict.page.pricing.features.noWatermark,
@@ -100,7 +100,7 @@ export default async function Home({ params }) {
     {
       name: dict.pricing_page.plans.pro.name,
       price: prices.pro,
-      period: `/${dict.pricing_page.period_month}`,
+      period: dict.pricing_page.period_month,
       features: [
         dict.page.pricing.features.docsUnlimited,
         dict.page.pricing.features.branding,
@@ -238,7 +238,7 @@ export default async function Home({ params }) {
                 <div style={s.planPrice}>
                   <span style={s.planPriceSmall}>$</span>
                   {plan.price}
-                  <span style={s.planPeriod}>{plan.period}</span>
+                  <span style={s.planPeriod}>/{plan.period}</span>
                 </div>
                 <ul style={s.planFeatures}>
                   {plan.features.map((feat, j) => (

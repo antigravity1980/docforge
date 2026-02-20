@@ -159,7 +159,7 @@
                 }
             },
             "periods": {
-                "month": "/month"
+                "month": "month"
             },
             "features": {
                 "docs3": "1 documento al mese",
