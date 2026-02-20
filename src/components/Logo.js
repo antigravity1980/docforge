@@ -1,15 +1,11 @@
 'use client';
-import Image from 'next/image';
-
 export default function Logo({ width = 32, height = 32, showText = true, fontSize = '20px', className = '' }) {
     return (
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }} className={className}>
-            <Image
+            <img
                 src="/logo.svg"
                 alt="DocForge Logo"
-                width={width}
-                height={height}
-                priority
+                style={{ width: `${width}px`, height: `${height}px` }}
             />
 
             {showText && (
