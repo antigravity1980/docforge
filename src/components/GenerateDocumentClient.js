@@ -32,6 +32,11 @@ export default function GenerateDocumentClient({ locale, config, ui, user }) {
         setResult(''); // Reset editor state on new generation
 
         try {
+            if (!user) {
+                router.push(`/${locale}/auth/signin`);
+                return;
+            }
+
             const res = await fetch('/api/generate', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },

@@ -62,7 +62,7 @@ export async function updateSession(request) {
     }
 
     // 3. Protected Routes Check (BEFORE i18n redirects)
-    const protectedRoutes = ['/dashboard', '/generate']
+    const protectedRoutes = ['/dashboard']
     const isProtectedRoute = protectedRoutes.some(route => normalizedPath.includes(route))
 
     if (isProtectedRoute && !user) {
