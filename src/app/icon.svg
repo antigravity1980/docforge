@@ -1,27 +1,94 @@
-<svg 
-    width="32" 
-    height="32" 
-    viewBox="0 0 100 100" 
-    fill="none" 
-    xmlns="http://www.w3.org/2000/svg"
->
-    <defs>
-        <linearGradient id="logo-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#6366f1" />
-            <stop offset="100%" stopColor="#a78bfa" />
-        </linearGradient>
-    </defs>
-    {/* Forge / Shield Shape */}
-    <path 
-        d="M50 5 L85 20 L85 55 C85 75 50 95 50 95 C50 95 15 75 15 55 L15 20 L50 5Z" 
-        fill="url(#logo-gradient)" 
-    />
-    {/* Document Silhouette */}
-    <path 
-        d="M35 30 H65 V70 L50 60 L35 70 V30Z" 
-        fill="white" 
-        fillOpacity="0.9"
-    />
-    {/* AI Spark */}
-    <circle cx="50" cy="45" r="4" fill="#6366f1" />
-</svg>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="100mm"
+   height="100mm"
+   viewBox="0 0 100 100"
+   version="1.1"
+   id="svg1"
+   xml:space="preserve"
+   inkscape:version="1.4.2 (ebf0e940, 2025-05-08)"
+   sodipodi:docname="DocForge.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="0.63361998"
+     inkscape:cx="201.22472"
+     inkscape:cy="145.98656"
+     inkscape:window-width="1440"
+     inkscape:window-height="842"
+     inkscape:window-x="0"
+     inkscape:window-y="30"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer2" /><defs
+     id="defs1"><linearGradient
+       id="linearGradient18"
+       inkscape:collect="always"><stop
+         style="stop-color:#f0f0f0;stop-opacity:1;"
+         offset="0"
+         id="stop17" /><stop
+         style="stop-color:#606060;stop-opacity:1;"
+         offset="1"
+         id="stop18" /></linearGradient><linearGradient
+       id="linearGradient15"
+       inkscape:collect="always"><stop
+         style="stop-color:#f6dba7;stop-opacity:1;"
+         offset="0"
+         id="stop15" /><stop
+         style="stop-color:#e78e15;stop-opacity:1;"
+         offset="1"
+         id="stop16" /></linearGradient><linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient15"
+       id="linearGradient16"
+       x1="88.343193"
+       y1="46.522465"
+       x2="11.630615"
+       y2="46.522465"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(-5.35e-5,5.99e-5)" /><linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient18"
+       id="linearGradient17"
+       x1="26.288952"
+       y1="53.264042"
+       x2="97.216843"
+       y2="53.831463"
+       gradientUnits="userSpaceOnUse" /></defs><g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="Слой 2"
+     transform="matrix(0.76208012,0,0,0.76208012,7.4245015,5.4614635)"><path
+       d="M 31.205889,95.575272 V 22.955053 H 80.505812 V 37.683661 H 47.980137 V 53.332807 H 74.77802 V 66.936312 H 47.980137 v 28.63896 z"
+       id="text2"
+       style="font-weight:800;font-size:102.282px;line-height:1.5;font-family:Raleway;-inkscape-font-specification:'Raleway Ultra-Bold';letter-spacing:0px;word-spacing:0px;display:none;fill:#550000;stroke-width:7.83414;stroke-linejoin:round;paint-order:markers fill stroke"
+       aria-label="F"
+       sodipodi:insensitive="true" /><path
+       d="M 31.205889,95.575272 V 22.955053 H 80.505812 V 37.683661 H 47.980137 V 53.332807 H 74.77802 V 66.936312 H 47.980137 v 28.63896 z"
+       id="text2-9"
+       style="font-weight:800;font-size:102.282px;line-height:1.5;font-family:Raleway;-inkscape-font-specification:'Raleway Ultra-Bold';letter-spacing:0px;word-spacing:0px;fill:url(#linearGradient17);stroke-width:7.83414;stroke-linejoin:round;paint-order:markers fill stroke;fill-opacity:1"
+       aria-label="F" /></g><g
+     inkscape:label="Слой 1"
+     inkscape:groupmode="layer"
+     id="layer1"><path
+       d="M 10.338556,95.492126 V 4.5077542 h 33.958956 q 11.276936,0 19.734639,3.5881161 8.457702,3.5881157 14.09617,9.7391727 5.766615,6.151056 8.585849,14.480611 2.947381,8.201408 2.947381,17.556139 0,10.379908 -3.203675,18.83761 -3.203675,8.329555 -9.226584,14.352464 -5.894762,5.894762 -14.352464,9.226584 -8.329556,3.203675 -18.581316,3.203675 z M 68.261002,49.871793 q 0,-6.022909 -1.665911,-10.892495 Q 65.057327,33.981565 61.981799,30.393449 58.906271,26.805333 54.421125,24.883128 49.93598,22.960923 44.297512,22.960923 H 31.354665 v 54.078035 h 12.942847 q 5.766615,0 10.25176,-2.050352 4.485146,-2.050352 7.432527,-5.638468 3.075528,-3.716263 4.613292,-8.585849 1.665911,-4.997734 1.665911,-10.892496 z"
+       id="text1"
+       style="font-weight:800;font-size:128.147px;line-height:1.5;font-family:Raleway;-inkscape-font-specification:'Raleway Ultra-Bold';letter-spacing:0px;word-spacing:0px;display:none;fill:#a05a2c;stroke-width:9.81517;stroke-linejoin:round;paint-order:markers fill stroke"
+       aria-label="D"
+       sodipodi:insensitive="true" /><path
+       d="M 10.338502,95.492186 V 4.5078141 h 33.958956 q 11.276936,0 19.734639,3.5881161 8.457702,3.5881158 14.09617,9.7391728 5.766615,6.151056 8.585849,14.480611 2.947381,8.201408 2.947381,17.556139 0,10.379908 -3.203675,18.83761 -3.203675,8.329555 -9.226584,14.352464 -5.894762,5.894762 -14.352464,9.226584 -8.329555,3.203675 -18.581316,3.203675 z M 68.260948,49.871853 q 0,-6.022909 -1.66591,-10.892495 -1.537765,-4.997733 -4.613292,-8.585849 -3.075529,-3.588116 -7.560674,-5.510321 -4.485146,-1.922205 -10.123614,-1.922205 H 31.354611 v 54.078035 h 12.942847 q 5.766615,0 10.251761,-2.050352 4.485146,-2.050352 7.432527,-5.638468 3.075527,-3.716263 4.613291,-8.585849 1.665911,-4.997734 1.665911,-10.892496 z"
+       id="text1-7"
+       style="font-weight:800;font-size:128.147px;line-height:1.5;font-family:Raleway;-inkscape-font-specification:'Raleway Ultra-Bold';letter-spacing:0px;word-spacing:0px;fill:url(#linearGradient16);fill-opacity:1;stroke-width:9.81517;stroke-linejoin:round;paint-order:markers fill stroke"
+       aria-label="D" /></g></svg>
