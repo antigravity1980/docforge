@@ -1739,7 +1739,7 @@
         "describePlaceholder": "Describe the document you want to generate..."
     },
     "dashboard": {
-        "welcome": "Welcome back! 👋",
+        "welcome": "Welcome! 👋",
         "subtitle": "Generate your next professional document",
         "newDoc": "+ New Document",
         "docsThisMonth": "Documents this month",
@@ -1755,7 +1755,7 @@
         "loading": "Loading dashboard..."
     },
     "auth": {
-        "signInTitle": "Welcome back",
+        "signInTitle": "Welcome",
         "signInSub": "Sign in to your account",
         "signUpTitle": "Create your account",
         "signUpSub": "Start generating documents for free",

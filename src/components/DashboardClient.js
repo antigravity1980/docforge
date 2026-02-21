@@ -62,7 +62,7 @@ export default function DashboardClient({ locale, dict }) {
         loadDashboardData();
     }, []);
 
-    const limit = isAdmin ? 9999 : (profile?.plan === 'Professional' ? 100 : profile?.plan === 'Starter' ? 10 : 3);
+    const limit = isAdmin ? 9999 : (profile?.plan === 'Professional' ? 100 : profile?.plan === 'Starter' ? 10 : 1);
     const used = profile?.docs_generated_this_month || 0;
     const planName = isAdmin ? 'Admin Unlimited' : (profile?.plan || t.currentPlan);
 

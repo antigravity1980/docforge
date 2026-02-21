@@ -1674,7 +1674,7 @@
         }
     },
     "dashboard": {
-        "welcome": "Bon retour ! 👋",
+        "welcome": "Bienvenue ! 👋",
         "subtitle": "Générez votre prochain document professionnel",
         "newDoc": "+ Nouveau Document",
         "docsThisMonth": "Documents ce mois-ci",
@@ -1690,7 +1690,7 @@
         "loading": "Chargement du tableau de bord..."
     },
     "auth": {
-        "signInTitle": "Bon retour",
+        "signInTitle": "Bienvenue",
         "signInSub": "Connectez-vous à votre compte",
         "signUpTitle": "Créez votre compte",
         "signUpSub": "Commencez à générer des documents gratuitement",

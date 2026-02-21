@@ -1682,7 +1682,7 @@
         }
     },
     "dashboard": {
-        "welcome": "Willkommen zurück! 👋",
+        "welcome": "Willkommen! 👋",
         "subtitle": "Erstellen Sie Ihr nächstes professionelles Dokument",
         "newDoc": "+ Neues Dokument",
         "docsThisMonth": "Dokumente diesen Monat",
@@ -1698,7 +1698,7 @@
         "loading": "Dashboard wird geladen..."
     },
     "auth": {
-        "signInTitle": "Willkommen zurück",
+        "signInTitle": "Willkommen",
         "signInSub": "Melden Sie sich bei Ihrem Konto an",
         "signUpTitle": "Konto erstellen",
         "signUpSub": "Kostenlos Dokumente erstellen",
