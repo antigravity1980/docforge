@@ -182,7 +182,7 @@ const s = {
     },
     statsGrid: {
         display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
         gap: '20px',
         marginBottom: '40px',
     },
@@ -194,6 +194,7 @@ const s = {
         display: 'flex',
         flexDirection: 'column',
         gap: '12px',
+        overflow: 'hidden',
     },
     statIcon: {
         fontSize: '24px',
@@ -201,6 +202,9 @@ const s = {
     statValue: {
         fontSize: '24px',
         fontWeight: 700,
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
     },
     statLabel: {
         fontSize: '13px',
@@ -294,10 +298,14 @@ const s = {
     },
     docInfo: {
         flex: 1,
+        minWidth: 0,
     },
     docName: {
         fontSize: '14px',
         fontWeight: 600,
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
     },
     docMeta: {
         fontSize: '13px',

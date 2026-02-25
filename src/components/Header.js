@@ -49,7 +49,7 @@ export default function Header({ dict }) {
 
     const handleSignOut = async () => {
         await supabase.auth.signOut();
-        window.location.href = linkPrefix || '/';
+        router.push(linkPrefix || '/');
     };
     return (
         <header style={styles.header}>
@@ -80,7 +80,7 @@ export default function Header({ dict }) {
                                 segments.splice(1, 0, newLocale);
                             }
                             const newPathname = segments.join('/');
-                            window.location.href = newPathname;
+                            router.push(newPathname);
                         }}
                         style={styles.langSelect}
                     >

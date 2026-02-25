@@ -5,6 +5,13 @@ import JsonLd from '@/components/JsonLd';
 import CookieBanner from '@/components/CookieBanner';
 import { getDictionary } from '@/lib/get-dictionary';
 
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+};
+
 export async function generateMetadata({ params }) {
   const { locale } = await params;
   const dict = await getDictionary(locale);
@@ -95,7 +102,6 @@ export default async function RootLayout({ children, params }) {
 
   return (
     <html lang={locale}>
-      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
       <body>
         <JsonLd data={jsonLdData} />
         <Header dict={dict} />
