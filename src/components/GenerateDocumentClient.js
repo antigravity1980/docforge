@@ -285,13 +285,17 @@ export default function GenerateDocumentClient({ locale, config, ui }) {
         <section style={s.page}>
             <div className="container" style={{ maxWidth: '800px' }}>
                 <div style={s.header}>
-                    <button onClick={() => router.push(`/${locale}/templates`)} style={s.backBtn}>← {g.backToDocs || 'Back'}</button>
+                    <button onClick={() => router.push(`/${locale}/generate`)} style={s.backBtn}>← {g.backToDocs || 'Back'}</button>
                     <div style={s.headerIcon}>{config.icon || '📄'}</div>
-                    <h1 className="responsive-title">{config.name}</h1>
+                    <h1 className="responsive-title">{config.name || 'Document Generator'}</h1>
                     <p style={s.subtitle}>{config.desc}</p>
                 </div>
 
-                {result ? (
+                {!config.fields ? (
+                    <div style={s.error}>
+                        ❌ {g.notFound || 'Document type not found. Please go back and select a valid document.'}
+                    </div>
+                ) : result ? (
                     <div style={s.resultSection}>
                         <div style={s.resultHeader}>
                             <h2 style={s.resultTitle}>{g.docGenerated}</h2>

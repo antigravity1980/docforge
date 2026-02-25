@@ -17,12 +17,12 @@ export default function DashboardClient({ locale, dict }) {
     const p = dict.page;
 
     const QUICK_ACTIONS = [
-        { icon: '📄', name: p.features.items.nda.name, slug: 'nda-generator', color: '#6366f1' },
-        { icon: '🔒', name: p.features.items.privacy.name, slug: 'privacy-policy-generator', color: '#8b5cf6' },
-        { icon: '📜', name: p.features.items.tos.name, slug: 'terms-of-service-generator', color: '#a78bfa' },
-        { icon: '💼', name: p.features.items.proposal.name, slug: 'business-proposal-generator', color: '#3b82f6' },
-        { icon: '🧾', name: p.features.items.invoice.name, slug: 'invoice-generator', color: '#10b981' },
-        { icon: '📈', name: p.features.items.meta.name, slug: 'meta-tags-generator', color: '#f59e0b' },
+        { icon: '📄', name: p.features.items.nda.name, slug: 'nda', color: '#6366f1' },
+        { icon: '🔒', name: p.features.items.privacy.name, slug: 'privacy-policy', color: '#8b5cf6' },
+        { icon: '📜', name: p.features.items.tos.name, slug: 'tos', color: '#a78bfa' },
+        { icon: '💼', name: p.features.items.proposal.name, slug: 'business-plan', color: '#3b82f6' },
+        { icon: '🧾', name: p.features.items.invoice.name, slug: 'invoice', color: '#10b981' },
+        { icon: '📈', name: p.features.items.meta.name, slug: 'meta-tags', color: '#f59e0b' },
     ];
 
     useEffect(() => {
