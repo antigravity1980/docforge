@@ -11,6 +11,8 @@ export default function AdminLayout({ children }) {
     const [balanceAlert, setBalanceAlert] = useState(null);
 
     const menuItems = [
+        // ... (I need the context properly)
+
         { name: 'Overview', href: '/admin', icon: '📊' },
         { name: 'Users', href: '/admin/users', icon: '👥' },
         { name: 'Documents', href: '/admin/documents', icon: '📄' },
@@ -27,6 +29,9 @@ export default function AdminLayout({ children }) {
 
     return (
         <html lang="en">
+            <head>
+                <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+            </head>
             <body style={{ margin: 0 }}>
                 <div style={s.layout}>
                     {/* Sidebar */}
