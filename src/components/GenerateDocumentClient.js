@@ -8,8 +8,9 @@ import ReactDOMServer from 'react-dom/server';
 import Logo from '@/components/Logo';
 import Editor from '@/components/Editor'; // Added
 import ReactMarkdown from 'react-markdown'; // Keep for fallback
+import { createClient } from '@/utils/supabase/client';
 
-export default function GenerateDocumentClient({ locale, config, ui, user }) {
+export default function GenerateDocumentClient({ locale, config, ui }) {
     const [formData, setFormData] = useState({});
     const [loading, setLoading] = useState(false);
     const [result, setResult] = useState('');
@@ -32,7 +33,11 @@ export default function GenerateDocumentClient({ locale, config, ui, user }) {
         setResult(''); // Reset editor state on new generation
 
         try {
-            if (!user) {
+            // Check auth on the client side via Supabase browser client
+            const supabase = createClient();
+            const { data: { user: currentUser } } = await supabase.auth.getUser();
+
+            if (!currentUser) {
                 router.push(`/${locale}/auth/signin`);
                 return;
             }

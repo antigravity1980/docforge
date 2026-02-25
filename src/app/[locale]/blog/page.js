@@ -1,3 +1,4 @@
+import { generateAlternates } from '@/lib/metadata';
 import { getDictionary } from '@/lib/get-dictionary';
 import Link from 'next/link';
 import { BLOG_POSTS as STATIC_BLOG_POSTS } from '@/lib/blog-data';

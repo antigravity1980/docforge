@@ -1,7 +1,16 @@
+import { generateAlternates } from '@/lib/metadata';
 import { createClient } from '@/utils/supabase/server';
 import { getDictionary } from '@/lib/get-dictionary';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
+
+
+export async function generateMetadata({ params }) {
+    const { locale } = await params;
+    return {
+        alternates: generateAlternates(locale, 'documents'),
+    };
+}
 
 export default async function DocumentsPage({ params }) {
     const { locale } = await params;

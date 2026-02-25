@@ -1,6 +1,15 @@
+import { generateAlternates } from '@/lib/metadata';
 import { getDictionary } from '@/lib/get-dictionary';
 import PricingClient from '@/components/PricingClient';
 import { supabaseAdmin } from '@/lib/supabase-admin';
+
+
+export async function generateMetadata({ params }) {
+    const { locale } = await params;
+    return {
+        alternates: generateAlternates(locale, 'pricing'),
+    };
+}
 
 export default async function PricingPage({ params }) {
     const { locale } = await params;

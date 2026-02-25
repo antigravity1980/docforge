@@ -1,13 +1,18 @@
+import { generateAlternates } from '@/lib/metadata';
 import { getDictionary } from '@/lib/get-dictionary';
 import Logo from '@/components/Logo';
 
-export const metadata = {
-    title: 'Maintenance Mode | DocForge AI',
-    robots: {
-        index: false,
-        follow: false,
-    },
-};
+export async function generateMetadata({ params }) {
+    const { locale } = await params;
+    return {
+        title: 'Maintenance Mode | DocForge AI',
+        robots: {
+            index: false,
+            follow: false,
+        },
+        alternates: generateAlternates(locale, 'maintenance'),
+    };
+}
 
 export default async function MaintenancePage({ params }) {
     const { locale } = await params;

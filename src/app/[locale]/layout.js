@@ -61,7 +61,6 @@ export async function generateMetadata({ params }) {
       },
     },
     alternates: {
-      canonical: `/${locale}`,
       languages: languages,
     },
     icons: {

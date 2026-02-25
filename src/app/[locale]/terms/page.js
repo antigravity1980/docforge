@@ -1,6 +1,15 @@
+import { generateAlternates } from '@/lib/metadata';
 import { getDictionary } from '@/lib/get-dictionary';
 import Link from 'next/link';
 import ReactMarkdown from 'react-markdown';
+
+
+export async function generateMetadata({ params }) {
+    const { locale } = await params;
+    return {
+        alternates: generateAlternates(locale, 'terms'),
+    };
+}
 
 export default async function TermsPage({ params }) {
     const { locale } = await params;
