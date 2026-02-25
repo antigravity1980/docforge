@@ -163,20 +163,10 @@ export default function GenerateDocumentClient({ locale, config, ui }) {
 
     const handleDownload = async () => {
         const { jsPDF } = await import('jspdf');
-        const doc = new jsPDF('p', 'pt', 'a4');
+        const html2canvas = (await import('html2canvas')).default;
 
-        const tempDiv = document.createElement('div');
-        tempDiv.style.width = '595pt';
-        tempDiv.style.padding = '40px';
-        tempDiv.style.background = '#fff';
-        tempDiv.style.position = 'absolute';
-        tempDiv.style.left = '-10000px';
-        tempDiv.style.top = '0';
-
-        // Logo
         const logoHtml = ReactDOMServer.renderToStaticMarkup(<Logo showText={true} width={40} height={40} fontSize="24px" />);
 
-        // Content
         let contentHtml;
         if (editorHtml) {
             contentHtml = editorHtml;
@@ -188,59 +178,106 @@ export default function GenerateDocumentClient({ locale, config, ui }) {
             );
         }
 
-        // Inject styles directly for html2canvas to capture
-        tempDiv.innerHTML = `
-            <style>
-                @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-                .pdf-container { font-family: 'Inter', sans-serif; color: #111; }
-                .header-branding { margin-bottom: 30px; }
-                .pdf-content { font-size: 11pt; line-height: 1.6; color: #000; }
-                .pdf-content h1 { font-size: 24px; font-weight: 800; margin-bottom: 12px; color: #000; }
-                .pdf-content h2 { font-size: 18px; font-weight: 700; margin-top: 24px; margin-bottom: 12px; border-bottom: 1px solid #eee; padding-bottom: 8px; color: #333; }
-                .pdf-content h3 { font-size: 16px; font-weight: 600; margin-top: 18px; margin-bottom: 10px; color: #444; }
-                .pdf-content p { margin-bottom: 12px; text-align: justify; }
-                .pdf-content ul, .pdf-content ol { margin-bottom: 12px; padding-left: 20px; }
-                .pdf-content li { margin-bottom: 6px; }
-                .pdf-content strong { font-weight: 800; color: #000; }
-                .disclaimer { margin-top: 50px; padding-top: 15px; border-top: 0.5pt solid #eee; font-size: 9pt; color: #666; text-align: center; font-style: italic; }
-            </style>
-            <div class="pdf-container">
-                <div class="header-branding">${logoHtml}</div>
-                <div class="pdf-content">
-                    ${contentHtml}
-                </div>
-                <div class="disclaimer">
-                    ${g.disclaimer}
-                </div>
-            </div>
-        `;
+        // Create a hidden iframe to render the content (same approach as working print)
+        const iframe = document.createElement('iframe');
+        iframe.style.position = 'fixed';
+        iframe.style.left = '-9999px';
+        iframe.style.top = '0';
+        iframe.style.width = '794px'; // A4 width in px at 96dpi
+        iframe.style.height = '1123px'; // A4 height
+        iframe.style.border = 'none';
+        document.body.appendChild(iframe);
 
-        document.body.appendChild(tempDiv);
+        const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+        iframeDoc.open();
+        iframeDoc.write(`
+            <html>
+            <head>
+                <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+                <style>
+                    * { margin: 0; padding: 0; box-sizing: border-box; }
+                    body {
+                        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+                        padding: 60px 50px;
+                        color: #111;
+                        background: #fff;
+                        -webkit-print-color-adjust: exact;
+                    }
+                    .header-branding { margin-bottom: 30px; }
+                    .content { font-size: 13px; line-height: 1.7; color: #000; }
+                    .content h1 { font-size: 22px; font-weight: 800; margin-bottom: 12px; color: #000; }
+                    .content h2 { font-size: 17px; font-weight: 700; margin-top: 24px; margin-bottom: 12px; border-bottom: 1px solid #eee; padding-bottom: 8px; color: #333; }
+                    .content h3 { font-size: 15px; font-weight: 600; margin-top: 18px; margin-bottom: 10px; color: #444; }
+                    .content p { margin-bottom: 12px; text-align: justify; }
+                    .content ul, .content ol { margin-bottom: 12px; padding-left: 24px; }
+                    .content li { margin-bottom: 6px; }
+                    .content strong { font-weight: 700; color: #000; }
+                    .content em { font-style: italic; }
+                    .disclaimer { margin-top: 40px; padding-top: 15px; border-top: 1px solid #eee; font-size: 9px; color: #888; text-align: center; font-style: italic; }
+                </style>
+            </head>
+            <body>
+                <div class="header-branding">${logoHtml}</div>
+                <div class="content">${contentHtml}</div>
+                <div class="disclaimer">${g.disclaimer || ''}</div>
+            </body>
+            </html>
+        `);
+        iframeDoc.close();
 
         try {
-            await doc.html(tempDiv, {
-                callback: function (doc) {
-                    doc.save(`${config.name || 'document'}.pdf`);
-                    document.body.removeChild(tempDiv);
-                },
-                x: 0,
-                y: 0,
-                width: 595,
-                windowWidth: 800,
-                margin: [20, 20, 20, 20],
-                autoPaging: 'text',
-                html2canvas: {
-                    scale: 0.75, // Adjust scale to fit A4 width
-                    useCORS: true,
-                    logging: false
-                }
+            // Wait for iframe content + fonts to fully load
+            await new Promise((resolve) => {
+                iframe.onload = resolve;
+                setTimeout(resolve, 2000); // Fallback timeout
             });
-        } catch (e) {
-            console.error(e);
-            alert("Error generating PDF. Please try 'Print' instead.");
-            if (document.body.contains(tempDiv)) {
-                document.body.removeChild(tempDiv);
+
+            // Additional wait for fonts
+            if (iframe.contentDocument?.fonts?.ready) {
+                await iframe.contentDocument.fonts.ready;
             }
+            // Small extra delay to ensure rendering is complete
+            await new Promise(r => setTimeout(r, 300));
+
+            const body = iframeDoc.body;
+            const canvas = await html2canvas(body, {
+                scale: 2,
+                useCORS: true,
+                logging: false,
+                width: 794,
+                windowWidth: 794,
+                backgroundColor: '#ffffff',
+            });
+
+            const imgData = canvas.toDataURL('image/jpeg', 0.95);
+            const pdf = new jsPDF('p', 'mm', 'a4');
+            const pageWidth = 210; // A4 width in mm
+            const pageHeight = 297; // A4 height in mm
+
+            const imgWidth = pageWidth;
+            const imgHeight = (canvas.height * pageWidth) / canvas.width;
+
+            let position = 0;
+            let remainingHeight = imgHeight;
+
+            // First page
+            pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+            remainingHeight -= pageHeight;
+
+            // Additional pages if content is taller than one page
+            while (remainingHeight > 0) {
+                position -= pageHeight;
+                pdf.addPage();
+                pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+                remainingHeight -= pageHeight;
+            }
+
+            pdf.save(`${config.name || 'document'}.pdf`);
+        } catch (e) {
+            console.error('PDF generation error:', e);
+            alert("Error generating PDF. Please try 'Print' instead.");
+        } finally {
+            document.body.removeChild(iframe);
         }
     };
 
