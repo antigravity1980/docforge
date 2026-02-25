@@ -89,13 +89,13 @@ export default function GenerateDocumentClient({ locale, config, ui }) {
             
             @page {
                 size: A4;
-                margin: 0; /* Remove browser headers/footers */
+                margin: 20mm; /* Use native print margins for all pages */
             }
             
             body {
                 font-family: 'Inter', sans-serif;
                 margin: 0;
-                padding: 20mm; /* Add content margin back */
+                padding: 0; /* Let @page handle margins */
                 color: #111;
                 -webkit-print-color-adjust: exact;
             }
@@ -253,23 +253,40 @@ export default function GenerateDocumentClient({ locale, config, ui }) {
             const pdf = new jsPDF('p', 'mm', 'a4');
             const pageWidth = 210; // A4 width in mm
             const pageHeight = 297; // A4 height in mm
+            const margin = 20; // 20mm margins
 
-            const imgWidth = pageWidth;
-            const imgHeight = (canvas.height * pageWidth) / canvas.width;
+            const contentWidth = pageWidth - (margin * 2);
+            const contentHeight = pageHeight - (margin * 2);
 
-            let position = 0;
-            let remainingHeight = imgHeight;
+            const imgWidth = contentWidth;
+            const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+            let heightLeft = imgHeight;
+            let position = margin; // Set start position below top margin
 
             // First page
-            pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
-            remainingHeight -= pageHeight;
+            pdf.addImage(imgData, 'JPEG', margin, position, imgWidth, imgHeight);
 
-            // Additional pages if content is taller than one page
-            while (remainingHeight > 0) {
-                position -= pageHeight;
+            // Mask bottom margin to hide overspilling image
+            pdf.setFillColor(255, 255, 255);
+            pdf.rect(0, pageHeight - margin, pageWidth, margin, 'F');
+
+            heightLeft -= contentHeight;
+
+            // Additional pages if content is taller than one page's content area
+            while (heightLeft > 0) {
+                position -= contentHeight; // Shift image up by the height of the content area
                 pdf.addPage();
-                pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
-                remainingHeight -= pageHeight;
+                pdf.addImage(imgData, 'JPEG', margin, position, imgWidth, imgHeight);
+
+                // Mask the top margin
+                pdf.setFillColor(255, 255, 255);
+                pdf.rect(0, 0, pageWidth, margin, 'F');
+
+                // Mask the bottom margin
+                pdf.rect(0, pageHeight - margin, pageWidth, margin, 'F');
+
+                heightLeft -= contentHeight;
             }
 
             pdf.save(`${config.name || 'document'}.pdf`);
