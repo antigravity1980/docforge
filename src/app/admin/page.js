@@ -98,7 +98,7 @@ const s = {
     },
     statsGrid: {
         display: 'grid',
-        gridTemplateColumns: 'repeat(4, 1fr)',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
         gap: '24px',
     },
     statCard: {
