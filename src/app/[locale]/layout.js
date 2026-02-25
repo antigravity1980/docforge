@@ -95,6 +95,7 @@ export default async function RootLayout({ children, params }) {
 
   return (
     <html lang={locale}>
+      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
       <body>
         <JsonLd data={jsonLdData} />
         <Header dict={dict} />
