@@ -17,6 +17,33 @@ export async function POST(req) {
         const eventName = payload.meta.event_name;
         const customData = payload.meta.custom_data;
 
+        // Idempotency: use LemonSqueezy event ID to prevent duplicate processing
+        const eventId = String(payload.meta?.webhook_id || payload.data?.id || '');
+
+        if (eventId) {
+            const { data: existing } = await supabaseAdmin
+                .from('webhook_events')
+                .select('id')
+                .eq('event_id', eventId)
+                .maybeSingle();
+
+            if (existing) {
+                console.log(`⏭️ Webhook event ${eventId} already processed, skipping.`);
+                return NextResponse.json({ status: 'already_processed' });
+            }
+
+            // Record this event as processed
+            await supabaseAdmin
+                .from('webhook_events')
+                .insert({
+                    event_id: eventId,
+                    event_name: eventName,
+                    processed_at: new Date().toISOString()
+                })
+                .select()
+                .single();
+        }
+
         const userId = customData?.user_id;
 
         if (!userId) {
