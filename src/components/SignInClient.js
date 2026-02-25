@@ -29,7 +29,8 @@ export default function SignInClient({ locale, dict }) {
             setError(error.message);
             setLoading(false);
         } else {
-            router.push(`/${locale}/dashboard`);
+            const dest = locale === 'en' ? '/dashboard' : `/${locale}/dashboard`;
+            window.location.href = dest;
         }
     };
 
