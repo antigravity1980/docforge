@@ -5,6 +5,12 @@ import JsonLd from '@/components/JsonLd';
 import CookieBanner from '@/components/CookieBanner';
 import { getDictionary } from '@/lib/get-dictionary';
 
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+};
+
 export async function generateMetadata({ params }) {
   const { locale } = await params;
   const dict = await getDictionary(locale);
