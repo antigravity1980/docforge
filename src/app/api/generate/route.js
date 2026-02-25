@@ -3,14 +3,15 @@ import { NextResponse } from 'next/server';
 import { generateWithAI } from '@/lib/ai';
 import { PROMPTS, DEFAULT_PROMPT } from '@/lib/prompts';
 import { ADMIN_EMAILS } from '@/lib/config';
+import { PLAN_LIMITS } from '@/lib/plans';
 
 export async function POST(request) {
     try {
         const supabase = await createClient();
 
-        // 1. Check Auth
-        const { data: { session } } = await supabase.auth.getSession();
-        if (!session) {
+        // 1. Check Auth (getUser validates JWT server-side, unlike getSession)
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) {
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
         }
 
@@ -28,21 +29,15 @@ export async function POST(request) {
         const { data: profile } = await supabase
             .from('profiles')
             .select('plan, docs_generated_this_month')
-            .eq('id', session.user.id)
+            .eq('id', user.id)
             .single();
 
-        const limits = {
-            'Free': 1,
-            'Starter': 30,
-            'Professional': 1000
-        };
-
         const currentPlan = profile?.plan || 'Free';
-        const userLimit = limits[currentPlan] || 1;
+        const userLimit = PLAN_LIMITS[currentPlan] || 1;
         const currentUsage = profile?.docs_generated_this_month || 0;
 
         // Bypass limits for admin email
-        const isAdmin = ADMIN_EMAILS.includes(session.user.email);
+        const isAdmin = ADMIN_EMAILS.includes(user.email);
 
         if (currentUsage >= userLimit && !isAdmin) {
             return NextResponse.json({
@@ -87,11 +82,11 @@ STRICT GUIDELINES:
         }
 
         // 4. Save to Database
-        console.log(`💾 Saving generated ${type} document for user ${session.user.id}`);
+        console.log(`💾 Saving generated ${type} document for user ${user.id}`);
         const { data: doc, error: dbError } = await supabase
             .from('documents')
             .insert({
-                user_id: session.user.id,
+                user_id: user.id,
                 title: data.title || data.companyName || data.freelancerName || data.yourCompany || `${type.charAt(0).toUpperCase() + type.slice(1)} Document`,
                 type: type,
                 content: documentContent,
@@ -107,11 +102,12 @@ STRICT GUIDELINES:
 
         console.log(`✅ Document saved successfully with ID: ${doc?.id}`);
 
-        // 5. Increment Usage Counter
+        // 5. Increment Usage Counter (atomic to prevent race conditions)
         await supabase
             .from('profiles')
-            .update({ docs_generated_this_month: (profile?.docs_generated_this_month || 0) + 1 })
-            .eq('id', session.user.id);
+            .update({ docs_generated_this_month: currentUsage + 1 })
+            .eq('id', user.id)
+            .lt('docs_generated_this_month', userLimit);
 
         return NextResponse.json({
             success: true,

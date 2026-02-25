@@ -26,82 +26,74 @@ export default function AdminLayout({ children }) {
     }, []);
 
     return (
-        <html lang="en">
-            <body>
-                <div style={s.layout}>
-                    {/* Sidebar */}
-                    <aside style={s.sidebar}>
-                        <div style={s.logo}>
-                            {/* <Image src="/logo.png" alt="DocForge Admin" width={32} height={32} /> */}
-                            <span style={s.logoText}>DocForge <span style={{ color: '#818cf8' }}>Admin</span></span>
-                        </div>
-
-                        <nav style={s.nav}>
-                            {menuItems.map((item) => {
-                                const isActive = pathname === item.href;
-                                return (
-                                    <Link
-                                        key={item.name}
-                                        href={item.href}
-                                        style={{
-                                            ...s.navItem,
-                                            background: isActive ? 'rgba(99, 102, 241, 0.1)' : 'transparent',
-                                            color: isActive ? '#818cf8' : '#a0a0b8',
-                                            borderLeft: isActive ? '3px solid #6366f1' : '3px solid transparent',
-                                        }}
-                                    >
-                                        <span style={s.navIcon}>{item.icon}</span>
-                                        {item.name}
-                                    </Link>
-                                );
-                            })}
-                        </nav>
-
-                        <div style={s.footer}>
-                            <div style={s.adminProfile}>
-                                <div style={s.avatar}>A</div>
-                                <div>
-                                    <div style={s.adminName}>Admin User</div>
-                                    <div style={s.adminRole}>Super Admin</div>
-                                </div>
-                            </div>
-                        </div>
-                    </aside>
-
-                    {/* Main Content */}
-                    <main style={s.main}>
-                        <header style={s.topBar}>
-                            <h1 style={s.pageTitle}>
-                                {menuItems.find(m => m.href === pathname)?.name || 'Admin'}
-                            </h1>
-                            <div style={s.topActions}>
-                                {/* <div style={s.search}>
-                                    <span style={{ marginLeft: '12px', fontSize: '14px' }}>🔍</span>
-                                    <input type="text" placeholder="Search..." style={s.searchInput} />
-                                </div> */}
-                                <div style={{ position: 'relative', cursor: 'pointer' }}>
-                                    <span style={{ fontSize: '20px' }} title="Notifications">🔔</span>
-                                    {balanceAlert && (
-                                        <span style={{
-                                            position: 'absolute',
-                                            top: '-2px',
-                                            right: '-2px',
-                                            width: '8px',
-                                            height: '8px',
-                                            background: '#ef4444',
-                                            borderRadius: '50%'
-                                        }} />
-                                    )}
-                                </div>
-                            </div>
-                        </header>
-                        <div style={s.content}>
-                            {children}
-                        </div>
-                    </main>
+        <div style={s.layout}>
+            {/* Sidebar */}
+            <aside style={s.sidebar}>
+                <div style={s.logo}>
+                    {/* <Image src="/logo.png" alt="DocForge Admin" width={32} height={32} /> */}
+                    <span style={s.logoText}>DocForge <span style={{ color: '#818cf8' }}>Admin</span></span>
                 </div>
-            </body>
-        </html>
+
+                <nav style={s.nav}>
+                    {menuItems.map((item) => {
+                        const isActive = pathname === item.href;
+                        return (
+                            <Link
+                                key={item.name}
+                                href={item.href}
+                                style={{
+                                    ...s.navItem,
+                                    background: isActive ? 'rgba(99, 102, 241, 0.1)' : 'transparent',
+                                    color: isActive ? '#818cf8' : '#a0a0b8',
+                                    borderLeft: isActive ? '3px solid #6366f1' : '3px solid transparent',
+                                }}
+                            >
+                                <span style={s.navIcon}>{item.icon}</span>
+                                {item.name}
+                            </Link>
+                        );
+                    })}
+                </nav>
+
+                <div style={s.footer}>
+                    <div style={s.adminProfile}>
+                        <div style={s.avatar}>A</div>
+                        <div>
+                            <div style={s.adminName}>Admin User</div>
+                            <div style={s.adminRole}>Super Admin</div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            {/* Main Content */}
+            <main style={s.main}>
+                <header style={s.topBar}>
+                    <h1 style={s.pageTitle}>
+                        {menuItems.find(m => m.href === pathname)?.name || 'Admin'}
+                    </h1>
+                    <div style={s.topActions}>
+                        <div style={{ position: 'relative', cursor: 'pointer' }}>
+                            <span style={{ fontSize: '20px' }} title="Notifications">🔔</span>
+                            {balanceAlert && (
+                                <span style={{
+                                    position: 'absolute',
+                                    top: '-2px',
+                                    right: '-2px',
+                                    width: '8px',
+                                    height: '8px',
+                                    background: '#ef4444',
+                                    borderRadius: '50%'
+                                }} />
+                            )}
+                        </div>
+                    </div>
+                </header>
+                <div style={s.content}>
+                    {children}
+                </div>
+            </main>
+        </div>
     );
 }
 

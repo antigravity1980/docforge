@@ -91,88 +91,112 @@ async function callGroq(systemPrompt, userPrompt, model) {
     // Ensure model is valid for Groq
     const cleanModel = model && model.includes('/') ? 'llama-3.3-70b-versatile' : (model || 'llama-3.3-70b-versatile');
 
-    const response = await fetch(GROQ_API_URL, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${process.env.GROQ_API_KEY}`,
-        },
-        body: JSON.stringify({
-            model: cleanModel,
-            messages: [
-                { role: 'system', content: systemPrompt },
-                { role: 'user', content: userPrompt },
-            ],
-            temperature: 0.3,
-            max_tokens: 4096,
-        }),
-    });
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 30000);
 
-    if (!response.ok) {
-        const err = await response.json().catch(() => ({}));
-        throw new Error(`Groq API error: ${response.status} - ${err.error?.message || 'Unknown error'}`);
+    try {
+        const response = await fetch(GROQ_API_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${process.env.GROQ_API_KEY}`,
+            },
+            body: JSON.stringify({
+                model: cleanModel,
+                messages: [
+                    { role: 'system', content: systemPrompt },
+                    { role: 'user', content: userPrompt },
+                ],
+                temperature: 0.3,
+                max_tokens: 4096,
+            }),
+            signal: controller.signal,
+        });
+
+        if (!response.ok) {
+            const err = await response.json().catch(() => ({}));
+            throw new Error(`Groq API error: ${response.status} - ${err.error?.message || 'Unknown error'}`);
+        }
+
+        const data = await response.json();
+        return data.choices[0].message.content;
+    } finally {
+        clearTimeout(timeout);
     }
-
-    const data = await response.json();
-    return data.choices[0].message.content;
 }
 
 async function callDeepSeek(systemPrompt, userPrompt, model) {
     if (!process.env.DEEPSEEK_API_KEY) throw new Error('DEEPSEEK_API_KEY not configured');
 
-    const response = await fetch(DEEPSEEK_API_URL, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${process.env.DEEPSEEK_API_KEY}`,
-        },
-        body: JSON.stringify({
-            model: 'deepseek-chat',
-            messages: [
-                { role: 'system', content: systemPrompt },
-                { role: 'user', content: userPrompt },
-            ],
-            temperature: 0.3,
-            max_tokens: 4096,
-        }),
-    });
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 30000);
 
-    if (!response.ok) {
-        const err = await response.json().catch(() => ({}));
-        throw new Error(`DeepSeek API error: ${response.status} - ${err.error?.message || 'Unknown error'}`);
+    try {
+        const response = await fetch(DEEPSEEK_API_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${process.env.DEEPSEEK_API_KEY}`,
+            },
+            body: JSON.stringify({
+                model: model || 'deepseek-chat',
+                messages: [
+                    { role: 'system', content: systemPrompt },
+                    { role: 'user', content: userPrompt },
+                ],
+                temperature: 0.3,
+                max_tokens: 4096,
+            }),
+            signal: controller.signal,
+        });
+
+        if (!response.ok) {
+            const err = await response.json().catch(() => ({}));
+            throw new Error(`DeepSeek API error: ${response.status} - ${err.error?.message || 'Unknown error'}`);
+        }
+
+        const data = await response.json();
+        return data.choices[0].message.content;
+    } finally {
+        clearTimeout(timeout);
     }
-
-    const data = await response.json();
-    return data.choices[0].message.content;
 }
 
 async function callOpenRouter(systemPrompt, userPrompt, model) {
     if (!process.env.OPENROUTER_API_KEY) throw new Error('OPENROUTER_API_KEY not configured');
 
-    const response = await fetch(OPENROUTER_API_URL, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${process.env.OPENROUTER_API_KEY}`,
-            'HTTP-Referer': process.env.NEXT_PUBLIC_APP_URL || 'https://docforge.site',
-            'X-Title': 'DocForge AI',
-        },
-        body: JSON.stringify({
-            model: model || 'meta-llama/llama-3.1-70b-instruct',
-            messages: [
-                { role: 'system', content: systemPrompt },
-                { role: 'user', content: userPrompt },
-            ],
-            temperature: 0.3,
-            max_tokens: 4096,
-        }),
-    });
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 30000);
 
-    if (!response.ok) {
-        const err = await response.json().catch(() => ({}));
-        throw new Error(`OpenRouter error: ${response.status} - ${err.error?.message || 'Unknown error'}`);
+    try {
+        const response = await fetch(OPENROUTER_API_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${process.env.OPENROUTER_API_KEY}`,
+                'HTTP-Referer': process.env.NEXT_PUBLIC_APP_URL || 'https://docforge.site',
+                'X-Title': 'DocForge AI',
+            },
+            body: JSON.stringify({
+                model: model || 'meta-llama/llama-3.1-70b-instruct',
+                messages: [
+                    { role: 'system', content: systemPrompt },
+                    { role: 'user', content: userPrompt },
+                ],
+                temperature: 0.3,
+                max_tokens: 4096,
+            }),
+            signal: controller.signal,
+        });
+
+        if (!response.ok) {
+            const err = await response.json().catch(() => ({}));
+            throw new Error(`OpenRouter error: ${response.status} - ${err.error?.message || 'Unknown error'}`);
+        }
+
+        const data = await response.json();
+        return data.choices[0].message.content;
+    } finally {
+        clearTimeout(timeout);
     }
-
-    const data = await response.json();
-    return data.choices[0].message.content;
 }

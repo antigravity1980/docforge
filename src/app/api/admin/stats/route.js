@@ -6,9 +6,9 @@ import { ADMIN_EMAILS } from '@/lib/config';
 export async function GET() {
     const supabase = await createClient();
 
-    // 1. Check Auth
-    const { data: { session } } = await supabase.auth.getSession();
-    if (!session || !ADMIN_EMAILS.includes(session.user.email)) {
+    // 1. Check Auth (getUser validates JWT server-side)
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user || !ADMIN_EMAILS.includes(user.email)) {
         return NextResponse.json({ error: 'Unauthorized' }, { status: 403 });
     }
 

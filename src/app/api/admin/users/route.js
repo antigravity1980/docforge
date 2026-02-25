@@ -6,9 +6,9 @@ import { ADMIN_EMAILS } from '@/lib/config';
 export async function GET(request) {
     const supabase = await createClient();
 
-    // 1. Check Auth
-    const { data: { session } } = await supabase.auth.getSession();
-    if (!session || !ADMIN_EMAILS.includes(session.user.email)) {
+    // 1. Check Auth (getUser validates JWT server-side)
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user || !ADMIN_EMAILS.includes(user.email)) {
         return NextResponse.json({ error: 'Unauthorized' }, { status: 403 });
     }
 
@@ -28,7 +28,9 @@ export async function GET(request) {
             .range(from, to);
 
         if (search) {
-            query = query.or(`email.ilike.%${search}%,full_name.ilike.%${search}%`);
+            // Use separate filters instead of string interpolation to prevent injection
+            const sanitized = search.replace(/[%_]/g, '\\$&');
+            query = query.or(`email.ilike.%${sanitized}%,full_name.ilike.%${sanitized}%`);
         }
 
         if (plan && plan !== 'All') {
@@ -65,9 +67,9 @@ export async function GET(request) {
 export async function DELETE(request) {
     const supabase = await createClient();
 
-    // 1. Check Auth (Double check for safety)
-    const { data: { session } } = await supabase.auth.getSession();
-    if (!session || !ADMIN_EMAILS.includes(session.user.email)) {
+    // 1. Check Auth (getUser validates JWT server-side)
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user || !ADMIN_EMAILS.includes(user.email)) {
         return NextResponse.json({ error: 'Unauthorized' }, { status: 403 });
     }
 

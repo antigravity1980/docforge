@@ -102,8 +102,6 @@ export default function PricingClient({ dict, locale, prices = { starter: '29', 
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     variantId: isYearly ? plan.lemonSqueezyYearlyId : plan.lemonSqueezyMonthlyId,
-                    userId: user.id,
-                    userEmail: user.email,
                     planName: plan.id
                 }),
             });

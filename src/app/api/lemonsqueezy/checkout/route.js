@@ -1,15 +1,22 @@
 import { NextResponse } from 'next/server';
 import { createCheckout } from '@lemonsqueezy/lemonsqueezy.js';
 import { setupLemonSqueezy } from '@/lib/lemonsqueezy';
-import { supabaseAdmin } from '@/lib/supabase-admin';
+import { createClient } from '@/utils/supabase/server';
 
 export async function POST(req) {
     try {
         setupLemonSqueezy();
 
-        const { variantId, userEmail, userId, planName } = await req.json();
+        // Auth check: ensure the user is authenticated
+        const supabase = await createClient();
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) {
+            return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+        }
 
-        if (!variantId || !userId) {
+        const { variantId, planName } = await req.json();
+
+        if (!variantId) {
             return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
         }
 
@@ -17,9 +24,9 @@ export async function POST(req) {
 
         const { data, error } = await createCheckout(storeId, variantId, {
             checkoutData: {
-                email: userEmail,
+                email: user.email,
                 custom: {
-                    user_id: userId,
+                    user_id: user.id,
                     plan_name: planName
                 },
             },

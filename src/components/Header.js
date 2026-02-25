@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { supabase } from '@/lib/supabase';
+import { createClient } from '@/utils/supabase/client';
 import Logo from './Logo';
 import { useRouter, usePathname } from 'next/navigation';
 import { locales } from '@/lib/config';
@@ -31,6 +31,8 @@ export default function Header({ dict }) {
         logout: "Sign Out"
     };
 
+    const supabase = createClient();
+
     useEffect(() => {
         // Get initial session
         supabase.auth.getSession().then(({ data: { session } }) => {
@@ -47,7 +49,7 @@ export default function Header({ dict }) {
 
     const handleSignOut = async () => {
         await supabase.auth.signOut();
-        router.push('/');
+        router.push(linkPrefix || '/');
     };
     return (
         <header style={styles.header}>

@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { createClient } from '@/utils/supabase/client';
 import { ADMIN_EMAILS } from '@/lib/config';
+import { PLAN_LIMITS } from '@/lib/plans';
 
 export default function DashboardClient({ locale, dict }) {
     const supabase = createClient();
@@ -16,29 +17,29 @@ export default function DashboardClient({ locale, dict }) {
     const p = dict.page;
 
     const QUICK_ACTIONS = [
-        { icon: '📄', name: p.features.items.nda.name, slug: 'nda', color: '#6366f1' },
-        { icon: '🔒', name: p.features.items.privacy.name, slug: 'privacy-policy', color: '#8b5cf6' },
-        { icon: '📜', name: p.features.items.tos.name, slug: 'terms-of-service', color: '#a78bfa' },
-        { icon: '💼', name: p.features.items.proposal.name, slug: 'proposal', color: '#3b82f6' },
-        { icon: '🧾', name: p.features.items.invoice.name, slug: 'invoice', color: '#10b981' },
-        { icon: '📈', name: p.features.items.meta.name, slug: 'meta-tags', color: '#f59e0b' },
+        { icon: '📄', name: p.features.items.nda.name, slug: 'nda-generator', color: '#6366f1' },
+        { icon: '🔒', name: p.features.items.privacy.name, slug: 'privacy-policy-generator', color: '#8b5cf6' },
+        { icon: '📜', name: p.features.items.tos.name, slug: 'terms-of-service-generator', color: '#a78bfa' },
+        { icon: '💼', name: p.features.items.proposal.name, slug: 'business-proposal-generator', color: '#3b82f6' },
+        { icon: '🧾', name: p.features.items.invoice.name, slug: 'invoice-generator', color: '#10b981' },
+        { icon: '📈', name: p.features.items.meta.name, slug: 'meta-tags-generator', color: '#f59e0b' },
     ];
 
     useEffect(() => {
         async function loadDashboardData() {
             setLoading(true);
-            const { data: { session } } = await supabase.auth.getSession();
+            const { data: { user } } = await supabase.auth.getUser();
 
-            if (!session) return;
+            if (!user) return;
 
-            const userEmail = session.user.email;
+            const userEmail = user.email;
             const adminStatus = ADMIN_EMAILS.includes(userEmail);
             setIsAdmin(adminStatus);
 
             const { data: profileData } = await supabase
                 .from('profiles')
                 .select('*')
-                .eq('id', session.user.id)
+                .eq('id', user.id)
                 .single();
 
             // Override plan for admin
@@ -51,7 +52,7 @@ export default function DashboardClient({ locale, dict }) {
             const { data: docsData } = await supabase
                 .from('documents')
                 .select('id, title, type, created_at')
-                .eq('user_id', session.user.id)
+                .eq('user_id', user.id)
                 .order('created_at', { ascending: false })
                 .limit(5);
 
@@ -62,7 +63,7 @@ export default function DashboardClient({ locale, dict }) {
         loadDashboardData();
     }, []);
 
-    const limit = isAdmin ? 9999 : (profile?.plan === 'Professional' ? 100 : profile?.plan === 'Starter' ? 10 : 1);
+    const limit = isAdmin ? 9999 : (PLAN_LIMITS[profile?.plan] || 1);
     const used = profile?.docs_generated_this_month || 0;
     const planName = isAdmin ? 'Admin Unlimited' : (profile?.plan || t.currentPlan);
 

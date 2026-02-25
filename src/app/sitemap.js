@@ -1,4 +1,5 @@
 import { getDictionary } from '@/lib/get-dictionary';
+import { BLOG_POSTS } from '@/lib/blog-data';
 
 export default async function sitemap() {
     const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://docforge.site';
@@ -55,6 +56,25 @@ export default async function sitemap() {
                 lastModified: new Date(),
                 changeFrequency: 'monthly',
                 priority: 0.9,
+            });
+        }
+    }
+
+    // 3. Blog posts
+    for (const post of BLOG_POSTS) {
+        for (const locale of locales) {
+            let url;
+            if (locale === 'en') {
+                url = `${baseUrl}/blog/${post.slug}`;
+            } else {
+                url = `${baseUrl}/${locale}/blog/${post.slug}`;
+            }
+
+            sitemapEntries.push({
+                url,
+                lastModified: new Date(),
+                changeFrequency: 'monthly',
+                priority: 0.7,
             });
         }
     }

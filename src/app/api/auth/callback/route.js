@@ -11,15 +11,9 @@ export async function GET(request) {
         await supabase.auth.exchangeCodeForSession(code);
     }
 
-    // URL to redirect to after sign in process completes
-    // Using hardcoded production URL to ensure we land on the correct domain where cookies are set
-    // This is safer than relying on request origin which might be http in some environments
-    const dashboardUrl = 'https://www.docforge.site/dashboard';
-
-    // Check if we are on localhost
-    if (origin.includes('localhost')) {
-        return NextResponse.redirect(`${origin}/dashboard`);
-    }
+    // Redirect to dashboard using the configured app URL (without www)
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://docforge.site';
+    const dashboardUrl = origin.includes('localhost') ? `${origin}/dashboard` : `${baseUrl}/dashboard`;
 
     return NextResponse.redirect(dashboardUrl);
 }
