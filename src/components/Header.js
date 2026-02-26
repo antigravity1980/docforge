@@ -20,8 +20,8 @@ export default function Header({ dict }) {
 
     const t = dict?.nav || {
         features: "Features",
-        howItWorks: "How It Works",
         pricing: "Pricing",
+        blog: "Blog",
         faq: "FAQ"
     };
     const common = dict?.common || {
@@ -63,6 +63,7 @@ export default function Header({ dict }) {
                     <Link href={`${linkPrefix}/#features`} style={styles.navLink}>{t.features}</Link>
 
                     <Link href={`${linkPrefix}/pricing`} style={styles.navLink}>{t.pricing}</Link>
+                    <Link href={`${linkPrefix}/blog`} style={styles.navLink}>{t.blog}</Link>
                     <Link href={`${linkPrefix}/#faq`} style={styles.navLink}>{t.faq}</Link>
                 </nav>
 
@@ -132,6 +133,7 @@ export default function Header({ dict }) {
                     <Link href={`${linkPrefix}/#features`} style={styles.mobileLink} onClick={() => setMobileMenuOpen(false)}>{t.features}</Link>
 
                     <Link href={`${linkPrefix}/pricing`} style={styles.mobileLink} onClick={() => setMobileMenuOpen(false)}>{t.pricing}</Link>
+                    <Link href={`${linkPrefix}/blog`} style={styles.mobileLink} onClick={() => setMobileMenuOpen(false)}>{t.blog}</Link>
                     <Link href={`${linkPrefix}/#faq`} style={styles.mobileLink} onClick={() => setMobileMenuOpen(false)}>{t.faq}</Link>
                     <div style={styles.mobileActions}>
                         {session ? (
