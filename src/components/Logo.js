@@ -3,7 +3,7 @@ export default function Logo({ width = 32, height = 32, showText = true, fontSiz
     return (
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }} className={className}>
             <img
-                src="/logo.svg"
+                src="/logo.svg?v=2"
                 alt="DocForge Logo"
                 style={{ width: `${width}px`, height: `${height}px` }}
             />
