@@ -173,6 +173,7 @@ const styles = {
         alignItems: 'center',
         justifyContent: 'space-between',
         height: '100%',
+        position: 'relative',
     },
     logoLink: {
         textDecoration: 'none',
@@ -185,6 +186,9 @@ const styles = {
         WebkitTextFillColor: 'transparent',
     },
     nav: {
+        position: 'absolute',
+        left: '50%',
+        transform: 'translateX(-50%)',
         display: 'flex',
         alignItems: 'center',
         gap: '32px',
