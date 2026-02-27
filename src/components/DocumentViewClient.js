@@ -26,7 +26,14 @@ export default function DocumentViewClient({ doc, locale, dict }) {
     // ... imports
 
     const handlePrint = () => {
-        const logoHtml = ReactDOMServer.renderToStaticMarkup(<Logo showText={true} width={40} height={40} fontSize="24px" />);
+        const logoHtml = `
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <img src="/apple-touch-icon.png" alt="DocForge Logo" style="width: 40px; height: 40px;" />
+                <span style="font-size: 24px; font-weight: 800; color: #111; letter-spacing: -0.5px; font-family: 'Inter', sans-serif;">
+                    Doc<span style="color: #f59e0b;">Forge</span> AI
+                </span>
+            </div>
+        `;
 
         // Use edited HTML if available, otherwise generate from initial markdown
         let contentHtml;
@@ -134,7 +141,14 @@ export default function DocumentViewClient({ doc, locale, dict }) {
         tempDiv.style.left = '-10000px';
         tempDiv.style.top = '0';
 
-        const logoHtml = ReactDOMServer.renderToStaticMarkup(<Logo showText={true} width={40} height={40} fontSize="24px" />);
+        const logoHtml = `
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <img src="/apple-touch-icon.png" alt="DocForge Logo" style="width: 40px; height: 40px;" />
+                <span style="font-size: 24px; font-weight: 800; color: #111; letter-spacing: -0.5px; font-family: 'Inter', sans-serif;">
+                    Doc<span style="color: #f59e0b;">Forge</span> AI
+                </span>
+            </div>
+        `;
 
         let contentHtml;
         if (editorHtml) {
