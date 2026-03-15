@@ -27,12 +27,12 @@ export async function getAIConfig() {
 
         // Defaults
         return {
-            provider: config.aiProvider || 'groq',
-            model: config.aiModel || 'llama-3.3-70b-versatile'
+            provider: config.aiProvider || 'deepseek',
+            model: config.aiModel || 'deepseek-chat'
         };
     } catch (e) {
         console.warn('Failed to fetch AI config, using defaults:', e);
-        return { provider: 'groq', model: 'llama-3.3-70b-versatile' };
+        return { provider: 'deepseek', model: 'deepseek-chat' };
     }
 }
 
