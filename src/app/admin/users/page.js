@@ -143,9 +143,9 @@ export default function AdminUsers() {
                                     <td style={s.td}>
                                         <span style={{
                                             ...s.planBadge,
-                                            background: user.plan === 'Pro' ? 'rgba(99, 102, 241, 0.15)' :
+                                            background: user.plan === 'Professional' ? 'rgba(99, 102, 241, 0.15)' :
                                                 user.plan === 'Starter' ? 'rgba(139, 92, 246, 0.15)' : 'rgba(255,255,255,0.05)',
-                                            color: user.plan === 'Pro' ? '#818cf8' :
+                                            color: user.plan === 'Professional' ? '#818cf8' :
                                                 user.plan === 'Starter' ? '#a78bfa' : '#a0a0b8'
                                         }}>
                                             {user.plan}
