@@ -92,7 +92,7 @@ async function callGroq(systemPrompt, userPrompt, model) {
     const cleanModel = model && model.includes('/') ? 'llama-3.3-70b-versatile' : (model || 'llama-3.3-70b-versatile');
 
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 30000);
+    const timeout = setTimeout(() => controller.abort(), 90000);
 
     try {
         const response = await fetch(GROQ_API_URL, {
@@ -129,7 +129,7 @@ async function callDeepSeek(systemPrompt, userPrompt, model) {
     if (!process.env.DEEPSEEK_API_KEY) throw new Error('DEEPSEEK_API_KEY not configured');
 
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 30000);
+    const timeout = setTimeout(() => controller.abort(), 90000);
 
     try {
         const response = await fetch(DEEPSEEK_API_URL, {
@@ -166,7 +166,7 @@ async function callOpenRouter(systemPrompt, userPrompt, model) {
     if (!process.env.OPENROUTER_API_KEY) throw new Error('OPENROUTER_API_KEY not configured');
 
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 30000);
+    const timeout = setTimeout(() => controller.abort(), 90000);
 
     try {
         const response = await fetch(OPENROUTER_API_URL, {
