@@ -1720,6 +1720,48 @@
                         "required": true
                     }
                 ]
+            },
+            "meta-tags": {
+                "name": "SEO Meta Tags",
+                "desc": "Generate optimized title and meta tags for your website.",
+                "fields": [
+                    {
+                        "name": "websiteUrl",
+                        "label": "Website URL",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "topic",
+                        "label": "Main Topic / Keywords",
+                        "type": "textarea",
+                        "required": true
+                    },
+                    {
+                        "name": "targetAudience",
+                        "label": "Target Audience",
+                        "type": "text",
+                        "required": false
+                    }
+                ]
+            },
+            "blog-outline": {
+                "name": "Blog Post Outline",
+                "desc": "Create a structured outline for your next article.",
+                "fields": [
+                    {
+                        "name": "topic",
+                        "label": "Blog Post Topic",
+                        "type": "textarea",
+                        "required": true
+                    },
+                    {
+                        "name": "keywords",
+                        "label": "Target Keywords",
+                        "type": "text",
+                        "required": false
+                    }
+                ]
             }
         },
         "backToDocs": "← Back to Documents",

@@ -1652,6 +1652,48 @@
                         "required": true
                     }
                 ]
+            },
+            "meta-tags": {
+                "name": "Balises méta SEO",
+                "desc": "Générez des titres et des balises méta optimisés pour votre site web.",
+                "fields": [
+                    {
+                        "name": "websiteUrl",
+                        "label": "URL du site web",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "topic",
+                        "label": "Sujet principal / Mots-clés",
+                        "type": "textarea",
+                        "required": true
+                    },
+                    {
+                        "name": "targetAudience",
+                        "label": "Public cible",
+                        "type": "text",
+                        "required": false
+                    }
+                ]
+            },
+            "blog-outline": {
+                "name": "Plan d'article de blog",
+                "desc": "Créez un plan structuré pour votre prochain article.",
+                "fields": [
+                    {
+                        "name": "topic",
+                        "label": "Sujet de l'article de blog",
+                        "type": "textarea",
+                        "required": true
+                    },
+                    {
+                        "name": "keywords",
+                        "label": "Mots-clés cibles",
+                        "type": "text",
+                        "required": false
+                    }
+                ]
             }
         },
         "ui": {

@@ -1661,6 +1661,48 @@
                         "required": true
                     }
                 ]
+            },
+            "meta-tags": {
+                "name": "Meta Tags de SEO",
+                "desc": "Gere títulos e meta tags otimizados para o seu site.",
+                "fields": [
+                    {
+                        "name": "websiteUrl",
+                        "label": "URL do site",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "topic",
+                        "label": "Tópico principal / Palavras-chave",
+                        "type": "textarea",
+                        "required": true
+                    },
+                    {
+                        "name": "targetAudience",
+                        "label": "Público-alvo",
+                        "type": "text",
+                        "required": false
+                    }
+                ]
+            },
+            "blog-outline": {
+                "name": "Esboço de postagem no blog",
+                "desc": "Crie um esboço estruturado para o seu próximo artigo.",
+                "fields": [
+                    {
+                        "name": "topic",
+                        "label": "Tópico da postagem no blog",
+                        "type": "textarea",
+                        "required": true
+                    },
+                    {
+                        "name": "keywords",
+                        "label": "Palavras-chave de destino",
+                        "type": "text",
+                        "required": false
+                    }
+                ]
             }
         },
         "ui": {

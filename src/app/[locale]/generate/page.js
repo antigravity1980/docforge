@@ -110,6 +110,8 @@ export default async function GeneratePage({ params }) {
             docs: [
                 { name: t['privacy-policy'].name, desc: t['privacy-policy'].desc, slug: 'privacy-policy', popular: true },
                 { name: t.tos.name, desc: t.tos.desc, slug: 'tos', popular: true },
+                { name: t['meta-tags'].name, desc: t['meta-tags'].desc, slug: 'meta-tags', popular: true },
+                { name: t['blog-outline'].name, desc: t['blog-outline'].desc, slug: 'blog-outline' },
             ],
         },
     ];

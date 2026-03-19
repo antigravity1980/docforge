@@ -1660,6 +1660,48 @@
                         "required": true
                     }
                 ]
+            },
+            "meta-tags": {
+                "name": "SEO Meta Tags",
+                "desc": "Generieren Sie optimierte Titel und Meta-Tags für Ihre Website.",
+                "fields": [
+                    {
+                        "name": "websiteUrl",
+                        "label": "Webseiten-URL",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "name": "topic",
+                        "label": "Hauptthema / Keywords",
+                        "type": "textarea",
+                        "required": true
+                    },
+                    {
+                        "name": "targetAudience",
+                        "label": "Zielgruppe",
+                        "type": "text",
+                        "required": false
+                    }
+                ]
+            },
+            "blog-outline": {
+                "name": "Blog-Beitragsstruktur",
+                "desc": "Erstellen Sie eine strukturierte Gliederung für Ihren nächsten Artikel.",
+                "fields": [
+                    {
+                        "name": "topic",
+                        "label": "Thema des Blog-Beitrags",
+                        "type": "textarea",
+                        "required": true
+                    },
+                    {
+                        "name": "keywords",
+                        "label": "Ziel-Keywords",
+                        "type": "text",
+                        "required": false
+                    }
+                ]
             }
         },
         "ui": {
