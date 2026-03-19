@@ -22,7 +22,7 @@ export async function GET(request) {
     try {
         let query = supabaseAdmin
             .from('documents')
-            .select('*, profiles(email)', { count: 'exact' })
+            .select('*', { count: 'exact' })
             .order('created_at', { ascending: false })
             .range(from, to);
 
@@ -34,14 +34,31 @@ export async function GET(request) {
 
         if (error) throw error;
 
+        // Fetch user emails separately to avoid foreign key schema constraints
+        const userIds = [...new Set(docs.map(d => d.user_id))];
+        let userMap = {};
+        
+        if (userIds.length > 0) {
+            const { data: profiles, error: profileError } = await supabaseAdmin
+                .from('profiles')
+                .select('id, email')
+                .in('id', userIds);
+            
+            if (!profileError && profiles) {
+                profiles.forEach(p => {
+                    userMap[p.id] = p.email;
+                });
+            }
+        }
+
         // Transform data for UI
         const logs = docs.map(d => ({
             id: d.id,
-            user: d.profiles?.email || 'Unknown',
+            user: userMap[d.user_id] || 'Unknown User',
             type: d.type || 'Unknown Topic',
-            tokens: 'N/A', // We don't track tokens yet
+            tokens: 'N/A',
             time: new Date(d.created_at).toLocaleString(),
-            status: 'Success' // Assuming all saved docs are successes
+            status: 'Success'
         }));
 
         // Fetch overall stats by template type
