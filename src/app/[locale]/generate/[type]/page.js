@@ -1,5 +1,7 @@
 import { getDictionary } from '@/lib/get-dictionary';
 import GenerateDocumentClient from '@/components/GenerateDocumentClient';
+import { createClient } from '@/utils/supabase/server';
+import { ADMIN_EMAILS } from '@/lib/config';
 
 export async function generateMetadata({ params }) {
     const { locale, type } = await params;
@@ -59,5 +61,9 @@ export default async function GenerateDocumentPage({ params }) {
 
     const ui = dict.generate?.ui || {};
 
-    return <GenerateDocumentClient locale={locale} config={config} ui={ui} />;
+    const supabase = await createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+    const isAdmin = user ? ADMIN_EMAILS.includes(user.email) : false;
+
+    return <GenerateDocumentClient locale={locale} config={config} ui={ui} isAdmin={isAdmin} />;
 }
