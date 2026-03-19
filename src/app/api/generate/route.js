@@ -119,7 +119,7 @@ STRICT GUIDELINES:
     } catch (error) {
         console.error('Generate API Error:', error);
         return NextResponse.json(
-            { error: 'Failed to generate document. Please try again.' },
+            { error: `Failed to generate document: ${error.message}` },
             { status: 500 }
         );
     }

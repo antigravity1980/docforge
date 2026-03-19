@@ -52,9 +52,14 @@ export default function GenerateDocumentClient({ locale, config, ui, isAdmin, us
                 })
             });
 
-            if (!res.ok) throw new Error('Failed to generate');
-
             const data = await res.json();
+
+            if (!res.ok) {
+                setError(data.error || 'Failed to generate');
+                setLoading(true); // Technically it will be set to false in finally or catch, but let's be safe
+                throw new Error(data.error || 'Failed to generate');
+            }
+
             setResult(data.document);
         } catch (err) {
             setError(err.message);
