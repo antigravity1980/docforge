@@ -23,7 +23,7 @@ export async function GET(request) {
     try {
         let query = supabaseAdmin
             .from('profiles')
-            .select('*, documents(count)', { count: 'exact' })
+            .select('*', { count: 'exact' })
             .order('created_at', { ascending: false })
             .range(from, to);
 
@@ -41,6 +41,22 @@ export async function GET(request) {
 
         if (error) throw error;
 
+        // Fetch documents count explicitly for current page to avoid foreign key schema constraints
+        const profileIds = profiles.map(p => p.id);
+        let docCounts = {};
+        if (profileIds.length > 0) {
+            const { data: docData, error: docError } = await supabaseAdmin
+                .from('documents')
+                .select('user_id')
+                .in('user_id', profileIds);
+
+            if (!docError && docData) {
+                docData.forEach(d => {
+                    docCounts[d.user_id] = (docCounts[d.user_id] || 0) + 1;
+                });
+            }
+        }
+
         // Transform data for UI
         const users = profiles.map(p => ({
             id: p.id,
@@ -49,7 +65,7 @@ export async function GET(request) {
             plan: p.plan || 'Free',
             registered: new Date(p.created_at).toLocaleDateString(),
             status: 'Active', // Default status
-            documentsCount: p.documents?.[0]?.count || 0
+            documentsCount: docCounts[p.id] || 0
         }));
 
         return NextResponse.json({

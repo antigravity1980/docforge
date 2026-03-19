@@ -38,14 +38,33 @@ export async function GET(request) {
         const logs = docs.map(d => ({
             id: d.id,
             user: d.profiles?.email || 'Unknown',
-            type: d.type,
+            type: d.type || 'Unknown Topic',
             tokens: 'N/A', // We don't track tokens yet
             time: new Date(d.created_at).toLocaleString(),
             status: 'Success' // Assuming all saved docs are successes
         }));
 
+        // Fetch overall stats by template type
+        let stats = [];
+        const { data: allTypes, error: statsError } = await supabaseAdmin
+            .from('documents')
+            .select('type');
+        
+        if (!statsError && allTypes) {
+            const counts = allTypes.reduce((acc, doc) => {
+                const t = doc.type || 'Uncategorized';
+                acc[t] = (acc[t] || 0) + 1;
+                return acc;
+            }, {});
+            
+            stats = Object.entries(counts)
+                .map(([type, count]) => ({ type, count }))
+                .sort((a, b) => b.count - a.count);
+        }
+
         return NextResponse.json({
             logs,
+            stats,
             total: count,
             page,
             totalPages: Math.ceil(count / limit)

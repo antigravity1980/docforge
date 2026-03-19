@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 
 export default function adminDocuments() {
     const [logs, setLogs] = useState([]);
+    const [stats, setStats] = useState([]);
     const [loading, setLoading] = useState(true);
     const [page, setPage] = useState(1);
     const [total, setTotal] = useState(0);
@@ -22,6 +23,7 @@ export default function adminDocuments() {
             const data = await res.json();
             if (data.logs) {
                 setLogs(data.logs);
+                if (data.stats) setStats(data.stats);
                 setTotal(data.total);
                 setTotalPages(data.totalPages);
             }
@@ -57,6 +59,17 @@ export default function adminDocuments() {
                     </div>
                 </div> */}
             </div>
+
+            {stats.length > 0 && (
+                <div style={s.statsGrid}>
+                    {stats.map((stat) => (
+                        <div key={stat.type} className="card" style={s.statCard}>
+                            <div style={s.statType}>{stat.type.replace(/_/g, ' ')}</div>
+                            <div style={s.statCount}>{stat.count}</div>
+                        </div>
+                    ))}
+                </div>
+            )}
 
             <div className="card" style={s.tableCard}>
                 <table style={s.table}>
@@ -163,6 +176,33 @@ const s = {
     },
     statMiniValue: {
         fontSize: '18px',
+        fontWeight: 700,
+        color: '#818cf8',
+    },
+    statsGrid: {
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
+        gap: '16px',
+    },
+    statCard: {
+        padding: '16px',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '4px',
+        background: 'rgba(255, 255, 255, 0.02)',
+        border: '1px solid rgba(255, 255, 255, 0.05)',
+        boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+        transition: 'transform 0.2s',
+    },
+    statType: {
+        fontSize: '12px',
+        color: '#a0a0b8',
+        fontWeight: 600,
+        textTransform: 'uppercase',
+        letterSpacing: '0.5px',
+    },
+    statCount: {
+        fontSize: '28px',
         fontWeight: 700,
         color: '#818cf8',
     },
