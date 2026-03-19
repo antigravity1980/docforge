@@ -23,7 +23,7 @@ export async function GET(request) {
     try {
         let query = supabaseAdmin
             .from('profiles')
-            .select('*', { count: 'exact' })
+            .select('*, documents(count)', { count: 'exact' })
             .order('created_at', { ascending: false })
             .range(from, to);
 
@@ -48,7 +48,8 @@ export async function GET(request) {
             email: p.email,
             plan: p.plan || 'Free',
             registered: new Date(p.created_at).toLocaleDateString(),
-            status: 'Active' // Default status
+            status: 'Active', // Default status
+            documentsCount: p.documents?.[0]?.count || 0
         }));
 
         return NextResponse.json({

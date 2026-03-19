@@ -65,8 +65,8 @@ export default function AdminUsers() {
     };
 
     const downloadCSV = () => {
-        const headers = ['ID', 'Name', 'Email', 'Plan', 'Registered', 'Status'];
-        const rows = users.map(u => [u.id, u.name, u.email, u.plan, u.registered, u.status]);
+        const headers = ['ID', 'Name', 'Email', 'Plan', 'Registered', 'Documents', 'Status'];
+        const rows = users.map(u => [u.id, u.name, u.email, u.plan, u.registered, u.documentsCount, u.status]);
 
         const csvContent = "data:text/csv;charset=utf-8,"
             + [headers, ...rows].map(e => e.join(",")).join("\n");
@@ -117,15 +117,16 @@ export default function AdminUsers() {
                             <th style={s.th}>User</th>
                             <th style={s.th}>Plan</th>
                             <th style={s.th}>Registered</th>
+                            <th style={s.th}>Documents</th>
                             <th style={s.th}>Status</th>
                             <th style={{ ...s.th, textAlign: 'right' }}>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         {loading ? (
-                            <tr><td colSpan="5" style={{ ...s.td, textAlign: 'center' }}>Loading...</td></tr>
+                            <tr><td colSpan="6" style={{ ...s.td, textAlign: 'center' }}>Loading...</td></tr>
                         ) : users.length === 0 ? (
-                            <tr><td colSpan="5" style={{ ...s.td, textAlign: 'center' }}>No users found.</td></tr>
+                            <tr><td colSpan="6" style={{ ...s.td, textAlign: 'center' }}>No users found.</td></tr>
                         ) : (
                             users.map((user) => (
                                 <tr key={user.id} style={s.tr}>
@@ -150,6 +151,11 @@ export default function AdminUsers() {
                                         </span>
                                     </td>
                                     <td style={s.td}>{user.registered}</td>
+                                    <td style={s.td}>
+                                        <span style={{...s.planBadge, background: 'rgba(255,255,255,0.05)', color: '#f0f0f5'}}>
+                                            {user.documentsCount}
+                                        </span>
+                                    </td>
                                     <td style={s.td}>
                                         <span style={s.statusBadge}>
                                             <span style={s.statusDot} />
