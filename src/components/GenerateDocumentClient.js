@@ -10,7 +10,7 @@ import Editor from '@/components/Editor'; // Added
 import ReactMarkdown from 'react-markdown'; // Keep for fallback
 import { createClient } from '@/utils/supabase/client';
 
-export default function GenerateDocumentClient({ locale, config, ui, isAdmin }) {
+export default function GenerateDocumentClient({ locale, config, ui, isAdmin, userPlan }) {
     const [formData, setFormData] = useState({});
     const [loading, setLoading] = useState(false);
     const [result, setResult] = useState('');
@@ -408,7 +408,9 @@ export default function GenerateDocumentClient({ locale, config, ui, isAdmin }) 
 
                         {!isAdmin && (
                             <p style={s.freeNote}>
-                                {g.freeNote} · <Link href={`/${locale}/pricing`} style={{ color: '#818cf8' }}>{g.upgradeMore}</Link>
+                                {g.freeNote} · <Link href={`/${locale}/pricing`} style={{ color: '#818cf8' }}>
+                                    {userPlan === 'Starter' ? g.upgradeToPro : g.upgradeMore}
+                                </Link>
                             </p>
                         )}
                     </form>

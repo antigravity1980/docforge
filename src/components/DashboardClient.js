@@ -102,7 +102,9 @@ export default function DashboardClient({ locale, dict }) {
                             <div style={s.statLabel}>{t.currentPlan}</div>
                         </div>
                         {!isAdmin && (
-                            <Link href={`/${locale}/pricing`} style={s.upgradeLink}>{t.upgrade}</Link>
+                            <Link href={`/${locale}/pricing`} style={s.upgradeLink}>
+                                {profile?.plan === 'Starter' ? t.upgradeToPro : t.upgrade}
+                            </Link>
                         )}
                     </div>
                     <div style={s.statCard}>
