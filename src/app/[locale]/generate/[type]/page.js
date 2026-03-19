@@ -57,6 +57,9 @@ export default async function GenerateDocumentPage({ params }) {
     // Extract only necessary data to reduce payload
     const docConfig = dict.generate?.docs?.[type] || {};
     // Add slug to config as it's needed for API
+    const config = { ...docConfig, slug: type };
+    const ui = dict.generate?.ui || {};
+
     const supabase = await createClient();
     const { data: { user } } = await supabase.auth.getUser();
     const isAdmin = user ? ADMIN_EMAILS.includes(user.email) : false;
