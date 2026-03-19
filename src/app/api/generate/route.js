@@ -77,7 +77,7 @@ STRICT GUIDELINES:
         } catch (aiErr) {
             console.error('AI Generation error:', aiErr);
             return NextResponse.json({
-                error: 'The document could not be generated due to safety filters or technical issues. Please check your inputs and try again.'
+                error: aiErr.message || 'The document could not be generated due to safety filters or technical issues.'
             }, { status: 400 });
         }
 
