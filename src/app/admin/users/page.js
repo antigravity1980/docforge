@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { PLAN_NAMES } from '@/lib/plans';
 
 export default function AdminUsers() {
     const [users, setUsers] = useState([]);
@@ -100,9 +101,9 @@ export default function AdminUsers() {
                         onChange={(e) => { setFilterPlan(e.target.value); setPage(1); }}
                     >
                         <option value="All">All Plans</option>
-                        <option value="Free">Free</option>
-                        <option value="Starter">Starter</option>
-                        <option value="Pro">Pro</option>
+                        {PLAN_NAMES.map(name => (
+                            <option key={name} value={name}>{name}</option>
+                        ))}
                     </select>
                     <button className="btn btn-secondary btn-sm" onClick={downloadCSV} disabled={users.length === 0}>
                         Export CSV
