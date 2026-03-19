@@ -406,7 +406,7 @@ export default function GenerateDocumentClient({ locale, config, ui, isAdmin, us
                             )}
                         </button>
 
-                        {!isAdmin && (
+                        {!isAdmin && userPlan !== 'Professional' && (
                             <p style={s.freeNote}>
                                 {g.freeNote} · <Link href={`/${locale}/pricing`} style={{ color: '#818cf8' }}>
                                     {userPlan === 'Starter' ? g.upgradeToPro : g.upgradeMore}
