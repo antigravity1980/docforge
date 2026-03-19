@@ -16,19 +16,26 @@ export async function GET(request) {
     const page = parseInt(searchParams.get('page') || '1');
     const search = searchParams.get('search') || '';
     const plan = searchParams.get('plan') || 'All';
+    const sortBy = searchParams.get('sortBy') || 'registration'; // registration or documents
     const limit = 10;
     const from = (page - 1) * limit;
     const to = from + limit - 1;
 
     try {
+        // If sorting by documents, we need all profiles to sort globally
+        const fetchAll = sortBy === 'documents';
+
         let query = supabaseAdmin
             .from('profiles')
-            .select('*', { count: 'exact' })
-            .order('created_at', { ascending: false })
-            .range(from, to);
+            .select('*', { count: 'exact' });
+
+        if (!fetchAll) {
+            query = query.order('created_at', { ascending: false }).range(from, to);
+        } else {
+            query = query.order('created_at', { ascending: false }); // Base order
+        }
 
         if (search) {
-            // Use separate filters instead of string interpolation to prevent injection
             const sanitized = search.replace(/[%_]/g, '\\$&');
             query = query.or(`email.ilike.%${sanitized}%,full_name.ilike.%${sanitized}%`);
         }
@@ -41,10 +48,12 @@ export async function GET(request) {
 
         if (error) throw error;
 
-        // Fetch documents count explicitly for current page to avoid foreign key schema constraints
+        // Fetch documents count explicitly
         const profileIds = profiles.map(p => p.id);
         let docCounts = {};
         if (profileIds.length > 0) {
+            // We can fetch doc counts for these user IDs
+            // If fetchAll is true, this fetches for everyone matching filters
             const { data: docData, error: docError } = await supabaseAdmin
                 .from('documents')
                 .select('user_id')
@@ -57,16 +66,24 @@ export async function GET(request) {
             }
         }
 
-        // Transform data for UI
-        const users = profiles.map(p => ({
+        // Transform data
+        let users = profiles.map(p => ({
             id: p.id,
             name: p.full_name || 'No Name',
             email: p.email,
             plan: p.plan || 'Free',
             registered: new Date(p.created_at).toLocaleDateString(),
-            status: 'Active', // Default status
-            documentsCount: docCounts[p.id] || 0
+            status: 'Active',
+            documentsCount: docCounts[p.id] || 0,
+            createdAt: p.created_at
         }));
+
+        // Sort by documents if requested
+        if (sortBy === 'documents') {
+            users.sort((a, b) => b.documentsCount - a.documentsCount || new Date(b.createdAt) - new Date(a.createdAt));
+            // Apply pagination manually
+            users = users.slice(from, from + limit);
+        }
 
         return NextResponse.json({
             users,

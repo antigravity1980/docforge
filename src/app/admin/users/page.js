@@ -12,15 +12,16 @@ export default function AdminUsers() {
     const [search, setSearch] = useState('');
     const [filterPlan, setFilterPlan] = useState('All');
     const [deleting, setDeleting] = useState(null);
+    const [sortBy, setSortBy] = useState('registration'); // registration or documents
 
     useEffect(() => {
         fetchUsers();
-    }, [page, search, filterPlan]);
+    }, [page, search, filterPlan, sortBy]);
 
     const fetchUsers = async () => {
         setLoading(true);
         try {
-            const query = new URLSearchParams({ page, search, plan: filterPlan });
+            const query = new URLSearchParams({ page, search, plan: filterPlan, sortBy });
             const res = await fetch(`/api/admin/users?${query}`);
             const data = await res.json();
             if (data.users) {
@@ -118,7 +119,12 @@ export default function AdminUsers() {
                             <th style={s.th}>User</th>
                             <th style={s.th}>Plan</th>
                             <th style={s.th}>Registered</th>
-                            <th style={s.th}>Documents</th>
+                            <th 
+                                style={{ ...s.th, cursor: 'pointer', color: sortBy === 'documents' ? '#818cf8' : '#6b6b80' }}
+                                onClick={() => setSortBy(sortBy === 'documents' ? 'registration' : 'documents')}
+                            >
+                                Documents {sortBy === 'documents' ? '↓' : ''}
+                            </th>
                             <th style={s.th}>Status</th>
                             <th style={{ ...s.th, textAlign: 'right' }}>Actions</th>
                         </tr>
