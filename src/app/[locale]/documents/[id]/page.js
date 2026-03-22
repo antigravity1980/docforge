@@ -3,6 +3,15 @@ import { getDictionary } from '@/lib/get-dictionary';
 import DocumentViewClient from '@/components/DocumentViewClient';
 import { notFound, redirect } from 'next/navigation';
 
+export async function generateMetadata() {
+    return {
+        robots: {
+            index: false,
+            follow: false,
+        },
+    };
+}
+
 export default async function DocumentPage({ params }) {
     const { locale, id } = await params;
     const dict = await getDictionary(locale);

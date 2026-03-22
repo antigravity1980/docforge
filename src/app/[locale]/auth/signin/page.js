@@ -7,6 +7,10 @@ export async function generateMetadata({ params }) {
     const { locale } = await params;
     return {
         alternates: generateAlternates(locale, 'auth/signin'),
+        robots: {
+            index: false,
+            follow: false,
+        },
     };
 }
 

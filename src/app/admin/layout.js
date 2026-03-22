@@ -31,6 +31,7 @@ export default function AdminLayout({ children }) {
         <html lang="en">
             <head>
                 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+                <meta name="robots" content="noindex, nofollow" />
             </head>
             <body style={{ margin: 0 }}>
                 <div style={s.layout}>
