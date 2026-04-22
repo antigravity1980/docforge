@@ -97,7 +97,7 @@ export default function PricingClient({ dict, locale, prices = { starter: '29', 
 
         setLoading(plan.id);
         try {
-            const response = await fetch('/api/lemonsqueezy/checkout', {
+            const response = await fetch('/api/checkout', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -107,10 +107,10 @@ export default function PricingClient({ dict, locale, prices = { starter: '29', 
             });
 
             const data = await response.json();
-            if (data.url) {
-                window.location.assign(data.url);
+            if (data.checkoutUrl || data.url) {
+                window.location.assign(data.checkoutUrl || data.url);
             } else {
-                alert(data.error || t.error);
+                alert(data.error || t.error || 'Failed to start checkout');
                 setLoading(null);
             }
         } catch (error) {
