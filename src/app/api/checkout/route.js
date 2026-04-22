@@ -28,9 +28,11 @@ export async function POST(req) {
         const storeId = process.env.LEMON_SQUEEZY_STORE_ID;
         const LS_API_KEY = process.env.LEMON_SQUEEZY_API_KEY;
 
-        if (!LS_API_KEY || !storeId) {
-            console.error('Lemon Squeezy configuration missing');
-            return NextResponse.json({ error: 'Server configuration error' }, { status: 500 });
+        if (!LS_API_KEY) {
+            return NextResponse.json({ error: 'Server configuration error: LEMON_SQUEEZY_API_KEY is missing' }, { status: 500 });
+        }
+        if (!storeId) {
+            return NextResponse.json({ error: 'Server configuration error: LEMON_SQUEEZY_STORE_ID is missing' }, { status: 500 });
         }
 
         // 3. Create Checkout using the official SDK (more reliable than manual fetch)
@@ -60,6 +62,10 @@ export async function POST(req) {
 
     } catch (error) {
         console.error('Unexpected error in /api/checkout:', error);
-        return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+        return NextResponse.json({ 
+            error: 'Internal server error', 
+            details: error.message,
+            stack: process.env.NODE_ENV === 'development' ? error.stack : undefined 
+        }, { status: 500 });
     }
 }
