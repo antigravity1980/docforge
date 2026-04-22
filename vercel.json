@@ -1,4 +1,10 @@
 {
+    "rewrites": [
+        {
+            "source": "/checkout/:path*",
+            "destination": "https://app.lemonsqueezy.com/checkout/:path*"
+        }
+    ],
     "crons": [
         {
             "path": "/api/cron/reset-monthly",
