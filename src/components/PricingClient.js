@@ -97,7 +97,6 @@ export default function PricingClient({ dict, locale, prices = { starter: '29', 
 
         setLoading(plan.id);
         try {
-            console.log('Initiating checkout for variant:', isYearly ? plan.lemonSqueezyYearlyId : plan.lemonSqueezyMonthlyId);
             const response = await fetch('/api/checkout', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -107,12 +106,11 @@ export default function PricingClient({ dict, locale, prices = { starter: '29', 
                 }),
             });
 
-            console.log('Checkout response status:', response.status);
-            console.log('Checkout response content-type:', response.headers.get('content-type'));
-
             const data = await response.json();
             if (data.checkoutUrl || data.url) {
-                window.location.assign(data.checkoutUrl || data.url);
+                // Open checkout in a new tab
+                window.open(data.checkoutUrl || data.url, '_blank');
+                setLoading(null);
             } else {
                 alert(data.error || t.error || 'Failed to start checkout');
                 setLoading(null);
